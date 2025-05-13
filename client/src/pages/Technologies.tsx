@@ -9,13 +9,15 @@ import {
   Layers, 
   Network, 
   Waves,
-  ArrowRight
+  ArrowRight,
+  Loader2
 } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import * as THREE from "three";
 import Lottie from "lottie-react";
+import { useQuery } from "@tanstack/react-query";
 
 // Register GSAP plugins
 if (typeof window !== "undefined") {
@@ -171,9 +173,73 @@ const acousticWaveAnimationData = {
   ]
 };
 
+// Type definitions for our database entities
+interface Technology {
+  id: number;
+  name: string;
+  slug: string;
+  shortDescription: string;
+  fullDescription: string;
+  iconName?: string;
+  imageUrl?: string;
+  category: string;
+  featured: boolean;
+  displayOrder: number;
+  createdAt: string;
+  updatedAt: string;
+  features?: TechnologyFeature[];
+  specs?: TechnologySpec[];
+}
+
+interface TechnologyFeature {
+  id: number;
+  technologyId: number;
+  title: string;
+  description: string;
+  iconName?: string;
+  displayOrder: number;
+}
+
+interface TechnologySpec {
+  id: number;
+  technologyId: number;
+  name: string;
+  value: string;
+  displayOrder: number;
+}
+
+interface APIResponse<T> {
+  success: boolean;
+  data: T;
+  message?: string;
+}
+
 const Technologies = () => {
   // State to track expanded details sections
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
+  const [selectedTechnology, setSelectedTechnology] = useState<string | null>(null);
+
+  // Fetch technologies from the API
+  const { data: techData, isLoading: techLoading, error: techError } = useQuery<APIResponse<Technology[]>>({
+    queryKey: ['/api/technologies'],
+    staleTime: 1000 * 60 * 5, // 5 minutes
+  });
+
+  // Fetch technology details when one is selected
+  const { data: techDetails, isLoading: detailsLoading } = useQuery<APIResponse<Technology & { features: TechnologyFeature[], specs: TechnologySpec[] }>>({
+    queryKey: ['/api/technologies', selectedTechnology],
+    enabled: !!selectedTechnology,
+    staleTime: 1000 * 60 * 5, // 5 minutes
+  });
+
+  // Group technologies by category
+  const categorizedTech = techData?.data?.reduce((acc, tech) => {
+    if (!acc[tech.category]) {
+      acc[tech.category] = [];
+    }
+    acc[tech.category].push(tech);
+    return acc;
+  }, {} as Record<string, Technology[]>) || {};
 
   const toggleExpandSection = (section: string) => {
     if (expandedSection === section) {
@@ -181,6 +247,10 @@ const Technologies = () => {
     } else {
       setExpandedSection(section);
     }
+  };
+
+  const handleTechnologySelect = (slug: string) => {
+    setSelectedTechnology(slug);
   };
 
   // Animation variants
