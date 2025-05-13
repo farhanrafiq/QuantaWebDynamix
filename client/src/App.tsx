@@ -13,7 +13,7 @@ import RootLayout from "./layouts/RootLayout";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Technologies from "./pages/TechnologiesNew";
-import Products from "./pages/Products";
+import Products from "./pages/ProductsNew";
 import Blog from "./pages/Blog";
 import Careers from "./pages/Careers";
 import Contact from "./pages/Contact";

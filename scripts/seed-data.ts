@@ -16,6 +16,14 @@ async function seedDatabase() {
   console.log("🌱 Starting database seeding...");
 
   try {
+    // Clear existing data first to avoid duplicates
+    console.log("Clearing existing data...");
+    await db.delete(technologyFeatures);
+    await db.delete(technologySpecs);
+    await db.delete(technologies);
+    await db.delete(productFeatures);
+    await db.delete(products);
+    
     // Add technologies
     console.log("Adding technologies...");
     
@@ -232,6 +240,178 @@ async function seedDatabase() {
         name: "Environmental Impact",
         value: "Carbon-neutral production process",
         displayOrder: 5
+      }
+    ]);
+
+    // Add products
+    console.log("Adding products...");
+    
+    const quantaShield = await db.insert(products).values({
+      name: "QuantaShield Pro",
+      slug: "quantashield-pro",
+      shortDescription: "Advanced PTFE Waterproofing System",
+      fullDescription: "Our flagship waterproofing solution designed for critical infrastructure with 50+ years of protection. QuantaShield Pro utilizes a proprietary PTFE-based formula that creates an impermeable barrier against water penetration while remaining flexible to accommodate structural movement.",
+      imageUrl: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&q=80&w=600&h=400",
+      category: "waterproofing",
+      featured: true,
+      displayOrder: 1
+    }).returning();
+    
+    const nanoForce = await db.insert(products).values({
+      name: "NanoForce",
+      slug: "nanoforce",
+      shortDescription: "High-Performance Concrete Admixture",
+      fullDescription: "Nano-engineered additive that increases concrete strength by 40% while reducing cement content by 30%. NanoForce employs advanced nanotechnology to optimize the crystalline structure of concrete, resulting in superior performance and durability while reducing the environmental impact of construction.",
+      imageUrl: "https://pixabay.com/get/g54faf1293e565bc5005588f1d00aca04a69c92ec4501f8f6bd7d475859fc9b01e3e4b8a8d3aeaf54082a661b70812ed6426190b6e489e7ab69ef16bf407b9ea4_1280.jpg",
+      category: "admixtures",
+      featured: true,
+      displayOrder: 2
+    }).returning();
+    
+    const quantaSense = await db.insert(products).values({
+      name: "QuantaSense",
+      slug: "quantasense",
+      shortDescription: "Distributed Fiber Optic Sensing System",
+      fullDescription: "Comprehensive sensor network providing real-time structural data with 0.01mm measurement accuracy. QuantaSense uses distributed fiber optic technology to create a network of thousands of virtual sensors that continuously monitor strain, temperature, and vibration across entire structures.",
+      imageUrl: "https://images.unsplash.com/photo-1517373116369-9bdb8cdc9f62?ixlib=rb-4.0.3&auto=format&fit=crop&q=80&w=600&h=400",
+      category: "monitoring",
+      featured: true,
+      displayOrder: 3
+    }).returning();
+    
+    const structureAI = await db.insert(products).values({
+      name: "StructureAI",
+      slug: "structure-ai",
+      shortDescription: "Predictive Maintenance Platform",
+      fullDescription: "Cloud-based analytics suite that processes sensor data to predict maintenance needs and potential failures. Our AI algorithms have been trained on 15+ years of structural health data to accurately identify developing issues before they become critical problems.",
+      imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&q=80&w=600&h=400",
+      category: "software",
+      featured: true,
+      displayOrder: 4
+    }).returning();
+    
+    const hydroGuard = await db.insert(products).values({
+      name: "HydroGuard",
+      slug: "hydroguard",
+      shortDescription: "Penetrative Sealer & Surface Treatment",
+      fullDescription: "Hydrophobic treatment for existing concrete structures that penetrates up to 4 inches below surface. HydroGuard creates a molecular barrier against water ingress while allowing the concrete to breathe, preventing internal moisture build-up and extending the lifespan of aging infrastructure.",
+      imageUrl: "https://images.unsplash.com/photo-1581235720704-06d3acfcb36f?ixlib=rb-4.0.3&auto=format&fit=crop&q=80&w=600&h=400",
+      category: "waterproofing",
+      featured: false,
+      displayOrder: 5
+    }).returning();
+    
+    const corroTrack = await db.insert(products).values({
+      name: "CorroTrack",
+      slug: "corrotrack",
+      shortDescription: "Corrosion Monitoring System",
+      fullDescription: "IoT-enabled sensors that monitor reinforcement corrosion in real-time, with 5+ year battery life. CorroTrack identifies the early stages of reinforcement corrosion before visible damage occurs, allowing for targeted preventative maintenance rather than costly repairs.",
+      imageUrl: "https://pixabay.com/get/ga27f5c05fb095dbf078b938bc19542f49aee8d30aa25e853b5475724df9fbd33aa916b406bec7debafdc3b88e7c376245be0f7447526c7f6b92a2734e198a744_1280.jpg",
+      category: "monitoring",
+      featured: false,
+      displayOrder: 6
+    }).returning();
+    
+    // Add product features
+    console.log("Adding product features...");
+    
+    // QuantaShield features
+    await db.insert(productFeatures).values([
+      {
+        productId: quantaShield[0].id,
+        title: "Long-Term Protection",
+        description: "50+ year protection against water penetration, backed by accelerated aging tests.",
+        iconName: "shield",
+        displayOrder: 1
+      },
+      {
+        productId: quantaShield[0].id,
+        title: "Chemical Resistance",
+        description: "Resists aggressive chemicals including acids, bases, and hydrocarbons.",
+        iconName: "flask",
+        displayOrder: 2
+      },
+      {
+        productId: quantaShield[0].id,
+        title: "Structural Flexibility",
+        description: "Maintains integrity while accommodating structural movement and thermal cycling.",
+        iconName: "move",
+        displayOrder: 3
+      }
+    ]);
+    
+    // NanoForce features
+    await db.insert(productFeatures).values([
+      {
+        productId: nanoForce[0].id,
+        title: "Strength Enhancement",
+        description: "Increases compressive strength by up to 40% compared to standard concrete mixes.",
+        iconName: "zap",
+        displayOrder: 1
+      },
+      {
+        productId: nanoForce[0].id,
+        title: "Environmental Impact",
+        description: "Reduces cement content by 30%, significantly lowering CO2 emissions.",
+        iconName: "leaf",
+        displayOrder: 2
+      },
+      {
+        productId: nanoForce[0].id,
+        title: "Durability Improvement",
+        description: "Enhances freeze-thaw resistance and reduces permeability for longer service life.",
+        iconName: "clock",
+        displayOrder: 3
+      }
+    ]);
+    
+    // QuantaSense features
+    await db.insert(productFeatures).values([
+      {
+        productId: quantaSense[0].id,
+        title: "High-Resolution Monitoring",
+        description: "Measures strain with 0.01mm accuracy across thousands of sensing points.",
+        iconName: "eye",
+        displayOrder: 1
+      },
+      {
+        productId: quantaSense[0].id,
+        title: "Real-Time Alerts",
+        description: "Provides instant notification when measurements exceed predefined thresholds.",
+        iconName: "bell",
+        displayOrder: 2
+      },
+      {
+        productId: quantaSense[0].id,
+        title: "Distributed Sensing",
+        description: "Creates a comprehensive picture of structural behavior with no blind spots.",
+        iconName: "network",
+        displayOrder: 3
+      }
+    ]);
+    
+    // StructureAI features
+    await db.insert(productFeatures).values([
+      {
+        productId: structureAI[0].id,
+        title: "Predictive Analytics",
+        description: "Forecasts potential failures up to 8 months before they occur with 94% accuracy.",
+        iconName: "brain",
+        displayOrder: 1
+      },
+      {
+        productId: structureAI[0].id,
+        title: "Maintenance Optimization",
+        description: "Prioritizes repairs based on risk assessment and structural criticality.",
+        iconName: "tool",
+        displayOrder: 2
+      },
+      {
+        productId: structureAI[0].id,
+        title: "Historical Trending",
+        description: "Tracks structural health indicators over time to identify long-term degradation patterns.",
+        iconName: "activity",
+        displayOrder: 3
       }
     ]);
 
