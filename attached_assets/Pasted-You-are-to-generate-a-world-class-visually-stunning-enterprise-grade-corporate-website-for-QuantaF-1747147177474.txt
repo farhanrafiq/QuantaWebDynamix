@@ -1,0 +1,86 @@
+You are to generate a world-class, visually stunning, enterprise-grade corporate website for QuantaFONS Pvt Ltd—a global R&D powerhouse in civil-engineering-driven IT solutions. The site must feel as if built by the world’s greatest developer, with heavy, seamless animations, dynamic rich data, and an “immersive dashboard” vibe everywhere. Do not disclose any proprietary technology details. Refer to QuantaFONS as an R&D company.
+
+---  
+
+1. **Monorepo Architecture**  
+   - **Front-end**: Next.js (TypeScript)  
+     - _Frameworks/Libraries_: React, Tailwind CSS, Framer Motion, GSAP, Three.js, Lottie  
+     - _Data Fetching_: SSG for marketing, SSR for dashboards, ISR for frequently updated sections  
+   - **Back-end API**: Node.js + Express (or Fastify)  
+     - _Endpoints_: `/api/acoustic-demo`, `/api/projects`, `/api/blog`, `/api/contact`  
+     - _Real-time_: Socket.io for live notifications in dashboards  
+   - **Database**: PostgreSQL (with Prisma ORM) or MongoDB (with Mongoose)  
+
+2. **Global Layout & UI**  
+   - **Dark/Light Mode** toggle with system preference detection  
+   - **Sticky Nav** with smooth scroll, Lottie-animated icons  
+   - **Responsive** (mobile/tablet/desktop) with fluid breakpoints  
+   - **Accessibility**: WCAG 2.1 AA, keyboard nav, ARIA labels  
+
+3. **Homepage (Hero & Highlights)**  
+   - **Full-Screen WebGL** particle swirl background (Three.js)  
+   - Title: “Innovative IT Solutions for Tomorrow’s Challenges”  
+   - Subtitle: “Empowering infrastructure with AI, data science & acoustic analytics.”  
+   - **GSAP** headline reveal + parallax scroll effects  
+   - **Key Metrics** (e.g., “50+ R&D projects,” “10 global partners”) as animated counters  
+
+4. **About Us (Interactive)**  
+   - **Timeline Carousel**: company milestones with Lottie-driven animations  
+   - **Team Grid**: hover-animated cards with photos and generic “R&D Specialist” titles  
+   - **Values Section**: 3D flip-card animations explaining “Innovation,” “Integrity,” “Impact”  
+
+5. **Solutions & Projects**  
+   - **Project Tiles**: infinite scroll, filter by category, animated hover effects  
+   - **Acoustic Software Demo**:  
+     - **Live iframe** or modal demo of your “Acoustic Index Calculator” tool (UI only, no code)  
+     - Animated waveform visualizer using Canvas or WebGL  
+     - Real-time slider controls with smooth tween animations (GSAP)  
+   - **Other R&D Labs**: generic cards (“Waterproofing Admixtures Lab,” “Sensor Analytics Lab”) with reveal-on-scroll  
+
+6. **Data-Rich Dashboard**  
+   - **Protected Area**: login via OAuth (Google/LinkedIn)  
+   - **Real-Time Charts**: Recharts or Chart.js with animated transitions (strain, vibration, acoustic indices)  
+   - **Alert Center**: Socket.io notifications pop in with slide-in animations  
+   - **Data Table**: advanced filters, paginated, dynamic sort, animated row highlights  
+
+7. **Blog & Research**  
+   - **Headless CMS** integration (e.g. Strapi/Sanity) for posts, categories, tags  
+   - **Dynamic Tag Cloud** with animated tag movements  
+   - Syntax-highlighted code blocks, “Read time” micro-animations  
+
+8. **Careers & Partnerships**  
+   - **Job Openings**: accordion-style listings with smooth expand/collapse  
+   - **Apply Form**: file upload (CV to S3), drag-and-drop, progress bar animations  
+   - **Partner Inquiry**: chat widget (Intercom) with typing indicator animation  
+
+9. **Contact & Footer**  
+   - **Animated Map**: custom marker drop animations on Google Map embed  
+   - **Contact Form**: floating labels, validation feedback with shake/bounce effects  
+   - **Newsletter Signup**: email input with success confetti animation  
+
+10. **Admin Panel**  
+   - **Role-Based UI**: toggle view between Admin & Editor  
+   - **Drag-and-Drop CMS Editor**: live preview, Lottie progress indicators  
+   - **Audit Log**: timeline view with slide-in entries  
+
+11. **Performance & SEO**  
+   - Image optimization (`next/image`), lazy load, webp support  
+   - Sitemap, robots.txt, Open Graph metadata, structured JSON-LD  
+   - Code splitting, prefetching, prerendering  
+
+12. **Testing & CI/CD**  
+   - Unit tests (Jest, React Testing Library) with animated test coverage badges  
+   - E2E tests (Playwright) with visual snapshot comparisons  
+   - GitHub Actions:  
+     - `push` → lint, build, test  
+     - `main` → Docker build, deploy to Vercel (web) & AWS ECS (API)  
+
+13. **Documentation & Setup**  
+   - **README**:  
+     - Prerequisites  
+     - `docker-compose up --build` to launch full stack locally  
+     - Environment variables template  
+   - **CONTRIBUTING** guide with animated badges  
+
+—  
+Generate all folder structures, config files, code stubs, animation assets placeholders (e.g. Lottie JSON), and a detailed README so that after cloning, a single command brings the entire site to life with rich animations and dynamic data, reflecting a massive global R&D firm.  
