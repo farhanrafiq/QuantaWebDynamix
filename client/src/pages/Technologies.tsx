@@ -372,55 +372,92 @@ const Technologies = () => {
         </div>
 
         {/* Technology Categories */}
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20"
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-        >
+        {techLoading ? (
+          <div className="flex justify-center items-center py-12">
+            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+            <span className="ml-2 text-lg text-neutral-700 dark:text-neutral-300">Loading technologies...</span>
+          </div>
+        ) : techError ? (
+          <div className="bg-red-50 dark:bg-red-900/20 p-6 rounded-lg text-center">
+            <p className="text-red-600 dark:text-red-400">
+              Failed to load technologies. Please try again later.
+            </p>
+          </div>
+        ) : (
           <motion.div
-            className="bg-gradient-to-br from-primary/5 to-primary/10 dark:from-primary/10 dark:to-primary/20 p-6 rounded-xl border border-primary/10 dark:border-primary/20 relative overflow-hidden group"
-            variants={cardVariants}
-            whileHover="hover"
+            className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
           >
-            <div className="absolute -right-10 -top-10 w-40 h-40 bg-primary/5 dark:bg-primary/10 rounded-full blur-xl group-hover:bg-primary/10 dark:group-hover:bg-primary/20 transition-all duration-700"></div>
-            <Radio className="h-10 w-10 mb-4 text-primary dark:text-accent" />
-            <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-2 relative z-10">Acoustic Analytics</h3>
-            <p className="text-neutral-600 dark:text-neutral-400 mb-4 relative z-10">Advanced signal processing algorithms for analyzing structural acoustic signatures.</p>
-            <a href="#acoustic-software" className="inline-flex items-center font-medium text-primary dark:text-accent group-hover:translate-x-1 transition-transform relative z-10">
-              Discover <ChevronRight className="h-4 w-4 ml-1"/>
-            </a>
+            {techData?.data?.map((tech) => {
+              // Define color scheme based on category
+              const colorScheme = 
+                tech.category === 'software' ? {
+                  bgFrom: 'from-primary/5', 
+                  bgTo: 'to-primary/10', 
+                  darkBgFrom: 'dark:from-primary/10', 
+                  darkBgTo: 'dark:to-primary/20',
+                  border: 'border-primary/10',
+                  darkBorder: 'dark:border-primary/20',
+                  hoverBg: 'group-hover:bg-primary/10',
+                  darkHoverBg: 'dark:group-hover:bg-primary/20',
+                  text: 'text-primary',
+                  darkText: 'dark:text-accent',
+                } : 
+                tech.category === 'ai' ? {
+                  bgFrom: 'from-blue-500/5', 
+                  bgTo: 'to-blue-500/10', 
+                  darkBgFrom: 'dark:from-blue-500/10', 
+                  darkBgTo: 'dark:to-blue-500/20',
+                  border: 'border-blue-500/10',
+                  darkBorder: 'dark:border-blue-500/20',
+                  hoverBg: 'group-hover:bg-blue-500/10',
+                  darkHoverBg: 'dark:group-hover:bg-blue-500/20',
+                  text: 'text-blue-500',
+                  darkText: 'dark:text-blue-400',
+                } : 
+                {
+                  bgFrom: 'from-purple-500/5', 
+                  bgTo: 'to-purple-500/10', 
+                  darkBgFrom: 'dark:from-purple-500/10', 
+                  darkBgTo: 'dark:to-purple-500/20',
+                  border: 'border-purple-500/10',
+                  darkBorder: 'dark:border-purple-500/20',
+                  hoverBg: 'group-hover:bg-purple-500/10',
+                  darkHoverBg: 'dark:group-hover:bg-purple-500/20',
+                  text: 'text-purple-500',
+                  darkText: 'dark:text-purple-400',
+                };
+              
+              // Map iconName to icon component
+              const IconComponent = 
+                tech.iconName === 'waves' ? Radio :
+                tech.iconName === 'barChart2' ? BarChart2 :
+                tech.iconName === 'layers' ? Layers :
+                Radio; // fallback icon
+              
+              return (
+                <motion.div
+                  key={tech.id}
+                  className={`bg-gradient-to-br ${colorScheme.bgFrom} ${colorScheme.bgTo} ${colorScheme.darkBgFrom} ${colorScheme.darkBgTo} p-6 rounded-xl ${colorScheme.border} ${colorScheme.darkBorder} relative overflow-hidden group`}
+                  variants={cardVariants}
+                  whileHover="hover"
+                  onClick={() => handleTechnologySelect(tech.slug)}
+                >
+                  <div className={`absolute -right-10 -top-10 w-40 h-40 bg-primary/5 dark:bg-primary/10 rounded-full blur-xl ${colorScheme.hoverBg} ${colorScheme.darkHoverBg} transition-all duration-700`}></div>
+                  <IconComponent className={`h-10 w-10 mb-4 ${colorScheme.text} ${colorScheme.darkText}`} />
+                  <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-2 relative z-10">{tech.name}</h3>
+                  <p className="text-neutral-600 dark:text-neutral-400 mb-4 relative z-10">{tech.shortDescription}</p>
+                  <a href={`#${tech.slug}`} className={`inline-flex items-center font-medium ${colorScheme.text} ${colorScheme.darkText} group-hover:translate-x-1 transition-transform relative z-10`}>
+                    Discover <ChevronRight className="h-4 w-4 ml-1"/>
+                  </a>
+                </motion.div>
+              );
+            })}
           </motion.div>
-          
-          <motion.div
-            className="bg-gradient-to-br from-blue-500/5 to-blue-500/10 dark:from-blue-500/10 dark:to-blue-500/20 p-6 rounded-xl border border-blue-500/10 dark:border-blue-500/20 relative overflow-hidden group"
-            variants={cardVariants}
-            whileHover="hover"
-          >
-            <div className="absolute -right-10 -top-10 w-40 h-40 bg-blue-500/5 dark:bg-blue-500/10 rounded-full blur-xl group-hover:bg-blue-500/10 dark:group-hover:bg-blue-500/20 transition-all duration-700"></div>
-            <BarChart2 className="h-10 w-10 mb-4 text-blue-500" />
-            <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-2 relative z-10">Predictive Maintenance</h3>
-            <p className="text-neutral-600 dark:text-neutral-400 mb-4 relative z-10">Neural network models that predict maintenance needs before critical failures occur.</p>
-            <a href="#ai-driven" className="inline-flex items-center font-medium text-blue-500 group-hover:translate-x-1 transition-transform relative z-10">
-              Discover <ChevronRight className="h-4 w-4 ml-1"/>
-            </a>
-          </motion.div>
-          
-          <motion.div
-            className="bg-gradient-to-br from-purple-500/5 to-purple-500/10 dark:from-purple-500/10 dark:to-purple-500/20 p-6 rounded-xl border border-purple-500/10 dark:border-purple-500/20 relative overflow-hidden group"
-            variants={cardVariants}
-            whileHover="hover"
-          >
-            <div className="absolute -right-10 -top-10 w-40 h-40 bg-purple-500/5 dark:bg-purple-500/10 rounded-full blur-xl group-hover:bg-purple-500/10 dark:group-hover:bg-purple-500/20 transition-all duration-700"></div>
-            <Layers className="h-10 w-10 mb-4 text-purple-500" />
-            <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-2 relative z-10">Advanced Materials</h3>
-            <p className="text-neutral-600 dark:text-neutral-400 mb-4 relative z-10">Nano-enhanced admixtures and PTFE-based waterproofing for next-generation structures.</p>
-            <a href="#nano-enhanced" className="inline-flex items-center font-medium text-purple-500 group-hover:translate-x-1 transition-transform relative z-10">
-              Discover <ChevronRight className="h-4 w-4 ml-1"/>
-            </a>
-          </motion.div>
-        </motion.div>
+        )}
 
         <div className="space-y-24">
           {/* Acoustic Software */}

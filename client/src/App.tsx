@@ -12,7 +12,7 @@ import NotFound from "@/pages/not-found";
 import RootLayout from "./layouts/RootLayout";
 import Home from "./pages/Home";
 import About from "./pages/About";
-import Technologies from "./pages/Technologies";
+import Technologies from "./pages/TechnologiesNew";
 import Products from "./pages/Products";
 import Blog from "./pages/Blog";
 import Careers from "./pages/Careers";
