@@ -564,113 +564,92 @@ const Home = () => {
       {/* Acoustic Software Demo Section */}
       <section ref={acousticRef} className="py-24 bg-gradient-to-br from-white to-neutral-100 dark:from-neutral-900 dark:to-neutral-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
-            <motion.div
-              className="mb-10 lg:mb-0"
+          <motion.div
+            className="max-w-3xl mx-auto text-center mb-10"
+            variants={fadeInUp}
+            initial="hidden"
+            animate={acousticControls}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white gsap-stagger">
+              Acoustic <span className="text-primary dark:text-accent">Analysis</span> Software
+            </h2>
+            <p className="mt-4 text-lg text-neutral-600 dark:text-neutral-400 gsap-stagger">
+              Our proprietary acoustic analysis platform transforms raw vibration data into actionable insights, helping predict structural failures before they occur.
+            </p>
+          </motion.div>
+          
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <motion.div 
+              className="bg-white dark:bg-neutral-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300"
               variants={fadeInUp}
               initial="hidden"
               animate={acousticControls}
+              custom={0}
             >
-              <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white gsap-stagger">
-                Acoustic <span className="text-primary dark:text-accent">Analysis</span> Software
-              </h2>
-              <p className="mt-4 text-lg text-neutral-600 dark:text-neutral-400 gsap-stagger">
-                Our proprietary acoustic analysis platform transforms raw vibration data into actionable insights, helping predict structural failures before they occur.
-              </p>
-              
-              <div className="mt-8 space-y-6">
-                <div className="flex items-start gsap-stagger">
-                  <div className="flex-shrink-0 p-2 bg-primary/10 dark:bg-primary/20 rounded-lg mt-1">
-                    <svg className="h-5 w-5 text-primary dark:text-accent" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M5 13L9 17L19 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </div>
-                  <div className="ml-4">
-                    <h4 className="text-lg font-medium text-neutral-900 dark:text-white">Real-time Frequency Analysis</h4>
-                    <p className="mt-1 text-neutral-600 dark:text-neutral-400">
-                      Process acoustic signatures in real-time to identify structural anomalies.
-                    </p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start gsap-stagger">
-                  <div className="flex-shrink-0 p-2 bg-primary/10 dark:bg-primary/20 rounded-lg mt-1">
-                    <svg className="h-5 w-5 text-primary dark:text-accent" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M5 13L9 17L19 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </div>
-                  <div className="ml-4">
-                    <h4 className="text-lg font-medium text-neutral-900 dark:text-white">ML-Driven Pattern Recognition</h4>
-                    <p className="mt-1 text-neutral-600 dark:text-neutral-400">
-                      Machine learning algorithms to detect patterns indicating potential structural compromises.
-                    </p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start gsap-stagger">
-                  <div className="flex-shrink-0 p-2 bg-primary/10 dark:bg-primary/20 rounded-lg mt-1">
-                    <svg className="h-5 w-5 text-primary dark:text-accent" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M5 13L9 17L19 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </div>
-                  <div className="ml-4">
-                    <h4 className="text-lg font-medium text-neutral-900 dark:text-white">Predictive Alert System</h4>
-                    <p className="mt-1 text-neutral-600 dark:text-neutral-400">
-                      Advanced alerting system with 98.7% prediction accuracy for structural failures.
-                    </p>
-                  </div>
-                </div>
+              <div className="flex-shrink-0 p-3 bg-primary/10 dark:bg-primary/20 rounded-lg mb-4 inline-flex">
+                <svg className="h-6 w-6 text-primary dark:text-accent" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 13L9 17L19 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
               </div>
-              
-              <motion.div 
-                className="mt-10"
-                variants={fadeInUp}
-                initial="hidden"
-                animate={acousticControls}
-              >
-                <Link href="/technologies">
-                  <Button 
-                    size="lg" 
-                    className="bg-primary hover:bg-primary/80 text-white group transition-all duration-300 shadow-lg hover:shadow-primary/20 hover:shadow-xl"
-                  >
-                    <span>Request Demo Access</span>
-                    <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                  </Button>
-                </Link>
-              </motion.div>
+              <h4 className="text-lg font-medium text-neutral-900 dark:text-white">Real-time Frequency Analysis</h4>
+              <p className="mt-2 text-neutral-600 dark:text-neutral-400">
+                Process acoustic signatures in real-time to identify structural anomalies with high precision.
+              </p>
             </motion.div>
             
-            <motion.div
-              className="rounded-xl overflow-hidden shadow-2xl bg-white dark:bg-neutral-700 gsap-stagger"
-              variants={scaleIn}
+            <motion.div 
+              className="bg-white dark:bg-neutral-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300"
+              variants={fadeInUp}
               initial="hidden"
               animate={acousticControls}
+              custom={1}
             >
-              <div className="p-6 bg-primary/10 dark:bg-primary/20 border-b border-neutral-200 dark:border-neutral-600">
-                <h3 className="text-lg font-medium text-neutral-900 dark:text-white">Acoustic Index Visualizer</h3>
+              <div className="flex-shrink-0 p-3 bg-primary/10 dark:bg-primary/20 rounded-lg mb-4 inline-flex">
+                <svg className="h-6 w-6 text-primary dark:text-accent" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 13L9 17L19 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
               </div>
-              
-              <div className="p-6 h-80 flex items-center justify-center">
-                <div className="w-full max-w-md">
-                  <Lottie 
-                    animationData={acousticAnimationData} 
-                    loop={true}
-                    className="w-full h-64"
-                  />
-                  
-                  <div className="mt-6 px-4">
-                    <div className="flex justify-between text-sm text-neutral-600 dark:text-neutral-400 mb-2">
-                      <span>Frequency Range</span>
-                      <span>20Hz - 20kHz</span>
-                    </div>
-                    <div className="h-2 bg-neutral-200 dark:bg-neutral-600 rounded-full overflow-hidden">
-                      <div className="h-full bg-accent w-3/4 rounded-full"></div>
-                    </div>
-                  </div>
-                </div>
+              <h4 className="text-lg font-medium text-neutral-900 dark:text-white">ML-Driven Pattern Recognition</h4>
+              <p className="mt-2 text-neutral-600 dark:text-neutral-400">
+                Machine learning algorithms to detect patterns indicating potential structural compromises.
+              </p>
+            </motion.div>
+            
+            <motion.div 
+              className="bg-white dark:bg-neutral-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300"
+              variants={fadeInUp}
+              initial="hidden"
+              animate={acousticControls}
+              custom={2}
+            >
+              <div className="flex-shrink-0 p-3 bg-primary/10 dark:bg-primary/20 rounded-lg mb-4 inline-flex">
+                <svg className="h-6 w-6 text-primary dark:text-accent" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 13L9 17L19 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
               </div>
+              <h4 className="text-lg font-medium text-neutral-900 dark:text-white">Predictive Alert System</h4>
+              <p className="mt-2 text-neutral-600 dark:text-neutral-400">
+                Advanced alerting system with 98.7% prediction accuracy for structural failures.
+              </p>
             </motion.div>
           </div>
+          
+          <motion.div 
+            className="mt-12 text-center"
+            variants={fadeInUp}
+            initial="hidden"
+            animate={acousticControls}
+          >
+            <Link href="/technologies">
+              <Button 
+                size="lg" 
+                className="bg-primary hover:bg-primary/80 text-white group transition-all duration-300 shadow-lg hover:shadow-primary/20 hover:shadow-xl"
+              >
+                <span>Request Demo Access</span>
+                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </Link>
+          </motion.div>
         </div>
       </section>
 
