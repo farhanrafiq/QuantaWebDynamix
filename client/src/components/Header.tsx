@@ -50,11 +50,10 @@ const mobileMenuVariants = {
 };
 
 const dropdownVariants = {
-  hidden: { opacity: 0, y: -10, pointerEvents: "none" },
+  hidden: { opacity: 0, y: -10 },
   visible: { 
     opacity: 1, 
     y: 0,
-    pointerEvents: "auto",
     transition: {
       duration: 0.2,
       ease: "easeOut",
@@ -65,7 +64,6 @@ const dropdownVariants = {
   exit: { 
     opacity: 0, 
     y: -10,
-    pointerEvents: "none",
     transition: {
       duration: 0.2,
       ease: "easeIn"
@@ -333,6 +331,9 @@ const Header = () => {
                         initial="hidden"
                         animate="visible"
                         exit="exit"
+                        style={{ 
+                          pointerEvents: activeDropdown === link.name ? 'auto' : 'none' 
+                        }}
                       >
                         <div className="py-2">
                           {link.dropdownItems?.map((item) => (
