@@ -1,0 +1,54 @@
+You are to generate a production-ready, highly dynamic corporate website for QuantaFONS Pvt Ltd, an R&D engineering firm specializing in concrete waterproofing (PTFE-based), nano-enhanced admixtures, and AI-driven structural health monitoring systems.
+
+1. **Architecture**  
+   - Monorepo with Next.js app (`/web`) and Express API server (`/api`).  
+   - Shared `/components`, `/utils`, and `/models` directories.  
+
+2. **Pages & Features**  
+   - **Home:** Hero banner with animated particle background; scroll-triggered text animations; key metrics (projects completed, patents filed, clients served).  
+   - **About:** Company history timeline; team member cards with photos and LinkedIn links; core values.  
+   - **Technologies:** Interactive sections explaining PTFE waterproofing, nanotechnology admixtures, fiber-optic sensor networks, neural-net-based analytics; each with SVG diagrams and Framer Motion reveal effects.  
+   - **Products & Solutions:**  
+     - Product catalog with dynamic filters (by application, material type).  
+     - Detail pages for each product: specs table, downloadable datasheet PDF, 3D model viewer (using Three.js).  
+   - **Live Demo Dashboard:**  
+     - Authentication-protected area.  
+     - Real-time charts (Recharts) showing structural health data streams (strain, corrosion index, vibration amplitude).  
+     - Alerts module with socket.io for live event notifications.  
+   - **Blog & Research:**  
+     - Headless CMS integration for posts, categories, tags.  
+     - SEO-optimized article templates, syntax-highlighted code blocks, citation styles.  
+   - **Careers:** Job listings pulled from CMS; “Apply Now” form with CV upload (to AWS S3).  
+   - **Contact & Partnerships:**  
+     - Dynamic contact form (NodeMailer + Google reCAPTCHA).  
+     - Embedded Google Map of office location.  
+     - Partner inquiry form routing to Intercom chat.  
+
+3. **Admin Panel**  
+   - Role-based access (Admin, Editor).  
+   - CRUD for blog posts, job listings, product entries.  
+   - User management and audit logs.  
+
+4. **UI/UX & Accessibility**  
+   - Fully responsive (mobile, tablet, desktop).  
+   - Dark/light mode toggle with system preference detection.  
+   - WCAG 2.1 AA compliance.  
+
+5. **Performance & SEO**  
+   - Next.js static generation (SSG) for marketing pages.  
+   - Server-side rendering (SSR) for dashboard and product detail pages.  
+   - Image optimization (Next/Image), lazy loading, code splitting.  
+   - Meta tags, Open Graph, sitemap.xml, robots.txt.  
+
+6. **Testing & Quality**  
+   - Unit tests with Jest & React Testing Library.  
+   - API tests with Supertest.  
+   - End-to-end tests using Playwright.  
+
+7. **Deployment**  
+   - Docker Compose setup for local dev.  
+   - GitHub Actions workflow: on push to `main`, build containers, run tests, and deploy to Vercel (web) and Heroku/AWS (API).  
+
+Generate complete code stubs, configuration files, and README with setup instructions so a developer can clone the repo and run:  
+```bash
+docker-compose up --build
