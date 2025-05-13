@@ -1,7 +1,175 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform, useInView, useMotionValue, useSpring } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Check } from "lucide-react";
-import { useState } from "react";
+import { 
+  Check, 
+  ChevronRight, 
+  Radio, 
+  BarChart2, 
+  Wand2, 
+  Layers, 
+  Network, 
+  Waves,
+  ArrowRight
+} from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import * as THREE from "three";
+import Lottie from "lottie-react";
+
+// Register GSAP plugins
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
+// Lottie animation data for acoustic waves
+const acousticWaveAnimationData = {
+  "v": "5.5.7",
+  "fr": 60,
+  "ip": 0,
+  "op": 120,
+  "w": 800,
+  "h": 400,
+  "nm": "Sound Wave Animation",
+  "ddd": 0,
+  "assets": [],
+  "layers": [
+    {
+      "ddd": 0,
+      "ind": 1,
+      "ty": 4,
+      "nm": "Wave 1",
+      "sr": 1,
+      "ks": {
+        "o": { "a": 0, "k": 100 },
+        "p": { "a": 0, "k": [400, 200, 0] },
+        "a": { "a": 0, "k": [0, 0, 0] },
+        "s": { "a": 0, "k": [100, 100, 100] }
+      },
+      "ao": 0,
+      "shapes": [
+        {
+          "ty": "gr",
+          "it": [
+            {
+              "ind": 0,
+              "ty": "sh",
+              "ix": 1,
+              "ks": {
+                "a": 1,
+                "k": [
+                  {
+                    "i": { "x": 0.667, "y": 1 },
+                    "o": { "x": 0.333, "y": 0 },
+                    "t": 0,
+                    "s": [
+                      {
+                        "i": [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]],
+                        "o": [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]],
+                        "v": [
+                          [-300, 0],
+                          [-250, 40],
+                          [-200, -40],
+                          [-150, 80],
+                          [-100, -80],
+                          [-50, 40],
+                          [0, -40],
+                          [50, 0],
+                          [100, 20],
+                          [150, -20],
+                          [200, 40],
+                          [250, -40],
+                          [300, 0]
+                        ],
+                        "c": false
+                      }
+                    ]
+                  },
+                  {
+                    "t": 60,
+                    "s": [
+                      {
+                        "i": [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]],
+                        "o": [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]],
+                        "v": [
+                          [-300, 0],
+                          [-250, -40],
+                          [-200, 40],
+                          [-150, -80],
+                          [-100, 80],
+                          [-50, -40],
+                          [0, 40],
+                          [50, 0],
+                          [100, -20],
+                          [150, 20],
+                          [200, -40],
+                          [250, 40],
+                          [300, 0]
+                        ],
+                        "c": false
+                      }
+                    ]
+                  },
+                  {
+                    "t": 120,
+                    "s": [
+                      {
+                        "i": [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]],
+                        "o": [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]],
+                        "v": [
+                          [-300, 0],
+                          [-250, 40],
+                          [-200, -40],
+                          [-150, 80],
+                          [-100, -80],
+                          [-50, 40],
+                          [0, -40],
+                          [50, 0],
+                          [100, 20],
+                          [150, -20],
+                          [200, 40],
+                          [250, -40],
+                          [300, 0]
+                        ],
+                        "c": false
+                      }
+                    ]
+                  }
+                ]
+              },
+              "nm": "Path 1",
+              "mn": "ADBE Vector Shape - Group",
+              "hd": false
+            },
+            {
+              "ty": "st",
+              "c": { "a": 0, "k": [0, 0.47, 1, 1], "ix": 3 },
+              "o": { "a": 0, "k": 100, "ix": 4 },
+              "w": { "a": 0, "k": 6, "ix": 5 },
+              "lc": 2,
+              "lj": 2,
+              "bm": 0,
+              "nm": "Stroke 1",
+              "mn": "ADBE Vector Graphic - Stroke",
+              "hd": false
+            }
+          ],
+          "nm": "Wave Group",
+          "np": 2,
+          "cix": 2,
+          "bm": 0,
+          "ix": 1,
+          "mn": "ADBE Vector Group",
+          "hd": false
+        }
+      ],
+      "ip": 0,
+      "op": 120,
+      "st": 0,
+      "bm": 0
+    }
+  ]
+};
 
 const Technologies = () => {
   // State to track expanded details sections
@@ -17,29 +185,97 @@ const Technologies = () => {
 
   // Animation variants
   const fadeInUp = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 60 },
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.6 }
+      transition: { 
+        type: "spring",
+        stiffness: 100,
+        damping: 12,
+        duration: 0.8
+      }
     }
   };
   
   const fadeInRight = {
-    hidden: { opacity: 0, x: -30 },
+    hidden: { opacity: 0, x: -60 },
     visible: { 
       opacity: 1, 
       x: 0,
-      transition: { duration: 0.6 }
+      transition: { 
+        type: "spring",
+        stiffness: 100,
+        damping: 12,
+        duration: 0.8
+      }
     }
   };
   
   const fadeInLeft = {
-    hidden: { opacity: 0, x: 30 },
+    hidden: { opacity: 0, x: 60 },
     visible: { 
       opacity: 1, 
       x: 0,
-      transition: { duration: 0.6 }
+      transition: { 
+        type: "spring",
+        stiffness: 100,
+        damping: 12,
+        duration: 0.8
+      }
+    }
+  };
+  
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.2
+      }
+    }
+  };
+  
+  const scaleIn = {
+    hidden: { 
+      opacity: 0, 
+      scale: 0.8
+    },
+    visible: { 
+      opacity: 1, 
+      scale: 1,
+      transition: {
+        duration: 0.8,
+        ease: [0, 0.71, 0.2, 1.01]
+      }
+    }
+  };
+  
+  const cardVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 40, 
+      scale: 0.95 
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        type: "spring",
+        stiffness: 50,
+        damping: 10
+      }
+    },
+    hover: {
+      scale: 1.02,
+      boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+      transition: {
+        type: "spring",
+        stiffness: 400,
+        damping: 17
+      }
     }
   };
   
@@ -65,7 +301,238 @@ const Technologies = () => {
           </motion.p>
         </div>
 
+        {/* Technology Categories */}
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
+          <motion.div
+            className="bg-gradient-to-br from-primary/5 to-primary/10 dark:from-primary/10 dark:to-primary/20 p-6 rounded-xl border border-primary/10 dark:border-primary/20 relative overflow-hidden group"
+            variants={cardVariants}
+            whileHover="hover"
+          >
+            <div className="absolute -right-10 -top-10 w-40 h-40 bg-primary/5 dark:bg-primary/10 rounded-full blur-xl group-hover:bg-primary/10 dark:group-hover:bg-primary/20 transition-all duration-700"></div>
+            <Radio className="h-10 w-10 mb-4 text-primary dark:text-accent" />
+            <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-2 relative z-10">Acoustic Analytics</h3>
+            <p className="text-neutral-600 dark:text-neutral-400 mb-4 relative z-10">Advanced signal processing algorithms for analyzing structural acoustic signatures.</p>
+            <a href="#acoustic-software" className="inline-flex items-center font-medium text-primary dark:text-accent group-hover:translate-x-1 transition-transform relative z-10">
+              Discover <ChevronRight className="h-4 w-4 ml-1"/>
+            </a>
+          </motion.div>
+          
+          <motion.div
+            className="bg-gradient-to-br from-blue-500/5 to-blue-500/10 dark:from-blue-500/10 dark:to-blue-500/20 p-6 rounded-xl border border-blue-500/10 dark:border-blue-500/20 relative overflow-hidden group"
+            variants={cardVariants}
+            whileHover="hover"
+          >
+            <div className="absolute -right-10 -top-10 w-40 h-40 bg-blue-500/5 dark:bg-blue-500/10 rounded-full blur-xl group-hover:bg-blue-500/10 dark:group-hover:bg-blue-500/20 transition-all duration-700"></div>
+            <BarChart2 className="h-10 w-10 mb-4 text-blue-500" />
+            <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-2 relative z-10">Predictive Maintenance</h3>
+            <p className="text-neutral-600 dark:text-neutral-400 mb-4 relative z-10">Neural network models that predict maintenance needs before critical failures occur.</p>
+            <a href="#ai-driven" className="inline-flex items-center font-medium text-blue-500 group-hover:translate-x-1 transition-transform relative z-10">
+              Discover <ChevronRight className="h-4 w-4 ml-1"/>
+            </a>
+          </motion.div>
+          
+          <motion.div
+            className="bg-gradient-to-br from-purple-500/5 to-purple-500/10 dark:from-purple-500/10 dark:to-purple-500/20 p-6 rounded-xl border border-purple-500/10 dark:border-purple-500/20 relative overflow-hidden group"
+            variants={cardVariants}
+            whileHover="hover"
+          >
+            <div className="absolute -right-10 -top-10 w-40 h-40 bg-purple-500/5 dark:bg-purple-500/10 rounded-full blur-xl group-hover:bg-purple-500/10 dark:group-hover:bg-purple-500/20 transition-all duration-700"></div>
+            <Layers className="h-10 w-10 mb-4 text-purple-500" />
+            <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-2 relative z-10">Advanced Materials</h3>
+            <p className="text-neutral-600 dark:text-neutral-400 mb-4 relative z-10">Nano-enhanced admixtures and PTFE-based waterproofing for next-generation structures.</p>
+            <a href="#nano-enhanced" className="inline-flex items-center font-medium text-purple-500 group-hover:translate-x-1 transition-transform relative z-10">
+              Discover <ChevronRight className="h-4 w-4 ml-1"/>
+            </a>
+          </motion.div>
+        </motion.div>
+
         <div className="space-y-24">
+          {/* Acoustic Software */}
+          <div id="acoustic-software" className="lg:grid lg:grid-cols-2 lg:gap-16 items-center relative">
+            {/* Decorative elements */}
+            <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
+              <div className="absolute top-1/4 -left-40 w-80 h-80 bg-primary/5 dark:bg-primary/10 rounded-full blur-3xl"></div>
+              <div className="absolute bottom-1/4 -right-40 w-80 h-80 bg-accent/5 dark:bg-accent/10 rounded-full blur-3xl"></div>
+            </div>
+            
+            <motion.div
+              className="order-2 lg:order-1 mt-10 lg:mt-0"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+              variants={fadeInRight}
+            >
+              <h3 className="text-2xl md:text-3xl font-bold text-primary dark:text-accent mb-2">
+                Acoustic Software Platform
+              </h3>
+              <p className="text-neutral-700 dark:text-neutral-300 text-lg mb-6">
+                Our proprietary acoustic analysis software transforms raw vibration data into actionable insights, helping predict structural failures before they occur.
+              </p>
+              
+              <div className="mt-6 space-y-6">
+                <div className="flex items-start">
+                  <div className="flex-shrink-0 p-2 bg-primary/10 dark:bg-primary/20 rounded-lg mt-1">
+                    <Waves className="h-5 w-5 text-primary dark:text-accent" />
+                  </div>
+                  <div className="ml-4">
+                    <h4 className="text-lg font-medium text-neutral-900 dark:text-white">Real-time Frequency Analysis</h4>
+                    <p className="mt-1 text-neutral-600 dark:text-neutral-400">
+                      Process acoustic signatures in real-time, identifying structural anomalies through multi-spectral analysis.
+                    </p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start">
+                  <div className="flex-shrink-0 p-2 bg-primary/10 dark:bg-primary/20 rounded-lg mt-1">
+                    <Wand2 className="h-5 w-5 text-primary dark:text-accent" />
+                  </div>
+                  <div className="ml-4">
+                    <h4 className="text-lg font-medium text-neutral-900 dark:text-white">ML-Driven Pattern Recognition</h4>
+                    <p className="mt-1 text-neutral-600 dark:text-neutral-400">
+                      Machine learning algorithms detect acoustic patterns indicating potential structural compromises with 98.7% accuracy.
+                    </p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start">
+                  <div className="flex-shrink-0 p-2 bg-primary/10 dark:bg-primary/20 rounded-lg mt-1">
+                    <Network className="h-5 w-5 text-primary dark:text-accent" />
+                  </div>
+                  <div className="ml-4">
+                    <h4 className="text-lg font-medium text-neutral-900 dark:text-white">Neural Network Integration</h4>
+                    <p className="mt-1 text-neutral-600 dark:text-neutral-400">
+                      Our deep neural networks continuously learn from acoustic data, improving detection accuracy over time.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="mt-8 flex">
+                <Button 
+                  variant="link" 
+                  className="text-primary dark:text-accent hover:text-primary/80 dark:hover:text-accent/80 p-0 h-auto group"
+                  onClick={() => toggleExpandSection('acoustic-details')}
+                >
+                  {expandedSection === 'acoustic-details' ? 'Show Less' : 'Technical Specifications'} 
+                  <ArrowRight className={`ml-2 h-4 w-4 transition-transform ${expandedSection === 'acoustic-details' ? 'rotate-90' : 'group-hover:translate-x-1'}`}/>
+                </Button>
+              </div>
+
+              {expandedSection === 'acoustic-details' && (
+                <motion.div 
+                  className="mt-6 bg-neutral-50 dark:bg-neutral-800 p-6 rounded-xl border border-neutral-200 dark:border-neutral-700"
+                  initial={{ opacity: 0, height: 0, y: 20 }}
+                  animate={{ opacity: 1, height: 'auto', y: 0 }}
+                  transition={{ duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] }}
+                >
+                  <h4 className="font-semibold text-neutral-900 dark:text-white mb-4 text-lg">Acoustic Software Specifications</h4>
+                  <ul className="space-y-3 text-neutral-700 dark:text-neutral-300">
+                    <li className="flex items-start">
+                      <Check className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span><span className="font-medium">Frequency range:</span> 0.1Hz - 20kHz with 0.01Hz resolution</span>
+                    </li>
+                    <li className="flex items-start">
+                      <Check className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span><span className="font-medium">Processing capability:</span> Up to 512 channels of simultaneous data</span>
+                    </li>
+                    <li className="flex items-start">
+                      <Check className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span><span className="font-medium">Algorithm suite:</span> FFT, wavelet transforms, spectral analysis, neural networks</span>
+                    </li>
+                    <li className="flex items-start">
+                      <Check className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span><span className="font-medium">Pattern recognition:</span> 98.7% accuracy in failure prediction (based on field tests)</span>
+                    </li>
+                    <li className="flex items-start">
+                      <Check className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span><span className="font-medium">Integration:</span> Compatible with all major sensor types and building management systems</span>
+                    </li>
+                  </ul>
+                  <p className="mt-4 text-neutral-700 dark:text-neutral-300">
+                    Our acoustic analysis software has been deployed on critical infrastructure worldwide, including bridges, skyscrapers, and offshore installations, providing early warnings of structural issues months before conventional detection methods.
+                  </p>
+                </motion.div>
+              )}
+            </motion.div>
+            
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+              variants={fadeInLeft}
+              className="order-1 lg:order-2"
+            >
+              <div className="relative bg-white dark:bg-neutral-800 p-4 rounded-xl shadow-xl overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 dark:from-primary/10 dark:to-accent/10 backdrop-blur-sm"></div>
+                
+                <div className="relative z-10">
+                  <div className="bg-neutral-100 dark:bg-neutral-700 h-8 w-full rounded-t-lg flex items-center px-4 border-b border-neutral-200 dark:border-neutral-600">
+                    <div className="flex space-x-2">
+                      <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                      <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                      <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                    </div>
+                    <div className="mx-auto font-medium text-sm text-neutral-500 dark:text-neutral-400">
+                      Acoustic Index Visualizer
+                    </div>
+                  </div>
+                  
+                  <div className="p-6 bg-white dark:bg-neutral-800 rounded-b-lg">
+                    <Lottie 
+                      animationData={acousticWaveAnimationData}
+                      className="w-full h-64"
+                    />
+                    
+                    <div className="mt-6">
+                      <div className="mb-2 flex justify-between text-sm text-neutral-600 dark:text-neutral-400">
+                        <span>Frequency Range</span>
+                        <span>0-20kHz</span>
+                      </div>
+                      <div className="h-2 bg-neutral-200 dark:bg-neutral-700 rounded-full overflow-hidden">
+                        <div className="h-full bg-accent w-3/4 rounded-full"></div>
+                      </div>
+                    </div>
+                    
+                    <div className="mt-4">
+                      <div className="mb-2 flex justify-between text-sm text-neutral-600 dark:text-neutral-400">
+                        <span>Structural Health Index</span>
+                        <span>87%</span>
+                      </div>
+                      <div className="h-2 bg-neutral-200 dark:bg-neutral-700 rounded-full overflow-hidden">
+                        <div className="h-full bg-green-500 w-[87%] rounded-full"></div>
+                      </div>
+                    </div>
+                    
+                    <div className="mt-6 grid grid-cols-2 gap-4">
+                      <div className="p-3 bg-neutral-100 dark:bg-neutral-700 rounded-lg text-center">
+                        <div className="text-sm text-neutral-500 dark:text-neutral-400">
+                          Signal Integrity
+                        </div>
+                        <div className="text-2xl font-bold text-primary dark:text-accent mt-1">
+                          99.7%
+                        </div>
+                      </div>
+                      <div className="p-3 bg-neutral-100 dark:bg-neutral-700 rounded-lg text-center">
+                        <div className="text-sm text-neutral-500 dark:text-neutral-400">
+                          Anomaly Score
+                        </div>
+                        <div className="text-2xl font-bold text-green-500 mt-1">
+                          Low
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+          
           {/* PTFE Waterproofing */}
           <div className="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
             <motion.div
