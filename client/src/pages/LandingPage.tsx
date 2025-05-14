@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { Button } from "@/components/ui/button";
+import { Button } from "../components/ui/button";
 import { ArrowDown, ArrowRight, ExternalLink, ChevronRight, Zap, BarChart3, Shield, Building } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLocation } from "wouter";
-import { ParticleBackground } from "@/components/ParticleBackground";
-import { useIsMobile } from "@/hooks/use-mobile";
+import { ParticleBackground } from "../components/ParticleBackground";
+import { useIsMobile } from "../hooks/use-mobile";
 
 // Register GSAP plugins
 if (typeof window !== "undefined") {

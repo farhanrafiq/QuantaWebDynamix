@@ -14,10 +14,10 @@ import Home from "./pages/Home";
 import LandingPage from "./pages/LandingPage";
 import About from "./pages/AboutNew";
 import Technologies from "./pages/TechnologiesNew";
-import Products from "./pages/ProductsNew";
-import Blog from "./pages/Blog";
+import Products from "./pages/ProductsNew2";
+import Blog from "./pages/BlogNew";
 import Careers from "./pages/Careers";
-import Contact from "./pages/Contact";
+import Contact from "./pages/ContactNew";
 
 // Loader component for page transitions
 const PageLoader = () => (

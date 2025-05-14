@@ -9,12 +9,12 @@ interface ParticleBackgroundProps {
   density?: number;
 }
 
-const ParticleBackground: React.FC<ParticleBackgroundProps> = ({ 
+const ParticleBackground = ({ 
   className = "", 
   color = "#0062cc", 
   count = 2000,
   density = 20
-}) => {
+}: ParticleBackgroundProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);

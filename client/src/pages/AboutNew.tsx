@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Button } from "@/components/ui/button";
+import { Button } from "../components/ui/button";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight, Users, Award, BarChart, Lightbulb, Zap, FileText } from "lucide-react";
