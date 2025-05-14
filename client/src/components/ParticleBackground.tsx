@@ -183,4 +183,4 @@ const ParticleBackground = ({
   );
 };
 
-export { ParticleBackground };
+export default ParticleBackground;

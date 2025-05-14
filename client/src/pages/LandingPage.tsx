@@ -5,7 +5,7 @@ import { ArrowDown, ArrowRight, ExternalLink, ChevronRight, Zap, BarChart3, Shie
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLocation } from "wouter";
-import { ParticleBackground } from "../components/ParticleBackground";
+import ParticleBackground from "../components/ParticleBackground";
 import { useIsMobile } from "../hooks/use-mobile";
 
 // Register GSAP plugins
