@@ -16,6 +16,85 @@
   animation: spin-slow 3s linear infinite;
 }
 
+/* Pulse animation */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Ping animation */
+@keyframes ping {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.animate-ping {
+  animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* Gradient animation */
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient {
+  animation: gradient 3s ease infinite;
+}
+
+/* Add custom colors for landing page */
+:root {
+  --electric-blue: #0099ff;
+  --magenta: #ff00ff;
+}
+
+.text-electric-blue {
+  color: var(--electric-blue);
+}
+
+.text-magenta {
+  color: var(--magenta);
+}
+
+.bg-electric-blue {
+  background-color: var(--electric-blue);
+}
+
+.bg-magenta {
+  background-color: var(--magenta);
+}
+
+.border-electric-blue {
+  border-color: var(--electric-blue);
+}
+
+.border-magenta {
+  border-color: var(--magenta);
+}
+
+/* Cursor effects */
+html,
+body {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" stroke="%230099ff" stroke-width="1" fill="none" /></svg>') 8 8, auto;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

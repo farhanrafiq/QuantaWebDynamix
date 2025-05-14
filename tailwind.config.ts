@@ -51,6 +51,9 @@ export default {
           "4": "hsl(var(--chart-4))",
           "5": "hsl(var(--chart-5))",
         },
+        // New landing page colors
+        "electric-blue": "#0099ff",
+        "magenta": "#ff00ff",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -79,10 +82,28 @@ export default {
             height: "0",
           },
         },
+        "pulse": {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.5" },
+        },
+        "ping": {
+          "75%, 100%": {
+            transform: "scale(2)",
+            opacity: "0",
+          },
+        },
+        "gradient": {
+          "0%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+          "100%": { backgroundPosition: "0% 50%" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "pulse": "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        "ping": "ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite",
+        "gradient": "gradient 3s ease infinite",
       },
     },
   },

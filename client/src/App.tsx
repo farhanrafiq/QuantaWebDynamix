@@ -11,6 +11,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import NotFound from "@/pages/not-found";
 import RootLayout from "./layouts/RootLayout";
 import Home from "./pages/Home";
+import LandingPage from "./pages/LandingPage";
 import About from "./pages/About";
 import Technologies from "./pages/TechnologiesNew";
 import Products from "./pages/ProductsNew";
@@ -107,7 +108,8 @@ function Router() {
           className="min-h-screen"
         >
           <Switch>
-            <Route path="/" component={Home} />
+            <Route path="/" component={LandingPage} />
+            <Route path="/home" component={Home} />
             <Route path="/about" component={About} />
             <Route path="/technologies" component={Technologies} />
             <Route path="/products" component={Products} />

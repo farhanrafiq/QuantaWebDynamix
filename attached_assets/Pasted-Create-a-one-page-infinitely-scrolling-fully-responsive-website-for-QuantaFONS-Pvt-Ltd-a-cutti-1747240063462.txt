@@ -1,0 +1,54 @@
+Create a one-page, infinitely scrolling, fully responsive website for “QuantaFONS Pvt. Ltd.”—a cutting-edge R&D company specializing in high-end civil-engineering data projects and AI-driven structural-health monitoring. **Use only vector illustrations and CSS/WebGL animations; no photos.** Style guide: dark-mode base (#0D0F12), neon accents (electric blue, magenta), bold white typography (Helvetica Neue or Inter), micro-interactions on hover/click.  
+
+**1. Hero Section**  
+• Full-viewport gradient background with subtly animated flowing data-stream lines.  
+• Central headline (H1) “Quantum-Powered Insights • Real-Time Structural Intelligence” fading in letter by letter.  
+• Subheading with typing effect: “AI • Nano-Sensors • PTFE-Enhanced Waterproofing • Digital Twin Analytics.”  
+• Animated “Request Demo” button with pulsing neon border.  
+
+**2. About Us**  
+• Animated infographic timeline: “Founded 2024 → PTFE Waterproofing R&D → Quantum-Fiber SHM Launch → AI-Analytics Platform.”  
+• On-scroll reveal of each milestone with Lottie-style icons and connector lines that draw themselves.  
+
+**3. Core Capabilities**  
+Arrange four cards in a horizontal scroll carousel (mouse-wheel enabled), each animating in 3D tilt on hover:  
+  1. **PTFE-Nano Waterproofing** – icon of animated molecular lattice  
+  2. **Quantum Fiber Sensors** – glowing fiber-optic cable weaving across the card  
+  3. **AI Analytics Engine** – real-time bar/line chart morphing between states  
+  4. **Digital Twin Simulation** – wireframe building rotating in 3D  
+
+**4. Live Data Visualizations**  
+Embed three animated canvas or WebGL charts side by side:  
+  - Real-time strain vs. time (scrolling line graph)  
+  - Corrosion risk heatmap on a simplified slab model  
+  - Carbonation depth profile as an animated area chart  
+Charts slide in from the left as soon as they enter the viewport.  
+
+**5. Case Studies Preview**  
+Three panel slider with subtle parallax:  
+  - “Mumbai Metro Waterproofing” – vector city background with droplet repelled animation  
+  - “Delhi Airport Runway SHM” – animated loading-bar style structural scan  
+  - “Hyderabad High-Rise Digital Twin” – rotating wireframe tower with data annotations  
+Each panel expands on click into a modal with further animated infographics.  
+
+**6. Technology Stack & R&D**  
+Grid of logos (custom line-art SVGs) for: Python, TensorFlow, Node.js, WebGL, Three.js, D3.js, SolidWorks, COMSOL. On hover, each logo pulses and displays a tooltip with 2-sentence description.  
+
+**7. Team & Lab**  
+Circular animated portraits (vector avatars) of founder and lead engineers, each orbiting a miniature animated gear system behind them. Clicking opens a micro-bio overlay with Lottie-icon bullet points (PhD in Civil Eng., 12+ patents, etc.).  
+
+**8. Contact / Demo Request**  
+Full-width background of animated data particles drifting upward. A two-column form:  
+  • Left: animated checklist of “Your Industry,” “Project Type,” “Budget Range” with slide-in arrows.  
+  • Right: input fields and a glowing “Submit” button that morphs into a checkmark on success.  
+
+**Global Animations & Micro-Interactions**  
+• Smooth scroll with ease-in-out curves.  
+• Cursor-tracking subtle parallax on all vector backgrounds.  
+• Section anchors animate scroll progress indicator at top.  
+• All buttons and links have neon-glow hover states, ripple effects on click.  
+
+**SEO & Performance**  
+• Lazy-load all animations and code-split to minimize initial payload.  
+• Include meta tags: title, description, Open Graph with animated SVG preview.  
+• Accessibility: keyboard-navigable, ARIA labels on all interactive elements.  
