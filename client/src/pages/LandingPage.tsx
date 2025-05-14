@@ -1,1061 +1,926 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform, useSpring, useInView } from "framer-motion";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import * as THREE from "three";
-import { gsap } from "gsap";
+import { ArrowDown, ArrowRight, ExternalLink, ChevronRight, Zap, BarChart3, Shield, Building } from "lucide-react";
+import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Lottie from "lottie-react";
-import { ArrowRight, Check, ExternalLink, Github, Database, Server, Grid } from "lucide-react";
+import { useLocation } from "wouter";
+import { ParticleBackground } from "@/components/ParticleBackground";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 // Register GSAP plugins
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-// TypeWriter effect component
-const TypeWriter = ({ text, delay = 40 }: { text: string; delay?: number }) => {
-  const [displayText, setDisplayText] = useState("");
-  const [currentIndex, setCurrentIndex] = useState(0);
+// Custom cursor component
+const CustomCursor = () => {
+  const cursorRef = useRef<HTMLDivElement>(null);
+  const [isPointer, setIsPointer] = useState(false);
 
   useEffect(() => {
-    if (currentIndex < text.length) {
-      const timeout = setTimeout(() => {
-        setDisplayText(prev => prev + text[currentIndex]);
-        setCurrentIndex(prev => prev + 1);
-      }, delay);
+    const cursor = cursorRef.current;
+    if (!cursor) return;
 
-      return () => clearTimeout(timeout);
-    }
-  }, [currentIndex, delay, text]);
+    const onMouseMove = (e: MouseEvent) => {
+      cursor.style.left = `${e.clientX}px`;
+      cursor.style.top = `${e.clientY}px`;
 
-  return <span>{displayText}<span className="animate-pulse">|</span></span>;
-};
-
-// FadeInText letter by letter component
-const FadeInText = ({ text }: { text: string }) => {
-  return (
-    <span className="inline-block">
-      {text.split("").map((char, index) => (
-        <motion.span
-          key={`${char}-${index}`}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.1, delay: index * 0.05 }}
-          className="inline-block"
-        >
-          {char === " " ? "\u00A0" : char}
-        </motion.span>
-      ))}
-    </span>
-  );
-};
-
-// 3D Tilt Card component
-const TiltCard = ({ title, description, icon, className }: { 
-  title: string; 
-  description: string; 
-  icon: React.ReactNode;
-  className?: string;
-}) => {
-  const cardRef = useRef<HTMLDivElement>(null);
-  
-  useEffect(() => {
-    const card = cardRef.current;
-    if (!card) return;
-    
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-      
-      const rotateX = (y - centerY) / 10;
-      const rotateY = (centerX - x) / 10;
-      
-      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
-      card.style.transition = 'transform 0.1s ease';
+      // Check if the cursor is over an interactive element
+      const target = e.target as HTMLElement;
+      if (
+        target.tagName === "BUTTON" ||
+        target.tagName === "A" ||
+        target.closest("button") ||
+        target.closest("a") ||
+        target.closest("[role='button']") ||
+        target.classList.contains("cursor-pointer")
+      ) {
+        setIsPointer(true);
+      } else {
+        setIsPointer(false);
+      }
     };
-    
-    const handleMouseLeave = () => {
-      card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
-      card.style.transition = 'transform 0.5s ease';
-    };
-    
-    card.addEventListener('mousemove', handleMouseMove);
-    card.addEventListener('mouseleave', handleMouseLeave);
-    
+
+    document.addEventListener("mousemove", onMouseMove);
     return () => {
-      card.removeEventListener('mousemove', handleMouseMove);
-      card.removeEventListener('mouseleave', handleMouseLeave);
+      document.removeEventListener("mousemove", onMouseMove);
     };
   }, []);
-  
+
   return (
     <motion.div
-      ref={cardRef}
-      className={`bg-gradient-to-br from-[#1A1D21] to-[#0D0F12] p-6 rounded-xl border border-electric-blue/30 shadow-xl ${className}`}
+      ref={cursorRef}
+      className="fixed z-50 w-8 h-8 pointer-events-none mix-blend-difference"
+      animate={{
+        scale: isPointer ? 0.5 : 1,
+        opacity: 1,
+      }}
+      initial={{ opacity: 0 }}
+      transition={{ duration: 0.2 }}
+    >
+      <svg
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <circle
+          cx="16"
+          cy="16"
+          r="15"
+          stroke="white"
+          strokeWidth={isPointer ? "3" : "1"}
+          fill={isPointer ? "white" : "transparent"}
+        />
+      </svg>
+    </motion.div>
+  );
+};
+
+// Animated section header component
+const SectionHeader = ({ title, subtitle }: { title: string; subtitle: string }) => {
+  return (
+    <div className="text-center mb-16">
+      <motion.h2
+        className="text-3xl md:text-4xl font-bold mb-4 text-white relative inline-block"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+      >
+        {title}
+        <span className="absolute -bottom-2 left-1/4 right-1/4 h-1 bg-electric-blue"></span>
+      </motion.h2>
+
+      <motion.p
+        className="text-lg text-neutral-400 max-w-3xl mx-auto"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
+        {subtitle}
+      </motion.p>
+    </div>
+  );
+};
+
+// Technology card component
+const TechnologyCard = ({ icon, title, description }: { 
+  icon: React.ReactNode; 
+  title: string; 
+  description: string 
+}) => {
+  return (
+    <motion.div
+      className="bg-[#15171B] border border-electric-blue/10 p-6 rounded-xl hover:bg-[#181A1F] hover:border-electric-blue/30 transition-all duration-300"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
+      viewport={{ once: true }}
       transition={{ duration: 0.5 }}
+      whileHover={{ y: -10, transition: { duration: 0.3 } }}
     >
-      <div className="mb-4 h-14 w-14 bg-electric-blue/10 rounded-full flex items-center justify-center">
+      <div className="p-3 bg-electric-blue/10 rounded-xl inline-block mb-4 text-electric-blue">
         {icon}
       </div>
-      <h3 className="text-xl font-bold text-white mb-2">{title}</h3>
+      <h3 className="text-white text-xl font-bold mb-2">{title}</h3>
       <p className="text-neutral-400">{description}</p>
+      <div className="mt-4 text-electric-blue flex items-center cursor-pointer hover:underline">
+        Learn more <ChevronRight className="ml-1 w-4 h-4" />
+      </div>
     </motion.div>
   );
 };
 
-// Case Study Panel component
-const CaseStudyPanel = ({ title, description, icon, bgClass }: {
-  title: string;
-  description: string;
-  icon: React.ReactNode;
-  bgClass: string;
+// Case study card component
+const CaseStudyCard = ({ 
+  title, 
+  client, 
+  description, 
+  image 
+}: { 
+  title: string; 
+  client: string; 
+  description: string; 
+  image: string;
 }) => {
-  const [expanded, setExpanded] = useState(false);
-  
   return (
-    <motion.div 
-      className={`rounded-xl overflow-hidden shadow-lg relative group cursor-pointer ${expanded ? 'fixed inset-4 z-50 overflow-auto' : 'min-h-[350px]'}`}
-      onClick={() => setExpanded(!expanded)}
-      layoutId={`panel-${title}`}
-    >
-      <div className={`absolute inset-0 ${bgClass} transition-transform duration-700 group-hover:scale-110`} />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-      
-      <div className="relative z-10 p-6 h-full flex flex-col">
-        <div className="text-electric-blue text-3xl mb-4">
-          {icon}
-        </div>
-        <h3 className="text-2xl font-bold text-white mb-2">{title}</h3>
-        <p className="text-neutral-300 text-sm">{expanded ? description : `${description.substring(0, 100)}...`}</p>
-        
-        {expanded && (
-          <motion.div 
-            className="mt-auto"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-          >
-            <Button variant="outline" className="border-electric-blue text-electric-blue hover:bg-electric-blue/20 mt-4">
-              View Full Case Study <ExternalLink className="ml-2 h-4 w-4" />
-            </Button>
-            <p className="mt-6 text-sm text-neutral-400">Click anywhere to close</p>
-          </motion.div>
-        )}
-        
-        {!expanded && (
-          <div className="mt-auto">
-            <span className="text-electric-blue text-sm flex items-center">
-              Click to expand <ArrowRight className="ml-1 h-3 w-3" />
-            </span>
-          </div>
-        )}
-      </div>
-    </motion.div>
-  );
-};
-
-// Team Member component
-const TeamMember = ({ name, title, avatarSrc }: {
-  name: string;
-  title: string;
-  avatarSrc: string;
-}) => {
-  const [bioOpen, setBioOpen] = useState(false);
-  
-  return (
-    <motion.div 
-      className="relative"
-      whileHover={{ scale: 1.05 }}
-      transition={{ type: "spring", stiffness: 300, damping: 15 }}
-      onClick={() => setBioOpen(true)}
-    >
-      <div className="relative rounded-full w-32 h-32 mx-auto border-2 border-electric-blue/50 overflow-hidden cursor-pointer">
-        <div className="absolute inset-0 bg-gradient-to-br from-electric-blue/20 to-transparent animate-pulse" />
-        <img src={avatarSrc} alt={name} className="w-full h-full object-cover" />
-      </div>
-      <div className="text-center mt-3">
-        <h4 className="text-white font-semibold">{name}</h4>
-        <p className="text-sm text-electric-blue">{title}</p>
-      </div>
-      
-      {bioOpen && (
-        <motion.div 
-          className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          onClick={() => setBioOpen(false)}
-        >
-          <motion.div 
-            className="bg-[#0D0F12] border border-electric-blue/30 rounded-xl p-6 max-w-lg mx-auto"
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex items-start mb-4">
-              <div className="rounded-full w-20 h-20 border-2 border-electric-blue/50 overflow-hidden">
-                <img src={avatarSrc} alt={name} className="w-full h-full object-cover" />
-              </div>
-              <div className="ml-4">
-                <h3 className="text-xl font-bold text-white">{name}</h3>
-                <p className="text-electric-blue">{title}</p>
-              </div>
-            </div>
-            
-            <div className="mb-4">
-              <h4 className="text-white font-semibold mb-2">Expertise & Achievements</h4>
-              <ul className="space-y-2">
-                <li className="flex items-start text-neutral-300">
-                  <Check className="h-5 w-5 text-electric-blue mr-2 flex-shrink-0 mt-0.5" />
-                  <span>PhD in Civil Engineering with focus on Smart Infrastructure</span>
-                </li>
-                <li className="flex items-start text-neutral-300">
-                  <Check className="h-5 w-5 text-electric-blue mr-2 flex-shrink-0 mt-0.5" />
-                  <span>12+ patents in structural health monitoring technology</span>
-                </li>
-                <li className="flex items-start text-neutral-300">
-                  <Check className="h-5 w-5 text-electric-blue mr-2 flex-shrink-0 mt-0.5" />
-                  <span>Led R&D team behind QuantaFONS' PTFE-Nano waterproofing technology</span>
-                </li>
-              </ul>
-            </div>
-            
-            <div className="text-right">
-              <Button 
-                variant="outline" 
-                className="border-electric-blue text-electric-blue hover:bg-electric-blue/20"
-                onClick={() => setBioOpen(false)}
-              >
-                Close
-              </Button>
-            </div>
-          </motion.div>
-        </motion.div>
-      )}
-    </motion.div>
-  );
-};
-
-// Data Visualization component
-const DataVisualization = ({ title, children }: { title: string; children: React.ReactNode }) => {
-  return (
-    <motion.div 
-      className="bg-[#0D0F12] border border-electric-blue/30 rounded-xl overflow-hidden shadow-lg"
-      initial={{ opacity: 0, x: -50 }}
-      whileInView={{ opacity: 1, x: 0 }}
+    <motion.div
+      className="group bg-[#15171B] rounded-xl overflow-hidden hover:bg-[#181A1F] transition-colors duration-300"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
     >
-      <div className="p-4 border-b border-electric-blue/30 flex justify-between items-center">
-        <h3 className="text-lg font-medium text-white">{title}</h3>
-        <div className="flex space-x-2">
-          <div className="w-3 h-3 rounded-full bg-red-500"></div>
-          <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-          <div className="w-3 h-3 rounded-full bg-green-500"></div>
+      <div className="h-48 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-electric-blue/20 to-[#15171B]/80 z-10"></div>
+        <img
+          src={image}
+          alt={title}
+          className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+        />
+      </div>
+      <div className="p-6">
+        <div className="text-sm text-electric-blue mb-2">{client}</div>
+        <h3 className="text-white text-xl font-bold mb-2 group-hover:text-electric-blue transition-colors duration-300">{title}</h3>
+        <p className="text-neutral-400 mb-4">{description}</p>
+        <div className="flex items-center text-electric-blue cursor-pointer hover:underline">
+          View case study <ExternalLink className="ml-1 w-4 h-4" />
         </div>
       </div>
-      <div className="p-4">
-        {children}
-      </div>
     </motion.div>
   );
 };
 
-// Technology Card component
-const TechnologyCard = ({ icon, name, description }: { 
-  icon: React.ReactNode; 
-  name: string; 
-  description: string; 
-}) => {
+// Team member card component
+const TeamMemberCard = ({ name, title, image }: { name: string; title: string; image: string }) => {
   return (
     <motion.div
-      className="p-4 flex flex-col items-center justify-center text-center group"
-      whileHover={{ scale: 1.05 }}
-      transition={{ type: "spring", stiffness: 300, damping: 15 }}
+      className="bg-[#15171B] rounded-lg overflow-hidden group cursor-pointer"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5 }}
+      whileHover={{ y: -10, transition: { duration: 0.3 } }}
     >
-      <div className="text-electric-blue text-4xl mb-3 group-hover:animate-pulse">
-        {icon}
+      <div className="relative h-64 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-t from-[#15171B] to-transparent z-10"></div>
+        <img 
+          src={image} 
+          alt={name} 
+          className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+        />
       </div>
-      <h4 className="text-white font-semibold mb-1">{name}</h4>
-      <p className="text-xs text-neutral-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300">{description}</p>
+      <div className="p-4 relative z-20 -mt-16">
+        <h3 className="text-white text-xl font-bold">{name}</h3>
+        <p className="text-electric-blue">{title}</p>
+      </div>
     </motion.div>
   );
 };
 
-// Main Landing Page component
+// Main landing page component
 const LandingPage = () => {
-  // References for sections
+  const isMobile = useIsMobile();
+  const [_, navigate] = useLocation();
+  
+  // References for scroll animations
   const heroRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
   const capabilitiesRef = useRef<HTMLDivElement>(null);
-  const visualizationsRef = useRef<HTMLDivElement>(null);
-  const caseStudiesRef = useRef<HTMLDivElement>(null);
-  const techStackRef = useRef<HTMLDivElement>(null);
-  const teamRef = useRef<HTMLDivElement>(null);
-  const contactRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
   
-  // Refs for animations
-  const dataStreamCanvasRef = useRef<HTMLCanvasElement>(null);
-  
-  // Intersection observer states
-  const heroInView = useInView(heroRef, { once: false, amount: 0.5 });
-  const aboutInView = useInView(aboutRef, { once: false, amount: 0.5 });
-  
-  // Scroll animation values
+  // Custom scroll-based animations
   const { scrollYProgress } = useScroll();
-  const smoothScrollYProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
+  const opacity = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.1], [1, 0.8]);
   
-  // Initialize data stream animation
+  // Setup GSAP scroll animations
   useEffect(() => {
-    const canvas = dataStreamCanvasRef.current;
-    if (!canvas) return;
-    
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-    
-    // Set canvas size
-    const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-    
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-    
-    // Create data stream particles
-    const particles: { x: number; y: number; size: number; speed: number; color: string }[] = [];
-    const particleCount = 100;
-    
-    for (let i = 0; i < particleCount; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        size: Math.random() * 2 + 1,
-        speed: Math.random() * 1 + 0.5,
-        color: Math.random() > 0.5 ? '#0099ff' : '#ff00ff'
+    // Hero section parallax
+    if (heroRef.current) {
+      const heroElements = heroRef.current.querySelectorAll('.hero-animate');
+      
+      heroElements.forEach((element, index) => {
+        gsap.fromTo(
+          element,
+          { y: 100, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            delay: 0.2 * index,
+            ease: "power3.out"
+          }
+        );
       });
     }
     
-    // Animation loop
-    const animate = () => {
-      requestAnimationFrame(animate);
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      particles.forEach(particle => {
-        ctx.fillStyle = particle.color;
-        ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        ctx.fill();
-        
-        // Move particles
-        particle.y += particle.speed;
-        
-        // Reset particle position when it goes off screen
-        if (particle.y > canvas.height) {
-          particle.y = 0;
-          particle.x = Math.random() * canvas.width;
-        }
-      });
-    };
+    // Create scroll animations
+    const sections = document.querySelectorAll('section');
     
-    animate();
+    sections.forEach((section) => {
+      gsap.fromTo(
+        section.querySelectorAll('.scroll-animate'),
+        { y: 50, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          stagger: 0.2,
+          scrollTrigger: {
+            trigger: section,
+            start: "top 80%",
+            end: "center center",
+            scrub: 1,
+          }
+        }
+      );
+    });
     
     return () => {
-      window.removeEventListener('resize', resizeCanvas);
+      ScrollTrigger.getAll().forEach(t => t.kill());
     };
   }, []);
   
+  // Smooth scroll function
+  const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
+    if (ref.current) {
+      window.scrollTo({
+        top: ref.current.offsetTop,
+        behavior: 'smooth'
+      });
+    }
+  };
+  
   return (
-    <div className="bg-[#0D0F12] text-white min-h-screen relative">
-      {/* Global progress indicator */}
-      <div className="fixed top-0 left-0 right-0 h-1 bg-electric-blue/20 z-50">
-        <motion.div 
-          className="h-full bg-electric-blue"
-          style={{ scaleX: smoothScrollYProgress, transformOrigin: "0% 50%" }}
-        />
-      </div>
+    <div className="bg-[#0D0F12] min-h-screen overflow-x-hidden">
+      {!isMobile && <CustomCursor />}
       
-      {/* Hero Section */}
-      <section 
-        ref={heroRef}
-        className="min-h-screen flex items-center justify-center relative overflow-hidden"
-      >
-        <canvas 
-          ref={dataStreamCanvasRef}
-          className="absolute inset-0 z-0 opacity-30"
-        />
+      {/* Hero section */}
+      <section ref={heroRef} className="min-h-screen flex flex-col relative">
+        {!isMobile && <ParticleBackground color="#0099ff" count={50} density={80} />}
         
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0D0F12] to-[#0D0F12] z-10" />
-        
-        <div className="container mx-auto px-4 relative z-20 text-center">
-          <motion.h1 
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-neutral-300"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1 }}
-          >
-            {heroInView && <FadeInText text="Quantum-Powered Insights • Real-Time Structural Intelligence" />}
-          </motion.h1>
-          
-          <motion.div 
-            className="text-xl sm:text-2xl text-electric-blue mb-12 h-8"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 1 }}
-          >
-            {heroInView && <TypeWriter text="AI • Nano-Sensors • PTFE-Enhanced Waterproofing • Digital Twin Analytics" />}
-          </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 2 }}
-          >
-            <Button 
-              size="lg" 
-              className="bg-transparent relative overflow-hidden border-2 border-electric-blue hover:bg-electric-blue/20 group"
-            >
-              <span className="relative z-10">Request Demo</span>
-              <span className="absolute inset-0 bg-electric-blue/20 animate-pulse" />
-              <ArrowRight className="ml-2 h-5 w-5 relative z-10 group-hover:translate-x-1 transition-transform" />
-            </Button>
-          </motion.div>
-          
-          <motion.div 
-            className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-0"
-            animate={{ opacity: 1 }}
-            transition={{ delay: 2.5, duration: 0.5 }}
-          >
-            <ArrowRight className="h-6 w-6 transform rotate-90 text-white/50" />
-          </motion.div>
-        </div>
-      </section>
-      
-      {/* About Us Section */}
-      <section 
-        ref={aboutRef}
-        className="py-20 relative"
-      >
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <motion.h2 
-              className="text-3xl md:text-4xl font-bold mb-12 relative inline-block"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              About QuantaFONS
-              <span className="absolute -bottom-2 left-0 w-1/3 h-1 bg-electric-blue"></span>
-            </motion.h2>
-            
-            <div className="space-y-16">
-              {/* Timeline item 1 */}
-              <motion.div 
-                className="relative pl-10 border-l-2 border-electric-blue/50"
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-              >
-                <div className="absolute left-[-8px] top-0 w-4 h-4 rounded-full bg-electric-blue animate-pulse"></div>
-                <h3 className="text-xl font-bold text-white mb-2">Founded 2024</h3>
-                <p className="text-neutral-400">
-                  QuantaFONS was established by a team of engineers and data scientists with the vision of revolutionizing infrastructure management through cutting-edge technology.
-                </p>
-              </motion.div>
-              
-              {/* Timeline item 2 */}
-              <motion.div 
-                className="relative pl-10 border-l-2 border-electric-blue/50"
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-              >
-                <div className="absolute left-[-8px] top-0 w-4 h-4 rounded-full bg-electric-blue animate-pulse"></div>
-                <h3 className="text-xl font-bold text-white mb-2">PTFE Waterproofing R&D</h3>
-                <p className="text-neutral-400">
-                  Development of our proprietary PTFE-enhanced waterproofing system, offering unprecedented durability and protection for critical infrastructure.
-                </p>
-              </motion.div>
-              
-              {/* Timeline item 3 */}
-              <motion.div 
-                className="relative pl-10 border-l-2 border-electric-blue/50"
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-              >
-                <div className="absolute left-[-8px] top-0 w-4 h-4 rounded-full bg-electric-blue animate-pulse"></div>
-                <h3 className="text-xl font-bold text-white mb-2">Quantum-Fiber SHM Launch</h3>
-                <p className="text-neutral-400">
-                  Introduction of our breakthrough quantum-fiber structural health monitoring system, capable of detecting micro-changes in structural integrity with unparalleled accuracy.
-                </p>
-              </motion.div>
-              
-              {/* Timeline item 4 */}
-              <motion.div 
-                className="relative pl-10"
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.6 }}
-              >
-                <div className="absolute left-[-8px] top-0 w-4 h-4 rounded-full bg-electric-blue animate-pulse"></div>
-                <h3 className="text-xl font-bold text-white mb-2">AI-Analytics Platform</h3>
-                <p className="text-neutral-400">
-                  Launch of our cloud-based AI analytics platform, providing real-time structural intelligence and predictive maintenance insights for infrastructure managers.
-                </p>
-              </motion.div>
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      {/* Core Capabilities Section */}
-      <section 
-        ref={capabilitiesRef}
-        className="py-20 relative"
-      >
-        <div className="container mx-auto px-4">
-          <motion.h2 
-            className="text-3xl md:text-4xl font-bold mb-12 relative inline-block"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            Core Capabilities
-            <span className="absolute -bottom-2 left-0 w-1/3 h-1 bg-electric-blue"></span>
-          </motion.h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <TiltCard 
-              title="PTFE-Nano Waterproofing"
-              description="Our proprietary PTFE-based waterproofing system provides unparalleled protection against water intrusion, extending infrastructure lifespan by decades."
-              icon={<div className="w-10 h-10 text-electric-blue flex items-center justify-center">
-                <svg className="w-full h-full" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" strokeWidth="1.5" className="animate-pulse" />
-                  <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" strokeWidth="1.5" className="animate-ping" />
-                  <circle cx="12" cy="12" r="2" fill="currentColor" />
-                </svg>
-              </div>}
-            />
-            
-            <TiltCard 
-              title="Quantum Fiber Sensors"
-              description="Ultra-precise fiber optic sensing technology that monitors structural strain, temperature, and vibration with quantum-level accuracy in real-time."
-              icon={<div className="w-10 h-10 text-electric-blue flex items-center justify-center relative">
-                <div className="absolute w-full h-0.5 bg-electric-blue top-1/2 -translate-y-1/2 animate-[pulse_2s_ease-in-out_infinite]"></div>
-                <div className="absolute h-full w-0.5 bg-electric-blue left-1/2 -translate-x-1/2 animate-[pulse_3s_ease-in-out_infinite]"></div>
-                <div className="w-2 h-2 bg-electric-blue rounded-full animate-ping"></div>
-              </div>}
-            />
-            
-            <TiltCard 
-              title="AI Analytics Engine"
-              description="Our neural network-based analytics system processes sensor data to predict structural behavior and identify potential issues before they become critical."
-              icon={<div className="w-10 h-10 text-electric-blue flex items-center justify-center">
-                <svg className="w-full h-full" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M22 12H18L15 21L9 3L6 12H2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="animate-pulse"/>
-                </svg>
-              </div>}
-            />
-            
-            <TiltCard 
-              title="Digital Twin Simulation"
-              description="Complete digital replicas of physical structures that enable virtual testing, scenario planning, and optimized maintenance scheduling."
-              icon={<div className="w-10 h-10 text-electric-blue flex items-center justify-center">
-                <svg className="w-full h-full" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="4" y="4" width="16" height="16" stroke="currentColor" strokeWidth="1.5" fill="none" className="animate-[pulse_4s_infinite]" />
-                  <path d="M4 4L12 12M12 12L20 4M12 12L4 20M12 12L20 20" stroke="currentColor" strokeWidth="1.5" />
-                </svg>
-              </div>}
-            />
-          </div>
-        </div>
-      </section>
-      
-      {/* Live Data Visualizations Section */}
-      <section 
-        ref={visualizationsRef}
-        className="py-20 relative"
-      >
-        <div className="container mx-auto px-4">
-          <motion.h2 
-            className="text-3xl md:text-4xl font-bold mb-12 relative inline-block"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            Live Data Visualizations
-            <span className="absolute -bottom-2 left-0 w-1/3 h-1 bg-electric-blue"></span>
-          </motion.h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <DataVisualization title="Strain vs. Time">
-              <div className="h-64 w-full bg-[#151A1E] rounded-lg overflow-hidden relative">
-                <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-                  <linearGradient id="lineGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stopColor="#0099ff" stopOpacity="0.3" />
-                    <stop offset="100%" stopColor="#0099ff" stopOpacity="0" />
-                  </linearGradient>
-                  <path 
-                    d="M0 50 L10 48 L20 52 L30 45 L40 55 L50 40 L60 60 L70 30 L80 50 L90 35 L100 45" 
-                    fill="none" 
-                    stroke="#0099ff" 
-                    strokeWidth="1.5"
-                    className="animate-pulse"
-                  />
-                  <path 
-                    d="M0 50 L10 48 L20 52 L30 45 L40 55 L50 40 L60 60 L70 30 L80 50 L90 35 L100 45 V100 H0 Z" 
-                    fill="url(#lineGradient)"
-                  />
-                </svg>
-                <div className="absolute bottom-2 right-2 text-xs text-electric-blue bg-[#0D0F12]/80 p-1 rounded">
-                  Live
-                </div>
-              </div>
-            </DataVisualization>
-            
-            <DataVisualization title="Corrosion Risk Heatmap">
-              <div className="h-64 w-full bg-[#151A1E] rounded-lg overflow-hidden relative">
-                <div className="grid grid-cols-10 grid-rows-10 gap-1 p-2 h-full w-full">
-                  {Array.from({ length: 100 }).map((_, index) => {
-                    const row = Math.floor(index / 10);
-                    const col = index % 10;
-                    const intensity = (Math.sin(row * 0.5) + Math.cos(col * 0.5) + 2) / 4;
-                    const hue = 200 - intensity * 200; // Blue to red
-                    
-                    return (
-                      <div 
-                        key={index} 
-                        className="rounded-sm animate-pulse"
-                        style={{ 
-                          backgroundColor: `hsla(${hue}, 100%, 50%, ${0.3 + intensity * 0.7})`,
-                          animationDelay: `${(row + col) * 0.1}s`,
-                          animationDuration: '3s'
-                        }}
-                      />
-                    );
-                  })}
-                </div>
-                <div className="absolute bottom-2 right-2 text-xs text-electric-blue bg-[#0D0F12]/80 p-1 rounded">
-                  Live
-                </div>
-              </div>
-            </DataVisualization>
-            
-            <DataVisualization title="Carbonation Depth Profile">
-              <div className="h-64 w-full bg-[#151A1E] rounded-lg overflow-hidden relative">
-                <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-                  <linearGradient id="areaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stopColor="#ff00ff" stopOpacity="0.3" />
-                    <stop offset="100%" stopColor="#ff00ff" stopOpacity="0" />
-                  </linearGradient>
-                  <path 
-                    d="M0 80 Q25 60 50 70 T100 50 V100 H0 Z" 
-                    fill="url(#areaGradient)"
-                    className="animate-pulse"
-                  />
-                  <path 
-                    d="M0 80 Q25 60 50 70 T100 50" 
-                    fill="none" 
-                    stroke="#ff00ff" 
-                    strokeWidth="1.5"
-                  />
-                </svg>
-                <div className="absolute bottom-2 right-2 text-xs text-electric-blue bg-[#0D0F12]/80 p-1 rounded">
-                  Live
-                </div>
-              </div>
-            </DataVisualization>
-          </div>
-        </div>
-      </section>
-      
-      {/* Case Studies Section */}
-      <section 
-        ref={caseStudiesRef}
-        className="py-20 relative"
-      >
-        <div className="container mx-auto px-4">
-          <motion.h2 
-            className="text-3xl md:text-4xl font-bold mb-12 relative inline-block"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            Case Studies
-            <span className="absolute -bottom-2 left-0 w-1/3 h-1 bg-electric-blue"></span>
-          </motion.h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <CaseStudyPanel 
-              title="Mumbai Metro Waterproofing"
-              description="Implementation of our PTFE-Nano waterproofing system for Mumbai Metro's underground sections, preventing water ingress in one of the world's most challenging monsoon environments. The system has maintained complete waterproofing integrity for 3+ years with zero reported leakages, compared to industry standard solutions that typically show signs of failure within 18 months in similar conditions."
-              icon={<svg className="w-10 h-10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M7 16.2236C7 18.5034 9.01472 20 11.5 20C13.9853 20 16 18.5034 16 16.2236" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                <path d="M4 9L4 15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                <path d="M20 9V15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                <path d="M11 6H13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                <path d="M4 13L20 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                <path d="M4 10C4 7.17157 4 5.75736 4.87868 4.87868C5.75736 4 7.17157 4 10 4H14C16.8284 4 18.2426 4 19.1213 4.87868C20 5.75736 20 7.17157 20 10V14C20 16.8284 20 18.2426 19.1213 19.1213C18.2426 20 16.8284 20 14 20H10C7.17157 20 5.75736 20 4.87868 19.1213C4 18.2426 4 16.8284 4 14V10Z" stroke="currentColor" strokeWidth="1.5"/>
-              </svg>}
-              bgClass="bg-gradient-to-br from-blue-900/50 to-blue-600/10"
-            />
-            
-            <CaseStudyPanel 
-              title="Delhi Airport Runway SHM"
-              description="Deployment of our quantum-fiber structural health monitoring system across Delhi International Airport's primary runway, enabling real-time detection of subsurface voids and structural fatigue. The system identified early signs of base course erosion in two locations, allowing for targeted maintenance that prevented potential runway closure and saved an estimated $3.2M in emergency repairs and operational disruption."
-              icon={<svg className="w-10 h-10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M10.5 4.5V9.5C10.5 9.5 10.5 10.5 9.5 10.5C8.5 10.5 8.5 9.5 8.5 9.5C8.5 9.5 8.5 8.5 7.5 8.5C6.5 8.5 6.5 9.5 6.5 9.5C6.5 9.5 6.5 10.5 5.5 10.5C4.5 10.5 4.5 9.5 4.5 9.5V4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M15.5 9.5V4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M15.5 19.5L13.5 14.5L15.5 9.5L17.5 14.5L15.5 19.5Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M10.5 19.5V14.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M10.5 19.5C10.5 19.5 8.5 19.5 8.5 17.5C8.5 15.5 10.5 14.5 10.5 14.5C10.5 14.5 12.5 15.5 12.5 17.5C12.5 19.5 10.5 19.5 10.5 19.5Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M4.5 19.5V14.5L7.5 17L4.5 19.5Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M20.5 9.5V4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M18.5 7.5H22.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M20.5 14.5V19.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M18.5 16.5H22.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>}
-              bgClass="bg-gradient-to-br from-green-900/50 to-green-600/10"
-            />
-            
-            <CaseStudyPanel 
-              title="Hyderabad High-Rise Digital Twin"
-              description="Creation of a comprehensive digital twin for Hyderabad's 62-story Centennial Tower, integrating real-time monitoring data with predictive simulation capabilities. The digital twin enabled scenario planning for structural reinforcement to accommodate a planned 8-story addition, predicting stress distribution patterns with 97% accuracy when compared to physical testing, and reducing design optimization time from 6 months to 6 weeks."
-              icon={<svg className="w-10 h-10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M2 22L12 2L22 22H2Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M12 18L17 13L11 15L7 11L12 18Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>}
-              bgClass="bg-gradient-to-br from-purple-900/50 to-purple-600/10"
-            />
-          </div>
-        </div>
-      </section>
-      
-      {/* Technology Stack Section */}
-      <section 
-        ref={techStackRef}
-        className="py-20 relative"
-      >
-        <div className="container mx-auto px-4">
-          <motion.h2 
-            className="text-3xl md:text-4xl font-bold mb-12 relative inline-block"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            Technology Stack & R&D
-            <span className="absolute -bottom-2 left-0 w-1/3 h-1 bg-electric-blue"></span>
-          </motion.h2>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <TechnologyCard 
-              icon={<svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 5.5C13.66 5.5 15 6.84 15 8.5C15 10.16 13.66 11.5 12 11.5C10.34 11.5 9 10.16 9 8.5C9 6.84 10.34 5.5 12 5.5ZM12 19.2C9.5 19.2 7.29 17.92 6 15.98C6.03 13.99 10 12.9 12 12.9C13.99 12.9 17.97 13.99 18 15.98C16.71 17.92 14.5 19.2 12 19.2Z" fill="currentColor"/>
-              </svg>}
-              name="Python"
-              description="Core language for our AI/ML models and data processing pipeline."
-            />
-            
-            <TechnologyCard 
-              icon={<svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M22.0883 12.0005C22.0883 10.8155 21.9453 9.72051 21.6833 8.72551L21.6693 8.67651L21.6553 8.62651C20.5333 4.86651 17.2353 2.14251 13.2443 2.14251C11.0753 2.14251 9.08434 2.92851 7.56134 4.25951L8.90934 5.16751C10.1413 4.11251 11.6243 3.50051 13.2443 3.50051C16.4123 3.50051 19.0883 5.65551 20.0953 8.63551C20.3133 9.48051 20.4293 10.4055 20.4293 11.3895V12.0005C20.4293 12.6115 20.3653 13.2085 20.2453 13.7875C19.3923 17.3735 16.6053 20.0005 13.2443 20.0005C11.6223 20.0005 10.1393 19.3865 8.90634 18.3315L7.55934 19.2405C9.08334 20.5695 11.0733 21.3555 13.2443 21.3555C17.2343 21.3555 20.5323 18.6345 21.6543 14.8745C21.9403 13.9825 22.0883 13.0125 22.0883 12.0005Z" fill="currentColor"/>
-                <path d="M21.0543 5.74352L14.0283 10.6885L14.0393 14.2085L17.5023 11.8315L17.5173 17.6345L19.5493 16.2425L19.5313 10.4405L21.0543 9.39552V5.74352Z" fill="currentColor"/>
-                <path d="M12.4283 10.6885L5.40234 5.74352V9.39552L6.92535 10.4405L6.90734 16.2425L8.93935 17.6345L8.95436 11.8315L12.4173 14.2085L12.4283 10.6885Z" fill="currentColor"/>
-              </svg>}
-              name="TensorFlow"
-              description="Deep learning framework for our neural network models."
-            />
-            
-            <TechnologyCard 
-              icon={<svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2L3 7V17L12 22L21 17V7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M12 22V12M12 12L21 7M12 12L3 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M12 2V12M12 12L3 17M12 12L21 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>}
-              name="Node.js"
-              description="Backend runtime for our data processing APIs and dashboards."
-            />
-            
-            <TechnologyCard 
-              icon={<svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M16.5 16.5L21 21M18.75 11.625C18.75 15.5869 15.5369 18.75 11.625 18.75C7.71307 18.75 4.5 15.5869 4.5 11.625C4.5 7.66307 7.71307 4.5 11.625 4.5C15.5369 4.5 18.75 7.66307 18.75 11.625Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M11.625 8.25V12M11.625 12V15.75M11.625 12H15.375M11.625 12H7.875" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>}
-              name="WebGL"
-              description="Graphics API for our 3D visualizations and digital twins."
-            />
-            
-            <TechnologyCard 
-              icon={<svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M2 17L12 22L22 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M2 12L12 17L22 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>}
-              name="Three.js"
-              description="JavaScript 3D library for interactive structural visualizations."
-            />
-            
-            <TechnologyCard 
-              icon={<svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/>
-                <path d="M18 12H6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M12 18V6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>}
-              name="D3.js"
-              description="Data visualization library for our analytics dashboards."
-            />
-            
-            <TechnologyCard 
-              icon={<svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" strokeWidth="2"/>
-                <path d="M7 12H17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M12 7V17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>}
-              name="SolidWorks"
-              description="CAD software for our structural design and simulation."
-            />
-            
-            <TechnologyCard 
-              icon={<svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2L14.5 2.90175L17 3.80349L18.1962 6.15635L19.3923 8.5092L19.3923 11.5L19.3923 14.4908L18.1962 16.8436L17 19.1965L14.5 20.0982L12 21L9.5 20.0982L7 19.1965L5.80385 16.8436L4.60769 14.4908L4.60769 11.5L4.60769 8.5092L5.80385 6.15635L7 3.80349L9.5 2.90175L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
-                <path d="M12 16L12 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <circle cx="12" cy="8" r="1" fill="currentColor"/>
-              </svg>}
-              name="COMSOL"
-              description="Multiphysics simulation software for complex structural analysis."
-            />
-          </div>
-        </div>
-      </section>
-      
-      {/* Team Section */}
-      <section 
-        ref={teamRef}
-        className="py-20 relative"
-      >
-        <div className="container mx-auto px-4">
-          <motion.h2 
-            className="text-3xl md:text-4xl font-bold mb-12 relative inline-block"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            Team & Lab
-            <span className="absolute -bottom-2 left-0 w-1/3 h-1 bg-electric-blue"></span>
-          </motion.h2>
-          
-          <div className="flex flex-wrap justify-center gap-10">
-            <TeamMember 
-              name="Dr. Amit Sharma"
-              title="Founder & CEO"
-              avatarSrc="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Crect width='160' height='160' fill='%23252830'/%3E%3Ctext x='50%' y='50%' font-size='48' text-anchor='middle' alignment-baseline='middle' font-family='sans-serif' fill='%230099ff'%3EAS%3C/text%3E%3C/svg%3E"
-            />
-            
-            <TeamMember 
-              name="Dr. Priya Patel"
-              title="Chief Science Officer"
-              avatarSrc="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Crect width='160' height='160' fill='%23252830'/%3E%3Ctext x='50%' y='50%' font-size='48' text-anchor='middle' alignment-baseline='middle' font-family='sans-serif' fill='%230099ff'%3EPP%3C/text%3E%3C/svg%3E"
-            />
-            
-            <TeamMember 
-              name="Dr. Rajiv Mehta"
-              title="Chief Technology Officer"
-              avatarSrc="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Crect width='160' height='160' fill='%23252830'/%3E%3Ctext x='50%' y='50%' font-size='48' text-anchor='middle' alignment-baseline='middle' font-family='sans-serif' fill='%230099ff'%3ERM%3C/text%3E%3C/svg%3E"
-            />
-            
-            <TeamMember 
-              name="Ananya Singh"
-              title="Data Science Lead"
-              avatarSrc="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Crect width='160' height='160' fill='%23252830'/%3E%3Ctext x='50%' y='50%' font-size='48' text-anchor='middle' alignment-baseline='middle' font-family='sans-serif' fill='%230099ff'%3EAS%3C/text%3E%3C/svg%3E"
-            />
-            
-            <TeamMember 
-              name="Vikram Reddy"
-              title="Engineering Director"
-              avatarSrc="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Crect width='160' height='160' fill='%23252830'/%3E%3Ctext x='50%' y='50%' font-size='48' text-anchor='middle' alignment-baseline='middle' font-family='sans-serif' fill='%230099ff'%3EVR%3C/text%3E%3C/svg%3E"
-            />
-          </div>
-        </div>
-      </section>
-      
-      {/* Contact Section */}
-      <section 
-        ref={contactRef}
-        className="py-20 relative overflow-hidden"
-      >
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-[#0D0F12] opacity-80"></div>
-          <div className="absolute inset-0 bg-gradient-to-b from-electric-blue/5 to-magenta/5"></div>
-          <div className="absolute inset-0 flex items-center justify-center opacity-10">
-            <div className="w-full h-full max-w-4xl max-h-4xl rounded-full bg-electric-blue animate-pulse"></div>
+          <div className="absolute top-0 right-0 w-96 h-96 bg-electric-blue/10 rounded-full filter blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-magenta/10 rounded-full filter blur-3xl"></div>
+        </div>
+        
+        <div className="container mx-auto px-4 flex-1 flex flex-col justify-center items-center text-center relative z-10">
+          <motion.div style={{ opacity, scale }}>
+            <motion.div 
+              className="text-sm uppercase tracking-widest text-electric-blue mb-4 hero-animate"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              Revolutionizing Civil Engineering
+            </motion.div>
+            
+            <motion.h1 
+              className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 hero-animate"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <span className="relative inline-block">
+                Quanta
+                <span className="absolute -bottom-1 left-0 w-full h-1 bg-electric-blue"></span>
+              </span>
+              <span className="text-electric-blue">FONS</span>
+            </motion.h1>
+            
+            <motion.p 
+              className="text-xl text-neutral-400 mb-10 max-w-3xl mx-auto hero-animate"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              Leading the future of infrastructure management with advanced engineering solutions, 
+              cutting-edge materials, and AI-driven monitoring systems.
+            </motion.p>
+            
+            <motion.div 
+              className="flex flex-col sm:flex-row gap-4 justify-center hero-animate"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+            >
+              <Button 
+                className="bg-electric-blue hover:bg-electric-blue/80 text-white"
+                onClick={() => navigate('/contact')}
+              >
+                Get in Touch
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+              
+              <Button 
+                className="bg-transparent border border-white/20 text-white hover:bg-white/10"
+                onClick={() => scrollToSection(aboutRef)}
+              >
+                Learn More
+                <ArrowDown className="ml-2 h-4 w-4" />
+              </Button>
+            </motion.div>
+          </motion.div>
+        </div>
+        
+        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex justify-center items-center z-10">
+          <motion.div 
+            className="w-8 h-12 rounded-full border-2 border-electric-blue/30 flex justify-center items-start p-1"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 1 }}
+          >
+            <motion.div 
+              className="w-1 h-2 bg-electric-blue rounded-full"
+              animate={{ 
+                y: [0, 8, 0],
+                opacity: [1, 0.5, 1]
+              }}
+              transition={{ 
+                duration: 1.5,
+                repeat: Infinity,
+                repeatType: "loop"
+              }}
+            />
+          </motion.div>
+        </div>
+      </section>
+      
+      {/* About section */}
+      <section ref={aboutRef} className="py-24 relative">
+        <div className="container mx-auto px-4">
+          <SectionHeader
+            title="About QuantaFONS"
+            subtitle="A pioneering R&D company at the intersection of civil engineering, materials science, and digital technology."
+          />
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
+            <motion.div
+              className="scroll-animate"
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <div className="relative">
+                <div className="absolute -top-6 -left-6 w-24 h-24 border-t-2 border-l-2 border-electric-blue/30"></div>
+                <div className="absolute -bottom-6 -right-6 w-24 h-24 border-b-2 border-r-2 border-electric-blue/30"></div>
+                
+                <div className="bg-[#15171B] p-8 rounded-xl">
+                  <h3 className="text-2xl font-bold text-white mb-4">Our Mission</h3>
+                  <p className="text-neutral-400 mb-6">
+                    To revolutionize infrastructure management through innovative technologies that enhance durability, 
+                    safety, and sustainability while reducing lifetime costs.
+                  </p>
+                  
+                  <h3 className="text-2xl font-bold text-white mb-4">Our Vision</h3>
+                  <p className="text-neutral-400">
+                    A world where infrastructure is intelligent, self-monitoring, and built with advanced materials 
+                    that minimize environmental impact while maximizing performance.
+                  </p>
+                </div>
+              </div>
+              
+              <div className="mt-8 grid grid-cols-2 gap-4">
+                <div className="bg-[#15171B] p-6 rounded-xl border border-electric-blue/10">
+                  <div className="text-4xl font-bold text-electric-blue mb-2">12+</div>
+                  <div className="text-white">Years of Research</div>
+                </div>
+                
+                <div className="bg-[#15171B] p-6 rounded-xl border border-electric-blue/10">
+                  <div className="text-4xl font-bold text-electric-blue mb-2">40+</div>
+                  <div className="text-white">Research Papers</div>
+                </div>
+                
+                <div className="bg-[#15171B] p-6 rounded-xl border border-electric-blue/10">
+                  <div className="text-4xl font-bold text-electric-blue mb-2">16</div>
+                  <div className="text-white">Patents</div>
+                </div>
+                
+                <div className="bg-[#15171B] p-6 rounded-xl border border-electric-blue/10">
+                  <div className="text-4xl font-bold text-electric-blue mb-2">240+</div>
+                  <div className="text-white">Projects</div>
+                </div>
+              </div>
+            </motion.div>
+            
+            <motion.div
+              className="scroll-animate"
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <div className="bg-[#15171B] p-8 rounded-xl border border-electric-blue/10 relative">
+                <div className="absolute -top-3 -right-3 w-6 h-6 bg-electric-blue rounded-full"></div>
+                <div className="absolute -bottom-3 -left-3 w-6 h-6 bg-electric-blue rounded-full"></div>
+                
+                <h3 className="text-2xl font-bold text-white mb-6">Our Approach</h3>
+                
+                <div className="space-y-6">
+                  <div className="flex gap-4">
+                    <div className="p-2 bg-electric-blue/10 rounded-lg text-electric-blue h-10 w-10 flex items-center justify-center shrink-0">
+                      <Zap className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <h4 className="text-white font-bold mb-1">Research-Driven Innovation</h4>
+                      <p className="text-neutral-400">
+                        Our solutions begin with rigorous scientific research, leading to breakthrough technologies.
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex gap-4">
+                    <div className="p-2 bg-electric-blue/10 rounded-lg text-electric-blue h-10 w-10 flex items-center justify-center shrink-0">
+                      <BarChart3 className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <h4 className="text-white font-bold mb-1">Data-Powered Intelligence</h4>
+                      <p className="text-neutral-400">
+                        We transform raw sensor data into actionable insights through advanced analytics and AI.
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex gap-4">
+                    <div className="p-2 bg-electric-blue/10 rounded-lg text-electric-blue h-10 w-10 flex items-center justify-center shrink-0">
+                      <Shield className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <h4 className="text-white font-bold mb-1">Preventive Protection</h4>
+                      <p className="text-neutral-400">
+                        Our materials and monitoring systems prevent problems before they occur, extending infrastructure lifespan.
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex gap-4">
+                    <div className="p-2 bg-electric-blue/10 rounded-lg text-electric-blue h-10 w-10 flex items-center justify-center shrink-0">
+                      <Building className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <h4 className="text-white font-bold mb-1">Future-Ready Engineering</h4>
+                      <p className="text-neutral-400">
+                        We design solutions that anticipate the challenges of tomorrow's infrastructure needs.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="mt-8">
+                  <Button 
+                    className="bg-electric-blue hover:bg-electric-blue/80 text-white"
+                    onClick={() => navigate('/about')}
+                  >
+                    Discover Our Story
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+            </motion.div>
           </div>
+        </div>
+      </section>
+      
+      {/* Core capabilities section */}
+      <section ref={capabilitiesRef} className="py-24 bg-[#0A0C10] relative">
+        <div className="absolute top-0 right-0 w-full h-full overflow-hidden">
+          <div className="absolute -top-20 -right-20 w-96 h-96 bg-electric-blue/5 rounded-full filter blur-3xl"></div>
         </div>
         
         <div className="container mx-auto px-4 relative z-10">
-          <motion.h2 
-            className="text-3xl md:text-4xl font-bold mb-12 relative inline-block"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            Contact / Demo Request
-            <span className="absolute -bottom-2 left-0 w-1/3 h-1 bg-electric-blue"></span>
-          </motion.h2>
+          <SectionHeader
+            title="Core Capabilities"
+            subtitle="Our integrated suite of advanced engineering solutions tackles the most demanding infrastructure challenges."
+          />
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <TechnologyCard
+              icon={<svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 4L4 8L12 12L20 8L12 4Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M4 16L12 20L20 16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M4 12L12 16L20 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>}
+              title="Advanced Materials"
+              description="Nano-enhanced concrete admixtures and PTFE-based waterproofing systems for unprecedented durability and performance."
+            />
+            
+            <TechnologyCard
+              icon={<svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 16V8.00002C20.9996 7.6493 20.9071 7.30483 20.7315 7.00119C20.556 6.69754 20.3037 6.44539 20 6.27002L13 2.27002C12.696 2.09449 12.3511 2.00208 12 2.00208C11.6489 2.00208 11.304 2.09449 11 2.27002L4 6.27002C3.69626 6.44539 3.44398 6.69754 3.26846 7.00119C3.09294 7.30483 3.00036 7.6493 3 8.00002V16C3.00036 16.3508 3.09294 16.6952 3.26846 16.9989C3.44398 17.3025 3.69626 17.5547 4 17.73L11 21.73C11.304 21.9056 11.6489 21.998 12 21.998C12.3511 21.998 12.696 21.9056 13 21.73L20 17.73C20.3037 17.5547 20.556 17.3025 20.7315 16.9989C20.9071 16.6952 20.9996 16.3508 21 16Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M3.27002 6.96002L12 12.01L20.73 6.96002" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M12 22.08V12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>}
+              title="Structural Health Monitoring"
+              description="AI-driven monitoring systems using distributed fiber optic sensors to detect and predict infrastructure issues."
+            />
+            
+            <TechnologyCard
+              icon={<svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M12 14C13.1046 14 14 13.1046 14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>}
+              title="Acoustic Analysis Software"
+              description="Proprietary software that analyzes acoustic signatures to identify early signs of structural deterioration."
+            />
+          </div>
+          
+          <div className="text-center mt-16">
+            <Button 
+              className="bg-electric-blue hover:bg-electric-blue/80 text-white"
+              onClick={() => navigate('/technologies')}
             >
-              <h3 className="text-xl font-bold mb-6 text-white">Request Information</h3>
+              Explore All Technologies
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </div>
+        </div>
+      </section>
+      
+      {/* Visualization section */}
+      <section ref={scrollRef} className="py-24 relative">
+        <div className="container mx-auto px-4">
+          <SectionHeader
+            title="Acoustic Index Visualizer"
+            subtitle="Our proprietary acoustic analysis technology detects micro-fractures and structural weaknesses through advanced sound analysis."
+          />
+          
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <motion.div
+                className="bg-[#15171B] p-6 rounded-xl border border-electric-blue/10"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                whileHover={{ y: -10, transition: { duration: 0.3 } }}
+              >
+                <div className="w-12 h-12 bg-electric-blue/10 rounded-full flex items-center justify-center mb-4">
+                  <svg className="w-6 h-6 text-electric-blue" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M7.5 12H16.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M11 7.5L7.5 12L11 16.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+                <h3 className="text-white text-xl font-bold mb-2">Data Capture</h3>
+                <p className="text-neutral-400">
+                  Our advanced sensors capture acoustic vibrations from infrastructure at ultra-high sampling rates, detecting frequencies beyond human hearing range.
+                </p>
+              </motion.div>
               
-              <div className="space-y-4">
-                <div className="rounded-lg bg-[#1A1D21] p-4 border border-electric-blue/30 flex items-center">
-                  <div className="bg-electric-blue/10 rounded-full p-2 mr-4">
-                    <Check className="h-5 w-5 text-electric-blue" />
-                  </div>
-                  <div>
-                    <h4 className="text-white font-medium">Your Industry</h4>
-                    <p className="text-sm text-neutral-400">We specialize in infrastructure, buildings, and industrial facilities</p>
-                  </div>
+              <motion.div
+                className="bg-[#15171B] p-6 rounded-xl border border-electric-blue/10"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                whileHover={{ y: -10, transition: { duration: 0.3 } }}
+              >
+                <div className="w-12 h-12 bg-electric-blue/10 rounded-full flex items-center justify-center mb-4">
+                  <svg className="w-6 h-6 text-electric-blue" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14 9V5C14 4.46957 13.7893 3.96086 13.4142 3.58579C13.0391 3.21071 12.5304 3 12 3H5C4.46957 3 3.96086 3.21071 3.58579 3.58579C3.21071 3.96086 3 4.46957 3 5V19C3 19.5304 3.21071 20.0391 3.58579 20.4142C3.96086 20.7893 4.46957 21 5 21H12C12.5304 21 13.0391 20.7893 13.4142 20.4142C13.7893 20.0391 14 19.5304 14 19V15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M7 7H9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M7 11H9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M7 15H9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M17 11L21 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M21 11L17 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
                 </div>
-                
-                <div className="rounded-lg bg-[#1A1D21] p-4 border border-electric-blue/30 flex items-center">
-                  <div className="bg-electric-blue/10 rounded-full p-2 mr-4">
-                    <Check className="h-5 w-5 text-electric-blue" />
-                  </div>
-                  <div>
-                    <h4 className="text-white font-medium">Project Type</h4>
-                    <p className="text-sm text-neutral-400">New construction, retrofitting, or ongoing monitoring</p>
-                  </div>
+                <h3 className="text-white text-xl font-bold mb-2">AI Analysis</h3>
+                <p className="text-neutral-400">
+                  Our proprietary machine learning algorithms analyze acoustic signatures against our database of over 10,000 structural failure patterns.
+                </p>
+              </motion.div>
+              
+              <motion.div
+                className="bg-[#15171B] p-6 rounded-xl border border-electric-blue/10"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                whileHover={{ y: -10, transition: { duration: 0.3 } }}
+              >
+                <div className="w-12 h-12 bg-electric-blue/10 rounded-full flex items-center justify-center mb-4">
+                  <svg className="w-6 h-6 text-electric-blue" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12C21 13.1819 20.7672 14.3522 20.3149 15.4442C19.8626 16.5361 19.1997 17.5282 18.364 18.364C17.5282 19.1997 16.5361 19.8626 15.4442 20.3149C14.3522 20.7672 13.1819 21 12 21C10.8181 21 9.64778 20.7672 8.55585 20.3149C7.46392 19.8626 6.47177 19.1997 5.63604 18.364C4.80031 17.5282 4.13738 16.5361 3.68508 15.4442C3.23279 14.3522 3 13.1819 3 12C3 9.61305 3.94821 7.32387 5.63604 5.63604C7.32387 3.94821 9.61305 3 12 3C14.3869 3 16.6761 3.94821 18.364 5.63604C20.0518 7.32387 21 9.61305 21 12Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M12 16L9 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M12 8V16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M16 13L12 16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
                 </div>
-                
-                <div className="rounded-lg bg-[#1A1D21] p-4 border border-electric-blue/30 flex items-center">
-                  <div className="bg-electric-blue/10 rounded-full p-2 mr-4">
-                    <Check className="h-5 w-5 text-electric-blue" />
-                  </div>
-                  <div>
-                    <h4 className="text-white font-medium">Budget Range</h4>
-                    <p className="text-sm text-neutral-400">We offer solutions for projects of all sizes</p>
+                <h3 className="text-white text-xl font-bold mb-2">3D Visualization</h3>
+                <p className="text-neutral-400">
+                  Our system generates comprehensive 3D visualizations showing structural integrity hotspots with precise severity rankings.
+                </p>
+              </motion.div>
+            </div>
+            
+            <motion.div
+              className="mt-16 bg-[#15171B] p-6 rounded-xl border border-electric-blue/20 overflow-hidden"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <div className="relative aspect-video">
+                <div className="absolute inset-0 bg-gradient-to-tr from-electric-blue/20 to-magenta/20 flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="inline-block p-4 bg-[#0D0F12]/80 rounded-xl mb-4">
+                      <svg className="w-16 h-16 text-electric-blue mx-auto" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        <path d="M10 8L16 12L10 16V8Z" fill="currentColor" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </div>
+                    <h3 className="text-white text-xl font-bold">Watch Demo: Acoustic Analysis in Action</h3>
                   </div>
                 </div>
               </div>
-            </motion.div>
-            
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <h3 className="text-xl font-bold mb-6 text-white">Contact Details</h3>
-              
-              <form className="space-y-4">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label htmlFor="first-name" className="block text-sm font-medium text-neutral-300 mb-1">First Name</label>
-                    <input
-                      type="text"
-                      id="first-name"
-                      className="w-full bg-[#1A1D21] border border-electric-blue/30 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-electric-blue/50 focus:border-electric-blue focus:outline-none transition-all"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="last-name" className="block text-sm font-medium text-neutral-300 mb-1">Last Name</label>
-                    <input
-                      type="text"
-                      id="last-name"
-                      className="w-full bg-[#1A1D21] border border-electric-blue/30 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-electric-blue/50 focus:border-electric-blue focus:outline-none transition-all"
-                    />
-                  </div>
-                </div>
-                
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-neutral-300 mb-1">Email Address</label>
-                  <input
-                    type="email"
-                    id="email"
-                    className="w-full bg-[#1A1D21] border border-electric-blue/30 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-electric-blue/50 focus:border-electric-blue focus:outline-none transition-all"
-                  />
-                </div>
-                
-                <div>
-                  <label htmlFor="company" className="block text-sm font-medium text-neutral-300 mb-1">Company</label>
-                  <input
-                    type="text"
-                    id="company"
-                    className="w-full bg-[#1A1D21] border border-electric-blue/30 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-electric-blue/50 focus:border-electric-blue focus:outline-none transition-all"
-                  />
-                </div>
-                
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-neutral-300 mb-1">Message</label>
-                  <textarea
-                    id="message"
-                    rows={4}
-                    className="w-full bg-[#1A1D21] border border-electric-blue/30 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-electric-blue/50 focus:border-electric-blue focus:outline-none transition-all resize-none"
-                  ></textarea>
-                </div>
-                
-                <div className="pt-2">
-                  <Button className="w-full bg-electric-blue hover:bg-electric-blue/90 text-white relative overflow-hidden group">
-                    <span className="relative z-10">Submit Request</span>
-                    <span className="absolute inset-0 bg-gradient-to-r from-electric-blue via-magenta to-electric-blue bg-[length:200%_100%] animate-gradient"></span>
-                  </Button>
-                </div>
-              </form>
             </motion.div>
           </div>
         </div>
       </section>
       
-      {/* Footer */}
-      <footer className="py-10 border-t border-neutral-800">
+      {/* Case studies section */}
+      <section className="py-24 bg-[#0A0C10]">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="mb-6 md:mb-0">
-              <h2 className="text-2xl font-bold text-white">QuantaFONS</h2>
-              <p className="text-neutral-400">Quantum-Powered Structural Intelligence</p>
-            </div>
+          <SectionHeader
+            title="Case Studies"
+            subtitle="See how our technologies have been implemented in real-world infrastructure projects."
+          />
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <CaseStudyCard
+              title="Bridge Monitoring System"
+              client="National Highway Authority"
+              description="Implementation of our fiber optic SHM system on a major suspension bridge, providing real-time structural health data."
+              image="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='400' viewBox='0 0 800 400'%3E%3Crect width='800' height='400' fill='%23252830'/%3E%3Cpath d='M100,200 L700,200 M150,200 L150,150 M250,200 L250,120 M350,200 L350,100 M450,200 L450,100 M550,200 L550,120 M650,200 L650,150' stroke='%230099ff' stroke-width='10' fill='none' /%3E%3Cpath d='M150,150 Q400,50 650,150' stroke='%230099ff' stroke-width='8' fill='none' /%3E%3C/svg%3E"
+            />
             
-            <div className="flex space-x-6">
-              <a href="#" className="text-neutral-400 hover:text-electric-blue transition-colors">
-                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"></path></svg>
-              </a>
-              <a href="#" className="text-neutral-400 hover:text-electric-blue transition-colors">
-                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-              </a>
-              <a href="#" className="text-neutral-400 hover:text-electric-blue transition-colors">
-                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-              </a>
-            </div>
+            <CaseStudyCard
+              title="Tunnel Waterproofing Project"
+              client="European Transit Authority"
+              description="Application of our PTFE-enhanced waterproofing system in a high-pressure underwater transit tunnel."
+              image="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='400' viewBox='0 0 800 400'%3E%3Crect width='800' height='400' fill='%23252830'/%3E%3Ccircle cx='400' cy='200' r='150' stroke='%230099ff' stroke-width='10' fill='none' /%3E%3Cpath d='M250,200 L550,200' stroke='%230099ff' stroke-width='8' fill='none' /%3E%3Ccircle cx='400' cy='200' r='190' stroke='%230099ff' stroke-width='4' stroke-dasharray='15,10' fill='none' /%3E%3C/svg%3E"
+            />
+            
+            <CaseStudyCard
+              title="Dam Acoustic Monitoring"
+              client="Regional Water Authority"
+              description="Deployment of our acoustic analysis system to monitor an aging concrete dam for early detection of structural issues."
+              image="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='400' viewBox='0 0 800 400'%3E%3Crect width='800' height='400' fill='%23252830'/%3E%3Cpath d='M150,300 L650,300 L650,100 L400,50 L150,100 Z' stroke='%230099ff' stroke-width='10' fill='none' /%3E%3Cpath d='M200,300 L200,120 M300,300 L300,100 M400,300 L400,80 M500,300 L500,100 M600,300 L600,120' stroke='%230099ff' stroke-width='4' stroke-dasharray='10,5' fill='none' /%3E%3C/svg%3E"
+            />
           </div>
           
-          <div className="mt-8 pt-8 border-t border-neutral-800 text-center text-neutral-500 text-sm">
-            &copy; {new Date().getFullYear()} QuantaFONS Pvt. Ltd. All rights reserved.
+          <div className="text-center mt-16">
+            <Button 
+              className="bg-electric-blue hover:bg-electric-blue/80 text-white"
+              onClick={() => navigate('/case-studies')}
+            >
+              View All Case Studies
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
           </div>
         </div>
-      </footer>
+      </section>
+      
+      {/* Tech stack section */}
+      <section className="py-24 relative">
+        <div className="absolute inset-0 z-0">
+          <div className="absolute top-0 left-0 w-96 h-96 bg-electric-blue/5 rounded-full filter blur-3xl"></div>
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-magenta/5 rounded-full filter blur-3xl"></div>
+        </div>
+        
+        <div className="container mx-auto px-4 relative z-10">
+          <SectionHeader
+            title="Technology Stack"
+            subtitle="Our proprietary technologies leverage cutting-edge tools and frameworks."
+          />
+          
+          <motion.div 
+            className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            {[...Array(8)].map((_, i) => (
+              <div 
+                key={i}
+                className="p-6 bg-[#15171B] rounded-xl border border-electric-blue/10 hover:border-electric-blue/30 transition-colors duration-300 text-center"
+              >
+                <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-electric-blue/10 flex items-center justify-center">
+                  <div className="w-6 h-6 text-electric-blue">
+                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path d="M2 12H22" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path d="M12 2C14.5013 4.73835 15.9228 8.29203 16 12C15.9228 15.708 14.5013 19.2616 12 22C9.49872 19.2616 8.07725 15.708 8 12C8.07725 8.29203 9.49872 4.73835 12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </div>
+                </div>
+                <div className="text-white font-medium">Technology {i + 1}</div>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+      
+      {/* Team section */}
+      <section className="py-24 bg-[#0A0C10]">
+        <div className="container mx-auto px-4">
+          <SectionHeader
+            title="Our Team"
+            subtitle="Meet the innovative minds behind QuantaFONS's groundbreaking technologies."
+          />
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            <TeamMemberCard
+              name="Dr. Amit Sharma"
+              title="Founder & CEO"
+              image="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23252830'/%3E%3Ccircle cx='200' cy='120' r='70' stroke='%230099ff' stroke-width='4' fill='none' /%3E%3Ccircle cx='200' cy='100' r='25' stroke='%230099ff' stroke-width='4' fill='none' /%3E%3Cpath d='M150,180 Q200,240 250,180' stroke='%230099ff' stroke-width='4' fill='none' /%3E%3C/svg%3E"
+            />
+            
+            <TeamMemberCard
+              name="Dr. Priya Patel"
+              title="Chief Science Officer"
+              image="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23252830'/%3E%3Ccircle cx='200' cy='120' r='70' stroke='%230099ff' stroke-width='4' fill='none' /%3E%3Ccircle cx='200' cy='100' r='25' stroke='%230099ff' stroke-width='4' fill='none' /%3E%3Cpath d='M150,180 Q200,240 250,180' stroke='%230099ff' stroke-width='4' fill='none' /%3E%3C/svg%3E"
+            />
+            
+            <TeamMemberCard
+              name="Dr. Rajiv Mehta"
+              title="CTO"
+              image="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23252830'/%3E%3Ccircle cx='200' cy='120' r='70' stroke='%230099ff' stroke-width='4' fill='none' /%3E%3Ccircle cx='200' cy='100' r='25' stroke='%230099ff' stroke-width='4' fill='none' /%3E%3Cpath d='M150,180 Q200,240 250,180' stroke='%230099ff' stroke-width='4' fill='none' /%3E%3C/svg%3E"
+            />
+            
+            <TeamMemberCard
+              name="Ananya Singh"
+              title="AI Research Director"
+              image="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23252830'/%3E%3Ccircle cx='200' cy='120' r='70' stroke='%230099ff' stroke-width='4' fill='none' /%3E%3Ccircle cx='200' cy='100' r='25' stroke='%230099ff' stroke-width='4' fill='none' /%3E%3Cpath d='M150,180 Q200,240 250,180' stroke='%230099ff' stroke-width='4' fill='none' /%3E%3C/svg%3E"
+            />
+          </div>
+          
+          <div className="text-center mt-16">
+            <Button 
+              className="bg-electric-blue hover:bg-electric-blue/80 text-white"
+              onClick={() => navigate('/team')}
+            >
+              Meet Our Full Team
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </div>
+        </div>
+      </section>
+      
+      {/* Contact section */}
+      <section className="py-24 relative">
+        <div className="absolute inset-0 z-0">
+          <div className="absolute top-0 right-0 w-full h-96 bg-gradient-to-b from-electric-blue/10 to-transparent"></div>
+          <div className="absolute bottom-0 left-0 w-full h-96 bg-gradient-to-t from-magenta/10 to-transparent"></div>
+        </div>
+        
+        <div className="container mx-auto px-4 relative z-10">
+          <SectionHeader
+            title="Get in Touch"
+            subtitle="Interested in our technologies? Have a project in mind? We'd love to hear from you."
+          />
+          
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-[#15171B] p-8 rounded-xl border border-electric-blue/20">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                  <h3 className="text-2xl font-bold text-white mb-4">Contact Information</h3>
+                  
+                  <div className="space-y-4">
+                    <div className="flex items-start gap-3">
+                      <div className="p-2 bg-electric-blue/10 rounded-lg text-electric-blue h-10 w-10 flex items-center justify-center shrink-0 mt-1">
+                        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M20 10C20 14.4183 16.4183 18 12 18C11.1 18 10.2 17.8 9.4 17.5C8.4 18.5 7 19 5.5 19C5 19 4.5 18.9 4 18.8C4.5 18.3 4.9 17.7 5.1 17C3.8 15.7 3 13 3 10C3 5.58172 6.58172 2 12 2C17.4183 2 20 5.58172 20 10Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                          <path d="M8 12H16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                          <path d="M8 8H14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </div>
+                      <div>
+                        <h4 className="text-white font-bold">Email</h4>
+                        <a href="mailto:info@quantafons.com" className="text-electric-blue hover:underline">info@quantafons.com</a>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-start gap-3">
+                      <div className="p-2 bg-electric-blue/10 rounded-lg text-electric-blue h-10 w-10 flex items-center justify-center shrink-0 mt-1">
+                        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M22 16.92V19.92C22 20.4704 21.7893 20.9982 21.4142 21.3733C21.0391 21.7484 20.5113 21.9591 19.96 21.96C18.4243 21.96 16.9092 21.6261 15.5154 20.9839C14.1216 20.3417 12.8792 19.4079 11.8647 18.2553C10.8503 17.1028 10.0214 15.7565 9.47394 14.277C8.92653 12.7975 8.63865 11.2106 8.64 9.61998C8.64 9.06868 8.85071 8.54093 9.22574 8.16589C9.60076 7.79086 10.1285 7.58016 10.68 7.57998H13.68C14.1616 7.57563 14.6283 7.7539 14.9935 8.08034C15.3587 8.40677 15.5965 8.85656 15.66 9.33998C15.7754 10.178 15.9904 10.9975 16.3 11.78C16.4561 12.127 16.495 12.515 16.4121 12.8894C16.3293 13.2639 16.1287 13.6036 15.84 13.86L14.76 14.94C15.6652 16.1993 16.8425 17.2537 18.21 18.06L19.29 16.98C19.5464 16.6913 19.8861 16.4907 20.2605 16.4079C20.635 16.325 21.023 16.3639 21.37 16.52C22.1525 16.8296 22.972 17.0446 23.81 17.16C24.2935 17.2234 24.7432 17.4613 25.0697 17.8265C25.3961 18.1916 25.5744 18.6584 25.57 19.14L22 16.92Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </div>
+                      <div>
+                        <h4 className="text-white font-bold">Phone</h4>
+                        <a href="tel:+911234567890" className="text-electric-blue hover:underline">+91 123 456 7890</a>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-start gap-3">
+                      <div className="p-2 bg-electric-blue/10 rounded-lg text-electric-blue h-10 w-10 flex items-center justify-center shrink-0 mt-1">
+                        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 7.61305 3.94821 5.32387 5.63604 3.63604C7.32387 1.94821 9.61305 1 12 1C14.3869 1 16.6761 1.94821 18.364 3.63604C20.0518 5.32387 21 7.61305 21 10Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                          <path d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </div>
+                      <div>
+                        <h4 className="text-white font-bold">Address</h4>
+                        <p className="text-neutral-400">742, 7th Floor, Emaar Digital Greens<br/>Sector 61, Gurugram, India</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="mt-8">
+                    <h4 className="text-white font-bold mb-4">Follow Us</h4>
+                    <div className="flex gap-4">
+                      <a href="#" className="p-2 bg-electric-blue/10 rounded-lg text-electric-blue hover:bg-electric-blue/20 transition-colors duration-300">
+                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M22.46,6C21.69,6.35 20.86,6.58 20,6.69C20.88,6.16 21.56,5.32 21.88,4.31C21.05,4.81 20.13,5.16 19.16,5.36C18.37,4.5 17.26,4 16,4C13.65,4 11.73,5.92 11.73,8.29C11.73,8.63 11.77,8.96 11.84,9.27C8.28,9.09 5.11,7.38 3,4.79C2.63,5.42 2.42,6.16 2.42,6.94C2.42,8.43 3.17,9.75 4.33,10.5C3.62,10.5 2.96,10.3 2.38,10C2.38,10 2.38,10 2.38,10.03C2.38,12.11 3.86,13.85 5.82,14.24C5.46,14.34 5.08,14.39 4.69,14.39C4.42,14.39 4.15,14.36 3.89,14.31C4.43,16 6,17.26 7.89,17.29C6.43,18.45 4.58,19.13 2.56,19.13C2.22,19.13 1.88,19.11 1.54,19.07C3.44,20.29 5.7,21 8.12,21C16,21 20.33,14.46 20.33,8.79C20.33,8.6 20.33,8.42 20.32,8.23C21.16,7.63 21.88,6.87 22.46,6Z" />
+                        </svg>
+                      </a>
+                      
+                      <a href="#" className="p-2 bg-electric-blue/10 rounded-lg text-electric-blue hover:bg-electric-blue/20 transition-colors duration-300">
+                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M19,3H5C3.895,3 3,3.895 3,5V19C3,20.105 3.895,21 5,21H19C20.105,21 21,20.105 21,19V5C21,3.895 20.105,3 19,3M9,17H6.477V10H9V17M7.694,8.717C6.923,8.717 6.297,8.076 6.297,7.287C6.297,6.498 6.923,5.857 7.694,5.857C8.464,5.857 9.09,6.498 9.09,7.287C9.09,8.076 8.464,8.717 7.694,8.717M18,17H15.558V13.627C15.558,12.658 15.538,11.425 14.229,11.425C12.903,11.425 12.69,12.469 12.69,13.541V17H10.269V10H12.61V11.081H12.645C12.97,10.457 13.773,9.8 15.023,9.8C17.469,9.8 18,11.547 18,13.801V17Z" />
+                        </svg>
+                      </a>
+                      
+                      <a href="#" className="p-2 bg-electric-blue/10 rounded-lg text-electric-blue hover:bg-electric-blue/20 transition-colors duration-300">
+                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2C22,19.4 19.4,22 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8C2,4.6 4.6,2 7.8,2M7.6,4C5.61,4 4,5.61 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4C18.39,20 20,18.39 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M17.25,5.5C17.94,5.5 18.5,6.06 18.5,6.75C18.5,7.44 17.94,8 17.25,8C16.56,8 16,7.44 16,6.75C16,6.06 16.56,5.5 17.25,5.5M12,7C14.76,7 17,9.24 17,12C17,14.76 14.76,17 12,17C9.24,17 7,14.76 7,12C7,9.24 9.24,7 12,7M12,9C10.34,9 9,10.34 9,12C9,13.66 10.34,15 12,15C13.66,15 15,13.66 15,12C15,10.34 13.66,9 12,9Z" />
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                
+                <div>
+                  <h3 className="text-2xl font-bold text-white mb-4">Send Us a Message</h3>
+                  
+                  <form className="space-y-4">
+                    <div>
+                      <label className="text-white block mb-2 text-sm">Name</label>
+                      <input
+                        type="text"
+                        className="w-full px-4 py-2 bg-[#0D0F12] border border-electric-blue/20 rounded-lg text-white focus:outline-none focus:border-electric-blue"
+                        placeholder="Your name"
+                      />
+                    </div>
+                    
+                    <div>
+                      <label className="text-white block mb-2 text-sm">Email</label>
+                      <input
+                        type="email"
+                        className="w-full px-4 py-2 bg-[#0D0F12] border border-electric-blue/20 rounded-lg text-white focus:outline-none focus:border-electric-blue"
+                        placeholder="Your email"
+                      />
+                    </div>
+                    
+                    <div>
+                      <label className="text-white block mb-2 text-sm">Message</label>
+                      <textarea
+                        className="w-full px-4 py-2 bg-[#0D0F12] border border-electric-blue/20 rounded-lg text-white focus:outline-none focus:border-electric-blue h-32"
+                        placeholder="Your message"
+                      ></textarea>
+                    </div>
+                    
+                    <Button className="w-full bg-electric-blue hover:bg-electric-blue/80 text-white">
+                      Send Message
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* Footer is handled by the RootLayout component */}
     </div>
   );
 };

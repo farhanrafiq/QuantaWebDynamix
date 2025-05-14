@@ -183,4 +183,4 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
   );
 };
 
-export default ParticleBackground;
+export { ParticleBackground };
