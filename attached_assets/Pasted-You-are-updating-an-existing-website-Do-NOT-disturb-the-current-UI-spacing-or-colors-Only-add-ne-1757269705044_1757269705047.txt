@@ -1,0 +1,207 @@
+You are updating an existing website. Do NOT disturb the current UI, spacing, or colors. Only add new, opt-in components using a safe namespace prefix "qf-". Follow these rules exactly:
+
+STACK DISCOVERY
+1) Detect stack:
+   - If React/Next.js: create new components under /components/qf/ and add routes/sections via existing layout.
+   - If plain HTML/CSS/JS: inject new <section> blocks with minimal CSS in a new file /assets/qf.css and a tiny /assets/qf.js.
+   - If Tailwind is present, use existing utility classes. If not, write minimal BEM-style CSS with the qf- prefix.
+2) Read existing design tokens (colors, font sizes, spacing). Reuse them. No global overrides.
+
+NEW CONTENT (QuantaFONS)
+Create four sections with anchor IDs and matching nav links. Content must be editable (via a JSON blob) and rendered into cards/blocks. Add smooth scroll for the anchors. Sections:
+
+A) About Us  (#about)
+   Headline: “We build practical AI and engineering.”
+   Body (short): “QuantaFONS builds Eli-S1 (our in-house AI engine) and advanced Structural Health Monitoring for spacecraft and civil structures. We also deliver full-stack IT services and ready-to-use applications available as SaaS or one-time license.”
+   3 bullet highlights:
+   - “In-house AI: Eli-S1 for research, coding, and multi-agent workflows”
+   - “SHM: sensors + analytics for spacecraft hulls and RCC structures”
+   - “Delivery: from quick MVPs to enterprise systems”
+
+B) Eli-S1  (#eli-s1)
+   Subhead: “Our in-house AI engine.”
+   Copy: “Eli-S1 researches, writes, codes, and orchestrates tools to ship faster. It powers data prep, code scaffolding, testing, and knowledge curation across projects.”
+   CTA button: “Discuss Eli-S1” → opens WhatsApp chat link (see global WA button config).
+
+C) SHM for Spacecrafts & Buildings  (#shm)
+   Subhead: “Structural Health Monitoring”
+   Copy: “Fiber-optic and advanced sensing + analytics for strain, vibration, and thermal behavior. Designed for spacecraft skins and concrete members.”
+   3 mini-features:
+   - “Real-time dashboards”
+   - “Alert thresholds and reports”
+   - “Integrations with existing SCADA/Cloud”
+
+D) IT Services & Applications  (#it-services)
+   Two columns:
+   Left: IT Services list (Web/Mobile dev, AI chatbots, enterprise software, data pipelines, OCR to Excel, cloud deployments).
+   Right: “Applications (SaaS or One-Time Buy)” as a responsive card grid. Each card has: name, one-line use-case, tag [SaaS] or [One-Time], and a “Request demo” button → WhatsApp link.
+   Seed the grid with 8 placeholder apps and tags; content must be driven by a JSON array so we can edit names later.
+
+CONTENT MODEL
+Create /data/qf-content.json (or /public/qf-content.json if Next.js) with this shape:
+{
+  "about": {
+    "headline": "We build practical AI and engineering.",
+    "body": "QuantaFONS builds Eli-S1 ... available as SaaS or one-time license.",
+    "bullets": [
+      "In-house AI: Eli-S1 for research ...",
+      "SHM: sensors + analytics for spacecraft hulls and RCC structures",
+      "Delivery: from quick MVPs to enterprise systems"
+    ]
+  },
+  "eliS1": {
+    "subhead": "Our in-house AI engine.",
+    "body": "Eli-S1 researches, writes, codes ... knowledge curation."
+  },
+  "shm": {
+    "subhead": "Structural Health Monitoring",
+    "body": "Fiber-optic and advanced sensing ... concrete members.",
+    "features": ["Real-time dashboards", "Alert thresholds and reports", "SCADA/Cloud integrations"]
+  },
+  "services": ["Web & Mobile Development", "AI Chatbots & Agents", "Enterprise Software", "Data Pipelines & OCR→Excel", "Cloud & DevOps"],
+  "apps": [
+    {"name":"LMS + Bus Tracking","desc":"Smart school LMS with live bus fuel & route analytics.","mode":"SaaS"},
+    {"name":"Practice Manager","desc":"Matters, billing, documents, client portal.","mode":"SaaS"},
+    {"name":"POS & Inventory","desc":"Multi-store, barcode, GST-friendly.","mode":"One-Time"},
+    {"name":"Clinic EMR","desc":"Queue, prescriptions, labs, reports.","mode":"SaaS"},
+    {"name":"CRM","desc":"Leads, pipeline, email/WA follow-ups.","mode":"SaaS"},
+    {"name":"HRMS","desc":"Attendance, payroll, letters.","mode":"One-Time"},
+    {"name":"Project Tracker","desc":"Tasks, sprints, docs, files.","mode":"SaaS"},
+    {"name":"Quran Reader","desc":"Clickable ayat with audio, bookmarks.","mode":"One-Time"}
+  ]
+}
+
+NAV + ROUTING
+- Add top-nav anchors without shifting existing items: About, Eli-S1, SHM, IT & Apps.
+- Use in-page anchors (#about, #eli-s1, #shm, #it-services) and smooth scroll.
+- If nav is full, add a single “QuantaFONS” dropdown that holds the four new links.
+
+WHATSAPP BUTTON (GLOBAL)
+- Floating circular button, bottom-right, site-wide.
+- Link: https://wa.me/918899969992
+- aria-label="Chat on WhatsApp"
+- On mobile, offset above any existing chat widget.
+- No overlap with existing cookie/consent banners.
+- Provide a small config in /data/qf-config.json:
+  { "whatsapp": { "enabled": true, "phone": "918899969992" } }
+
+ACCESSIBILITY
+- All section headings use semantic <h2> / <h3>.
+- Contrast meets WCAG AA using existing palette.
+- Buttons are <button> or <a role="button"> with focus states.
+
+FILES TO ADD (ADAPT PATHS TO THE STACK)
+- /data/qf-content.json (and /data/qf-config.json)
+- /assets/qf.css (or import into your Tailwind build if Tailwind exists)
+- /assets/qf.js (only if non-React)
+- React/Next: /components/qf/QFSection.tsx, /components/qf/QFAppGrid.tsx, /components/qf/QFWhatsapp.tsx
+- Update layout or the main page to render the four sections, in this order: About, Eli-S1, SHM, IT & Apps.
+
+CODE TEMPLATES
+
+A) PLAIN HTML (inject into main page near the end, before footer)
+<section id="about" class="qf-section">
+  <div class="qf-wrap">
+    <h2 class="qf-h2"></h2>
+    <p class="qf-lead"></p>
+    <ul class="qf-list"></ul>
+  </div>
+</section>
+<section id="eli-s1" class="qf-section"><div class="qf-wrap"><h2 class="qf-h2">Eli-S1</h2><p class="qf-text"></p><a class="qf-btn" target="_blank" rel="noopener" href="https://wa.me/918899969992">Discuss Eli-S1</a></div></section>
+<section id="shm" class="qf-section"><div class="qf-wrap"><h2 class="qf-h2">SHM for Spacecrafts & Buildings</h2><p class="qf-text"></p><ul class="qf-chips"></ul></div></section>
+<section id="it-services" class="qf-section">
+  <div class="qf-wrap qf-grid">
+    <div>
+      <h3 class="qf-h3">IT Services</h3>
+      <ul class="qf-list" id="qf-services"></ul>
+    </div>
+    <div>
+      <h3 class="qf-h3">Applications (SaaS / One-Time)</h3>
+      <div class="qf-app-grid" id="qf-apps"></div>
+    </div>
+  </div>
+</section>
+
+<link rel="stylesheet" href="/assets/qf.css">
+<script defer src="/assets/qf.js"></script>
+
+B) MINIMAL CSS (/assets/qf.css)
+.qf-section{padding: clamp(48px,7vw,96px) 0}
+.qf-wrap{width:min(1100px,92vw);margin:0 auto}
+.qf-h2{font-size:clamp(28px,3vw,36px);margin:0 0 12px}
+.qf-h3{font-size:clamp(20px,2.2vw,24px);margin:0 0 10px}
+.qf-lead{font-size:1.05rem;opacity:.9;margin:0 0 12px}
+.qf-text{opacity:.9}
+.qf-list{margin:0;padding-left:18px}
+.qf-list li{margin:6px 0}
+.qf-grid{display:grid;gap:28px;grid-template-columns:1fr; }
+@media(min-width:900px){.qf-grid{grid-template-columns:1fr 1fr}}
+.qf-app-grid{display:grid;gap:16px;grid-template-columns:1fr}
+@media(min-width:700px){.qf-app-grid{grid-template-columns:1fr 1fr}}
+.qf-card{border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:14px}
+.qf-tag{font-size:.8rem;padding:2px 8px;border-radius:999px;border:1px solid rgba(0,0,0,.12);display:inline-block;margin-bottom:8px}
+.qf-btn{display:inline-block;padding:10px 14px;border-radius:10px;border:1px solid currentColor;text-decoration:none}
+.qf-wa{position:fixed;right:16px;bottom:16px;z-index:9999;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:#25D366;color:#fff;box-shadow:0 6px 18px rgba(0,0,0,.18)}
+.qf-wa:focus{outline:3px solid rgba(37,211,102,.35)}
+
+C) MINIMAL JS (/assets/qf.js)
+(async function(){
+  const content = await fetch('/data/qf-content.json').then(r=>r.json()).catch(()=>null);
+  if(!content) return;
+  // About
+  const about = document.querySelector('#about');
+  if(about){
+    about.querySelector('.qf-h2').textContent = content.about.headline;
+    about.querySelector('.qf-lead').textContent = content.about.body;
+    const ul = about.querySelector('.qf-list');
+    content.about.bullets.forEach(b=>{ const li=document.createElement('li'); li.textContent=b; ul.appendChild(li); });
+  }
+  // Eli-S1
+  const eli = document.querySelector('#eli-s1 .qf-text');
+  if(eli) eli.textContent = content.eliS1.body;
+  // SHM
+  const shm = document.querySelector('#shm');
+  if(shm){
+    shm.querySelector('.qf-text').textContent = content.shm.body;
+    const chips = shm.querySelector('.qf-chips');
+    content.shm.features.forEach(f=>{ const span=document.createElement('span'); span.className='qf-tag'; span.textContent=f; chips.appendChild(span); });
+  }
+  // Services
+  const svc = document.querySelector('#qf-services');
+  if(svc){ content.services.forEach(s=>{ const li=document.createElement('li'); li.textContent=s; svc.appendChild(li); }); }
+  // Apps
+  const apps = document.querySelector('#qf-apps');
+  if(apps){
+    content.apps.forEach(a=>{
+      const div=document.createElement('div'); div.className='qf-card';
+      const tag=document.createElement('div'); tag.className='qf-tag'; tag.textContent=a.mode;
+      const h4=document.createElement('h4'); h4.style.margin='6px 0'; h4.textContent=a.name;
+      const p=document.createElement('p'); p.style.opacity='.9'; p.textContent=a.desc;
+      const aBtn=document.createElement('a'); aBtn.className='qf-btn'; aBtn.href='https://wa.me/918899969992'; aBtn.target='_blank'; aBtn.rel='noopener'; aBtn.textContent='Request demo';
+      div.append(tag,h4,p,aBtn); apps.appendChild(div);
+    });
+  }
+  // WhatsApp floating button
+  const wa = document.createElement('a');
+  wa.href='https://wa.me/918899969992'; wa.className='qf-wa'; wa.setAttribute('aria-label','Chat on WhatsApp'); wa.target='_blank'; wa.rel='noopener';
+  wa.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.5 3.5A11 11 0 0 0 3.8 18.9L3 22l3.2-.8A11 11 0 1 0 20.5 3.5Zm-8.5 17a9 9 0 0 1-4.6-1.3l-.3-.2-1.9.5.5-1.8-.2-.3A9 9 0 1 1 12 20.5Zm5-6.6c-.3-.1-1.8-.9-2-.9s-.5 0-.7.3-.8.9-.9 1c-.2.1-.4.2-.7.1-1.9-.8-3.3-2.7-3.4-2.8-.2-.2-.1-.5.1-.7l.5-.6c.2-.2.2-.3.3-.5 0-.2 0-.4 0-.5s-.7-1.7-1-2.3c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.6.3-.6.6-1 1.3-1 2.2s1 2.1 1.2 2.3c.1.2 2 3.1 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.8-.7 2.1-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3Z" fill="currentColor"/></svg>';
+  document.body.appendChild(wa);
+})();
+
+REACT/NEXT VARIANT (if React stack):
+- Create <QFSection />, <QFAppGrid />, <QFWhatsapp /> components in /components/qf/.
+- Load content from /public/qf-content.json with fetch on the client or via getStaticProps.
+- Add <QFWhatsapp phone="918899969992" /> to the root layout so it appears site-wide.
+- Add anchor sections with id="about" | "eli-s1" | "shm" | "it-services".
+- Use existing Tailwind tokens if configured; else add a tiny qf.css module.
+
+NAV INTEGRATION
+- Append nav items linking to the four anchors. If nav is crowded, add a “QuantaFONS” dropdown.
+
+TESTS
+- Verify layout on 360px, 768px, 1280px widths.
+- Check Lighthouse a11y for new sections.
+- Confirm WhatsApp link opens to https://wa.me/918899969992 in a new tab.
+
+DELIVERABLE
+- Commit with message: "Add QuantaFONS sections + WA button (qf- namespace)". List files changed and where you mounted the sections.

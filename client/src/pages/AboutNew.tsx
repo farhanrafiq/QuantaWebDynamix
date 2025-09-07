@@ -201,7 +201,7 @@ const About = () => {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              We are a leading R&D company specializing in advanced civil-engineering data projects and AI-driven structural-health monitoring systems. Our mission is to revolutionize infrastructure management through cutting-edge technology.
+              We are a leading R&D company specializing in advanced civil-engineering data projects and AI-driven structural-health monitoring systems. Our mission is to revolutionize artificial intelligence through cutting-edge technology.
             </motion.p>
             
             <motion.div
@@ -522,7 +522,7 @@ const About = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              We're always looking for research partners, industry collaborators, and talented individuals to join our mission of revolutionizing infrastructure management.
+              We're always looking for research partners, industry collaborators, and talented individuals to join our mission of revolutionizing artificial intelligence.
             </motion.p>
             
             <motion.div

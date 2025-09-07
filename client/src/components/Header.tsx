@@ -361,29 +361,6 @@ const Header = () => {
           
           {/* Right-side buttons */}
           <div className="flex items-center space-x-3 md:space-x-4">
-            {/* Theme toggle */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
-              <Button 
-                variant="ghost" 
-                size="icon" 
-                onClick={toggleTheme}
-                className={`
-                  rounded-full 
-                  ${pastHeroSection 
-                    ? "bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-200" 
-                    : "bg-white/10 text-white hover:bg-white/20"}
-                  transition-colors
-                `}
-                aria-label="Toggle dark mode"
-              >
-                <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-              </Button>
-            </motion.div>
             
             {/* Get in Touch button */}
             <motion.div
