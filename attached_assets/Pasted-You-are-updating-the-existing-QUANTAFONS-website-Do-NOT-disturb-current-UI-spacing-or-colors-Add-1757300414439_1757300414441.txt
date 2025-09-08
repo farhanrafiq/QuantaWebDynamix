@@ -1,0 +1,175 @@
+You are updating the existing QUANTAFONS website. Do NOT disturb current UI, spacing, or colors. Add SEO features under a safe namespace qf-seo only. Reuse existing design tokens. No global CSS overrides. No layout shifts.
+
+GOAL
+Build a complete technical SEO system:
+1) Sitemap architecture with daily auto-regeneration and gzip.
+2) Robots, canonicals, hreflang (optional), clean URL rules.
+3) JSON-LD schema for Organization, Website, Breadcrumb, Article, SoftwareApplication, FAQ, HowTo, Product where relevant.
+4) Consistent <title>, meta description, OpenGraph, Twitter Cards, OG image generation.
+5) Internal linking engine, breadcrumbs, table of contents, related posts.
+6) Performance tweaks for Core Web Vitals without changing the UI.
+7) Ping endpoints for IndexNow (Bing et al) after deploy. Expose a simple task for manual re-submit.
+8) Create a single SEO config file qf-seo.config.json so non-devs can tune settings.
+
+STACK DISCOVERY
+- If Next.js/React:
+  • Create /lib/qf-seo/, /pages/api/qf-seo/, /app/(if app router)/qf-seo utilities.
+  • Prefer static generation for sitemaps with fallback to edge runtime for freshness.
+- If plain HTML:
+  • Add /scripts/qf-seo-build.[js|ts|py] that scans / and /content to build XML files into /public/.
+- If WordPress or other CMS:
+  • Do not install plugins. Generate files to the public root and hook into the existing build/deploy step.
+
+FILES TO ADD
+- /qf-seo/qf-seo.config.json
+- /qf-seo/generator.[js|ts|py] core library
+- /public/sitemap.xml (index that references child sitemaps)
+- /public/robots.txt
+- /public/rss.xml and /public/atom.xml
+- /public/og/ dynamic OG image endpoint or prebuilt images
+- Next.js only: /pages/api/qf-seo/indexnow.ts and /app/sitemap.ts if using app router
+
+SEO CONFIG  qf-seo.config.json
+{
+  "siteUrl": "https://www.quantafons.com",
+  "brand": "QuantaFONS",
+  "defaultLocale": "en-IN",
+  "locales": ["en-IN"],
+  "env": "production",
+  "trailingSlash": false,
+  "canonicalHostRule": "force-root", 
+  "includeImagesInSitemap": true,
+  "includeVideosInSitemap": false,
+  "changefreqDefaults": { "pages": "weekly", "posts": "weekly", "taxonomy": "weekly" },
+  "priorityDefaults": { "home": 1.0, "pages": 0.8, "posts": 0.7, "taxonomy": 0.5 },
+  "indexNow": { "enabled": true, "key": "<GENERATE_AND_SAVE_KEY>", "engines": ["https://www.bing.com/indexnow"] },
+  "organization": {
+    "name": "QuantaFONS Private Limited",
+    "url": "https://www.quantafons.com",
+    "logo": "https://www.quantafons.com/logo.png",
+    "sameAs": [
+      "https://www.linkedin.com/company/quantafons",
+      "https://x.com/quantafons"
+    ],
+    "contactPoint": [{ "telephone": "+91-8899969992", "contactType": "customer support", "areaServed": "IN", "availableLanguage": ["en","ur"] }]
+  },
+  "search": { "enableSitelinksSearchBox": true }
+}
+
+SITEMAP ARCHITECTURE
+- Create a sitemap index /public/sitemap.xml that links to:
+  • sitemap-pages.xml
+  • sitemap-posts.xml
+  • sitemap-categories.xml
+  • sitemap-tags.xml
+  • sitemap-apps.xml (your SaaS and One-Time apps)
+  • sitemap-images.xml
+- Each child uses <url><loc><lastmod><changefreq><priority></priority></changefreq></lastmod></loc></url>
+- Split automatically at 45k URLs per file if needed and number parts.
+- Gzip every sitemap and serve .xml and .xml.gz.
+- Add hreflang alternates if locales > 1.
+- Update lastmod from filesystem or content frontmatter.
+- Regenerate sitemaps on build and expose a script npm run seo:build.
+
+ROBOTS.TXT
+- Generate /public/robots.txt:
+User-agent: *
+Disallow:
+Sitemap: https://www.quantafons.com/sitemap.xml
+
+CANONICALS AND URL RULES
+- Add a canonical tag to every page using siteUrl + path.
+- Normalize:
+  • Choose one host  non-www or www  and redirect the other with 301.
+  • Enforce trailingSlash per config.
+  • Add 301 for http→https.
+  • De-duplicate lowercase slugs and remove tracking params server-side.
+- Add rel=prev/next for paginated lists.
+
+METADATA
+- Title template:
+  • Home: QuantaFONS  AI, SHM for Spacecrafts and Buildings, IT Services
+  • Section: %PageTitle%  QuantaFONS
+- Meta description 150–160 chars. Generate from summary if missing.
+- OpenGraph and Twitter Card with:
+  • og:title, og:description, og:type, og:url, og:image
+  • twitter:card summary_large_image
+- Generate OG images:
+  • Add a small service that renders text over a background with brand font and colors into /public/og/[slug].png.
+  • Fallback to logo if not found.
+
+JSON-LD SCHEMA
+- On home: WebSite with potentialAction SearchAction if search exists.
+- Global Organization schema with logo and sameAs from config.
+- BreadcrumbList on every page beyond home.
+- Article on blog posts with author, datePublished, dateModified, headline, image.
+- SoftwareApplication on each app card with operatingSystem, applicationCategory, offers priceCurrency and price if available.
+- FAQPage on pages that include accordions labeled FAQ.
+- HowTo on posts that have step lists.
+- Product on any priced offering that is not clearly software-only.
+- Validate shapes and avoid duplicate @ids.
+
+INTERNAL LINKING ENGINE
+- Add breadcrumbs component qf-seo-breadcrumbs using the current route.
+- Add related posts section based on tag similarity and title embedding cosine sim.
+- Add a lightweight ToC that anchors H2/H3 and uses smooth scroll.
+- Auto-link pillar pages inside new content:
+  • /eli-s1  link text variations Eli-S1, AI engine, multi-agent AI
+  • /shm  link text variations SHM, structural health monitoring
+  • /it-services
+  • /apps
+- Avoid over-optimization: cap to 4 internal links per 400 words.
+
+PAGE SPEED AND CWV
+- Do not change layout or theme.
+- Ensure all images have width/height and loading=lazy.
+- Preload the largest above-the-fold image only if LCP requires it.
+- Preconnect to fonts origin if used.
+- Defer noncritical scripts you add.
+- Respect prefers-reduced-motion for any animations you add to ToC or breadcrumbs.
+
+SEARCH AND DISCOVERY
+- Generate /public/rss.xml and /public/atom.xml with latest 50 posts.
+- Add <link rel="alternate" type="application/rss+xml"> on blog pages.
+- Create /blog/search with client-side index (fuse or lunr) and structured data for Sitelinks SearchBox if config enables it.
+
+INDEXNOW PINGS
+- After sitemap build or publish, ping IndexNow engines with the changed URLs.
+- Provide an npm script seo:ping and an API route /api/qf-seo/indexnow to accept a POST {urls: []} and forward pings.
+- Do not attempt to ping Google with IndexNow.
+
+BUILD SCRIPTS
+- Add to package.json:
+  "scripts": {
+    "seo:build": "node qf-seo/generator.js build",
+    "seo:validate": "node qf-seo/generator.js validate",
+    "seo:ping": "node qf-seo/generator.js ping"
+  }
+
+VALIDATION
+- generator validate checks:
+  • sitemap index exists and child files are referenced
+  • all URLs absolute, canonical, 200 status on local preview
+  • robots.txt contains proper Sitemap line
+  • no duplicate canonicals or titles
+  • JSON-LD passes basic shape checks
+- Add a quick Lighthouse CI config to assert LCP < 2.5s on desktop and CLS < .1.
+
+CONTENT HOOKS
+- For each page or post missing meta, auto-generate using the first paragraph but trim branded filler.
+- Ensure every image gets descriptive alt text. If missing, derive from caption or H2.
+
+DELIVERABLES
+- Commit:
+  “Add technical SEO system  sitemaps, robots, schema, canonicals, OG images, IndexNow, internal linking  qf-seo”
+- Output:
+  • /public/sitemap.xml and children + gz
+  • /public/robots.txt
+  • OG image assets
+  • JSON-LD injected on key pages
+  • README-qf-seo.md with how to rebuild and ping
+- Do NOT modify or restyle existing UI. All additions are invisible or cosmetic-neutral.
+
+BONUS  OPTIONAL
+- If locales expand later, enable hreflang and language alternates using config.locales.
+- If a blog post includes an FAQ section, render FAQPage JSON-LD automatically from that block.

@@ -1,0 +1,66 @@
+{
+  "siteUrl": "https://www.quantafons.com",
+  "brand": "QuantaFONS",
+  "defaultLocale": "en-IN",
+  "locales": ["en-IN"],
+  "env": "production",
+  "trailingSlash": false,
+  "canonicalHostRule": "force-root",
+  "includeImagesInSitemap": true,
+  "includeVideosInSitemap": false,
+  "changefreqDefaults": {
+    "pages": "weekly",
+    "posts": "weekly",
+    "taxonomy": "weekly"
+  },
+  "priorityDefaults": {
+    "home": 1.0,
+    "pages": 0.8,
+    "posts": 0.7,
+    "taxonomy": 0.5
+  },
+  "indexNow": {
+    "enabled": true,
+    "key": "qf-seo-indexnow-key-2025",
+    "engines": ["https://www.bing.com/indexnow"]
+  },
+  "organization": {
+    "name": "QuantaFONS Private Limited",
+    "url": "https://www.quantafons.com",
+    "logo": "https://www.quantafons.com/logo.png",
+    "sameAs": [
+      "https://www.linkedin.com/company/quantafons",
+      "https://x.com/quantafons",
+      "https://github.com/quantafons"
+    ],
+    "contactPoint": [
+      {
+        "telephone": "+91-9796000522",
+        "contactType": "customer support",
+        "areaServed": "IN",
+        "availableLanguage": ["en", "ur"]
+      }
+    ],
+    "address": {
+      "streetAddress": "Red Cross Road, Maisuma",
+      "addressLocality": "Srinagar",
+      "addressRegion": "Kashmir",
+      "postalCode": "190008",
+      "addressCountry": "IN"
+    }
+  },
+  "search": {
+    "enableSitelinksSearchBox": true
+  },
+  "social": {
+    "twitter": "@quantafons",
+    "linkedin": "https://www.linkedin.com/company/quantafons"
+  },
+  "meta": {
+    "titleTemplate": "%s | QuantaFONS",
+    "defaultTitle": "QuantaFONS - AI, SHM for Spacecrafts and Buildings, IT Services",
+    "defaultDescription": "AI-first R&D company specializing in Eli-S1 AI engine, structural health monitoring for spacecraft and critical infrastructure, and enterprise software solutions.",
+    "keywords": "AI, artificial intelligence, structural health monitoring, SHM, spacecraft monitoring, Eli-S1, machine learning, enterprise software, Kashmir IT company",
+    "author": "QuantaFONS Private Limited"
+  }
+}

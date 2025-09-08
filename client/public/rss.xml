@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>QuantaFONS Blog</title>
+    <description>AI, Engineering, and Technology Insights from QuantaFONS</description>
+    <link>https://www.quantafons.com/blog</link>
+    <atom:link href="https://www.quantafons.com/rss.xml" rel="self" type="application/rss+xml"/>
+    <language>en-IN</language>
+    <lastBuildDate>Mon, 08 Sep 2025 03:03:43 GMT</lastBuildDate>
+    <pubDate>Mon, 08 Sep 2025 03:03:43 GMT</pubDate>
+    <ttl>60</ttl>
+    <image>
+      <url>https://www.quantafons.com/logo.png</url>
+      <title>QuantaFONS</title>
+      <link>https://www.quantafons.com</link>
+    </image>
+
+    <item>
+      <title><![CDATA[How to Implement Prompt engineering that survives audits: A Complete Guide]]></title>
+      <description><![CDATA[Learn how to implement prompt engineering that survives audits: a complete guide with practical examples, code samples, and production-ready solutions. Complete....]]></description>
+      <link>https://www.quantafons.com/blog/how-to-implement-prompt-engineering-that-survives-audits-a-complete-guide</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/how-to-implement-prompt-engineering-that-survives-audits-a-complete-guide</guid>
+      <pubDate>Thu, 28 Aug 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[LLMs & Language Models]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[LLM evaluation and test harnesses: Framework Comparison and Recommendations]]></title>
+      <description><![CDATA[Learn llm evaluation and test harnesses: framework comparison and recommendations with practical examples, code samples, and production-ready solutions. Complet....]]></description>
+      <link>https://www.quantafons.com/blog/llm-evaluation-and-test-harnesses-framework-comparison-and-recommendations</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/llm-evaluation-and-test-harnesses-framework-comparison-and-recommendations</guid>
+      <pubDate>Sat, 23 Aug 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[Machine Learning]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[Choosing the Right Vector databases and hybrid search Solution]]></title>
+      <description><![CDATA[Master choosing the right vector databases and hybrid search solution with this detailed guide. Features implementation strategies, performance tips, and proven....]]></description>
+      <link>https://www.quantafons.com/blog/choosing-the-right-vector-databases-and-hybrid-search-solution</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/choosing-the-right-vector-databases-and-hybrid-search-solution</guid>
+      <pubDate>Thu, 21 Aug 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[Data Engineering]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[Fine-tuning vs adapters: Common Pitfalls and How to Avoid Them]]></title>
+      <description><![CDATA[Comprehensive guide to fine-tuning vs adapters: common pitfalls and how to avoid them. Includes best practices, real-world examples, and actionable insights for....]]></description>
+      <link>https://www.quantafons.com/blog/fine-tuning-vs-adapters-common-pitfalls-and-how-to-avoid-them</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/fine-tuning-vs-adapters-common-pitfalls-and-how-to-avoid-them</guid>
+      <pubDate>Thu, 07 Aug 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[Machine Learning]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[Complete Guide to Fine-tuning vs adapters in 2025]]></title>
+      <description><![CDATA[Learn complete guide to fine-tuning vs adapters in 2025 with practical examples, code samples, and production-ready solutions. Complete guide for machine learni....]]></description>
+      <link>https://www.quantafons.com/blog/complete-guide-to-fine-tuning-vs-adapters-in-2025</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/complete-guide-to-fine-tuning-vs-adapters-in-2025</guid>
+      <pubDate>Wed, 06 Aug 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[Machine Learning]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[Mobile app stacks that scale: Comparing Popular Solutions]]></title>
+      <description><![CDATA[Master mobile app stacks that scale: comparing popular solutions with this detailed guide. Features implementation strategies, performance tips, and proven appr....]]></description>
+      <link>https://www.quantafons.com/blog/mobile-app-stacks-that-scale-comparing-popular-solutions</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/mobile-app-stacks-that-scale-comparing-popular-solutions</guid>
+      <pubDate>Sun, 03 Aug 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[Mobile Development]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[Complete Guide to Streaming responses for UX in 2025]]></title>
+      <description><![CDATA[Comprehensive guide to complete guide to streaming responses for ux in 2025. Includes best practices, real-world examples, and actionable insights for web devel....]]></description>
+      <link>https://www.quantafons.com/blog/complete-guide-to-streaming-responses-for-ux-in-2025</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/complete-guide-to-streaming-responses-for-ux-in-2025</guid>
+      <pubDate>Tue, 29 Jul 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[Web Development]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[Web app architecture 2025: Comparing Popular Solutions]]></title>
+      <description><![CDATA[Master web app architecture 2025: comparing popular solutions with this detailed guide. Features implementation strategies, performance tips, and proven approac....]]></description>
+      <link>https://www.quantafons.com/blog/web-app-architecture-2025-comparing-popular-solutions</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/web-app-architecture-2025-comparing-popular-solutions</guid>
+      <pubDate>Sun, 27 Jul 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[Web Development]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[Deep Dive: Fine-tuning vs adapters System Design]]></title>
+      <description><![CDATA[Learn deep dive: fine-tuning vs adapters system design with practical examples, code samples, and production-ready solutions. Complete guide for machine learnin....]]></description>
+      <link>https://www.quantafons.com/blog/deep-dive-fine-tuning-vs-adapters-system-design</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/deep-dive-fine-tuning-vs-adapters-system-design</guid>
+      <pubDate>Sat, 26 Jul 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[Machine Learning]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[Streaming responses for UX Mistakes That Cost Teams Months]]></title>
+      <description><![CDATA[Learn streaming responses for ux mistakes that cost teams months with practical examples, code samples, and production-ready solutions. Complete guide for web d....]]></description>
+      <link>https://www.quantafons.com/blog/streaming-responses-for-ux-mistakes-that-cost-teams-months</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/streaming-responses-for-ux-mistakes-that-cost-teams-months</guid>
+      <pubDate>Sat, 26 Jul 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[Web Development]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[Performance budgets for SPAs: Implementation Guide for Production]]></title>
+      <description><![CDATA[Everything you need to know about performance budgets for spas: implementation guide for production. In-depth analysis, practical examples, and expert insights ....]]></description>
+      <link>https://www.quantafons.com/blog/performance-budgets-for-spas-implementation-guide-for-production</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/performance-budgets-for-spas-implementation-guide-for-production</guid>
+      <pubDate>Thu, 24 Jul 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[Performance Optimization]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[Performance budgets for SPAs Mistakes That Cost Teams Months]]></title>
+      <description><![CDATA[Comprehensive guide to performance budgets for spas mistakes that cost teams months. Includes best practices, real-world examples, and actionable insights for p....]]></description>
+      <link>https://www.quantafons.com/blog/performance-budgets-for-spas-mistakes-that-cost-teams-months</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/performance-budgets-for-spas-mistakes-that-cost-teams-months</guid>
+      <pubDate>Fri, 18 Jul 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[Performance Optimization]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[Choosing the Right Streaming responses for UX Solution]]></title>
+      <description><![CDATA[Comprehensive guide to choosing the right streaming responses for ux solution. Includes best practices, real-world examples, and actionable insights for web dev....]]></description>
+      <link>https://www.quantafons.com/blog/choosing-the-right-streaming-responses-for-ux-solution</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/choosing-the-right-streaming-responses-for-ux-solution</guid>
+      <pubDate>Wed, 16 Jul 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[Web Development]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[Building On-device models and WebGPU: Step-by-Step Tutorial]]></title>
+      <description><![CDATA[Master building on-device models and webgpu: step-by-step tutorial with this detailed guide. Features implementation strategies, performance tips, and proven ap....]]></description>
+      <link>https://www.quantafons.com/blog/building-on-device-models-and-webgpu-step-by-step-tutorial</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/building-on-device-models-and-webgpu-step-by-step-tutorial</guid>
+      <pubDate>Sun, 13 Jul 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[Edge AI & Computing]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[Engineering Mobile app stacks that scale: Architecture Deep Dive]]></title>
+      <description><![CDATA[Learn engineering mobile app stacks that scale: architecture deep dive with practical examples, code samples, and production-ready solutions. Complete guide for....]]></description>
+      <link>https://www.quantafons.com/blog/engineering-mobile-app-stacks-that-scale-architecture-deep-dive</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/engineering-mobile-app-stacks-that-scale-architecture-deep-dive</guid>
+      <pubDate>Thu, 10 Jul 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[Mobile Development]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[GPU vs CPU cost curves Tools: Comprehensive Comparison]]></title>
+      <description><![CDATA[Master gpu vs cpu cost curves tools: comprehensive comparison with this detailed guide. Features implementation strategies, performance tips, and proven approac....]]></description>
+      <link>https://www.quantafons.com/blog/gpu-vs-cpu-cost-curves-tools-comprehensive-comparison</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/gpu-vs-cpu-cost-curves-tools-comprehensive-comparison</guid>
+      <pubDate>Tue, 08 Jul 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[Performance Optimization]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[Performance budgets for SPAs: Scalable Architecture Patterns]]></title>
+      <description><![CDATA[Master performance budgets for spas: scalable architecture patterns with this detailed guide. Features implementation strategies, performance tips, and proven a....]]></description>
+      <link>https://www.quantafons.com/blog/performance-budgets-for-spas-scalable-architecture-patterns</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/performance-budgets-for-spas-scalable-architecture-patterns</guid>
+      <pubDate>Sun, 06 Jul 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[Performance Optimization]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[MLOps in small teams: Scalable Architecture Patterns]]></title>
+      <description><![CDATA[Learn mlops in small teams: scalable architecture patterns with practical examples, code samples, and production-ready solutions. Complete guide for mlops & mod....]]></description>
+      <link>https://www.quantafons.com/blog/mlops-in-small-teams-scalable-architecture-patterns</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/mlops-in-small-teams-scalable-architecture-patterns</guid>
+      <pubDate>Thu, 19 Jun 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[MLOps & Model Deployment]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[How to Implement SHM sensors for spacecraft skins: A Complete Guide]]></title>
+      <description><![CDATA[Learn how to implement shm sensors for spacecraft skins: a complete guide with practical examples, code samples, and production-ready solutions. Complete guide ....]]></description>
+      <link>https://www.quantafons.com/blog/how-to-implement-shm-sensors-for-spacecraft-skins-a-complete-guide</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/how-to-implement-shm-sensors-for-spacecraft-skins-a-complete-guide</guid>
+      <pubDate>Mon, 16 Jun 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[Structural Health Monitoring]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[Choosing the Right Observability for LLMs Solution]]></title>
+      <description><![CDATA[Master choosing the right observability for llms solution with this detailed guide. Features implementation strategies, performance tips, and proven approaches ....]]></description>
+      <link>https://www.quantafons.com/blog/choosing-the-right-observability-for-llms-solution</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/choosing-the-right-observability-for-llms-solution</guid>
+      <pubDate>Wed, 11 Jun 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[DevOps & Infrastructure]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[AI agents in production Tools: Comprehensive Comparison]]></title>
+      <description><![CDATA[Everything you need to know about ai agents in production tools: comprehensive comparison. In-depth analysis, practical examples, and expert insights for ai age....]]></description>
+      <link>https://www.quantafons.com/blog/ai-agents-in-production-tools-comprehensive-comparison</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/ai-agents-in-production-tools-comprehensive-comparison</guid>
+      <pubDate>Mon, 09 Jun 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[AI Agents & Automation]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[Edge processing for SHM: Scalable Architecture Patterns]]></title>
+      <description><![CDATA[Learn edge processing for shm: scalable architecture patterns with practical examples, code samples, and production-ready solutions. Complete guide for edge ai ....]]></description>
+      <link>https://www.quantafons.com/blog/edge-processing-for-shm-scalable-architecture-patterns</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/edge-processing-for-shm-scalable-architecture-patterns</guid>
+      <pubDate>Fri, 06 Jun 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[Edge AI & Computing]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[Building RAG systems on private data: Step-by-Step Tutorial]]></title>
+      <description><![CDATA[Comprehensive guide to building rag systems on private data: step-by-step tutorial. Includes best practices, real-world examples, and actionable insights for ai....]]></description>
+      <link>https://www.quantafons.com/blog/building-rag-systems-on-private-data-step-by-step-tutorial</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/building-rag-systems-on-private-data-step-by-step-tutorial</guid>
+      <pubDate>Thu, 05 Jun 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[AI Engineering]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[Multi-agent orchestration patterns: Comparing Popular Solutions]]></title>
+      <description><![CDATA[Everything you need to know about multi-agent orchestration patterns: comparing popular solutions. In-depth analysis, practical examples, and expert insights fo....]]></description>
+      <link>https://www.quantafons.com/blog/multi-agent-orchestration-patterns-comparing-popular-solutions</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/multi-agent-orchestration-patterns-comparing-popular-solutions</guid>
+      <pubDate>Tue, 03 Jun 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[AI Agents & Automation]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[Web app architecture 2025: Architecture Patterns and Best Practices]]></title>
+      <description><![CDATA[Everything you need to know about web app architecture 2025: architecture patterns and best practices. In-depth analysis, practical examples, and expert insight....]]></description>
+      <link>https://www.quantafons.com/blog/web-app-architecture-2025-architecture-patterns-and-best-practices</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/web-app-architecture-2025-architecture-patterns-and-best-practices</guid>
+      <pubDate>Mon, 02 Jun 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[Web Development]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[ETL to analytics in one week: Architecture Patterns and Best Practices]]></title>
+      <description><![CDATA[Comprehensive guide to etl to analytics in one week: architecture patterns and best practices. Includes best practices, real-world examples, and actionable insi....]]></description>
+      <link>https://www.quantafons.com/blog/etl-to-analytics-in-one-week-architecture-patterns-and-best-practices</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/etl-to-analytics-in-one-week-architecture-patterns-and-best-practices</guid>
+      <pubDate>Thu, 22 May 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[Data Engineering]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[Complete Guide to Vector databases and hybrid search in 2025]]></title>
+      <description><![CDATA[Learn complete guide to vector databases and hybrid search in 2025 with practical examples, code samples, and production-ready solutions. Complete guide for dat....]]></description>
+      <link>https://www.quantafons.com/blog/complete-guide-to-vector-databases-and-hybrid-search-in-2025</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/complete-guide-to-vector-databases-and-hybrid-search-in-2025</guid>
+      <pubDate>Tue, 13 May 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[Data Engineering]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[SHM sensors for spacecraft skins: Comparing Popular Solutions]]></title>
+      <description><![CDATA[Everything you need to know about shm sensors for spacecraft skins: comparing popular solutions. In-depth analysis, practical examples, and expert insights for ....]]></description>
+      <link>https://www.quantafons.com/blog/shm-sensors-for-spacecraft-skins-comparing-popular-solutions</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/shm-sensors-for-spacecraft-skins-comparing-popular-solutions</guid>
+      <pubDate>Sun, 11 May 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[Structural Health Monitoring]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[Deep Dive: AI agents in production System Design]]></title>
+      <description><![CDATA[Everything you need to know about deep dive: ai agents in production system design. In-depth analysis, practical examples, and expert insights for ai agents & a....]]></description>
+      <link>https://www.quantafons.com/blog/deep-dive-ai-agents-in-production-system-design</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/deep-dive-ai-agents-in-production-system-design</guid>
+      <pubDate>Tue, 06 May 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[AI Agents & Automation]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[Digital twins for maintenance: Scalable Architecture Patterns]]></title>
+      <description><![CDATA[Everything you need to know about digital twins for maintenance: scalable architecture patterns. In-depth analysis, practical examples, and expert insights for ....]]></description>
+      <link>https://www.quantafons.com/blog/digital-twins-for-maintenance-scalable-architecture-patterns</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/digital-twins-for-maintenance-scalable-architecture-patterns</guid>
+      <pubDate>Sun, 04 May 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[Aerospace Engineering]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[Security and data redaction for AI: Common Pitfalls and How to Avoid Them]]></title>
+      <description><![CDATA[Master security and data redaction for ai: common pitfalls and how to avoid them with this detailed guide. Features implementation strategies, performance tips,....]]></description>
+      <link>https://www.quantafons.com/blog/security-and-data-redaction-for-ai-common-pitfalls-and-how-to-avoid-them</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/security-and-data-redaction-for-ai-common-pitfalls-and-how-to-avoid-them</guid>
+      <pubDate>Fri, 02 May 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[Security & Privacy]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[DevOps for fast shipping Mistakes That Cost Teams Months]]></title>
+      <description><![CDATA[Everything you need to know about devops for fast shipping mistakes that cost teams months. In-depth analysis, practical examples, and expert insights for devop....]]></description>
+      <link>https://www.quantafons.com/blog/devops-for-fast-shipping-mistakes-that-cost-teams-months</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/devops-for-fast-shipping-mistakes-that-cost-teams-months</guid>
+      <pubDate>Thu, 24 Apr 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[DevOps & Infrastructure]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[RAG systems on private data: Framework Comparison and Recommendations]]></title>
+      <description><![CDATA[Comprehensive guide to rag systems on private data: framework comparison and recommendations. Includes best practices, real-world examples, and actionable insig....]]></description>
+      <link>https://www.quantafons.com/blog/rag-systems-on-private-data-framework-comparison-and-recommendations</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/rag-systems-on-private-data-framework-comparison-and-recommendations</guid>
+      <pubDate>Wed, 23 Apr 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[AI Engineering]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[MLOps in small teams Mistakes That Cost Teams Months]]></title>
+      <description><![CDATA[Everything you need to know about mlops in small teams mistakes that cost teams months. In-depth analysis, practical examples, and expert insights for mlops & m....]]></description>
+      <link>https://www.quantafons.com/blog/mlops-in-small-teams-mistakes-that-cost-teams-months</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/mlops-in-small-teams-mistakes-that-cost-teams-months</guid>
+      <pubDate>Wed, 16 Apr 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[MLOps & Model Deployment]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[How to Implement Multi-agent orchestration patterns: A Complete Guide]]></title>
+      <description><![CDATA[Everything you need to know about how to implement multi-agent orchestration patterns: a complete guide. In-depth analysis, practical examples, and expert insig....]]></description>
+      <link>https://www.quantafons.com/blog/how-to-implement-multi-agent-orchestration-patterns-a-complete-guide</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/how-to-implement-multi-agent-orchestration-patterns-a-complete-guide</guid>
+      <pubDate>Sun, 13 Apr 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[AI Agents & Automation]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[Web app architecture 2025: Implementation Guide for Production]]></title>
+      <description><![CDATA[Master web app architecture 2025: implementation guide for production with this detailed guide. Features implementation strategies, performance tips, and proven....]]></description>
+      <link>https://www.quantafons.com/blog/web-app-architecture-2025-implementation-guide-for-production</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/web-app-architecture-2025-implementation-guide-for-production</guid>
+      <pubDate>Sun, 06 Apr 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[Web Development]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[Engineering Docs and knowledge bases with AI: Architecture Deep Dive]]></title>
+      <description><![CDATA[Master engineering docs and knowledge bases with ai: architecture deep dive with this detailed guide. Features implementation strategies, performance tips, and ....]]></description>
+      <link>https://www.quantafons.com/blog/engineering-docs-and-knowledge-bases-with-ai-architecture-deep-dive</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/engineering-docs-and-knowledge-bases-with-ai-architecture-deep-dive</guid>
+      <pubDate>Fri, 04 Apr 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[AI Engineering]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[NLP pipelines beyond LLMs: Scalable Architecture Patterns]]></title>
+      <description><![CDATA[Master nlp pipelines beyond llms: scalable architecture patterns with this detailed guide. Features implementation strategies, performance tips, and proven appr....]]></description>
+      <link>https://www.quantafons.com/blog/nlp-pipelines-beyond-llms-scalable-architecture-patterns</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/nlp-pipelines-beyond-llms-scalable-architecture-patterns</guid>
+      <pubDate>Thu, 03 Apr 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[Natural Language Processing]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[What We Learned From CI for data and prompts Failures]]></title>
+      <description><![CDATA[Everything you need to know about what we learned from ci for data and prompts failures. In-depth analysis, practical examples, and expert insights for devops &....]]></description>
+      <link>https://www.quantafons.com/blog/what-we-learned-from-ci-for-data-and-prompts-failures</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/what-we-learned-from-ci-for-data-and-prompts-failures</guid>
+      <pubDate>Tue, 01 Apr 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[DevOps & Infrastructure]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[Choosing the Right On-device models and WebGPU Solution]]></title>
+      <description><![CDATA[Comprehensive guide to choosing the right on-device models and webgpu solution. Includes best practices, real-world examples, and actionable insights for edge a....]]></description>
+      <link>https://www.quantafons.com/blog/choosing-the-right-on-device-models-and-webgpu-solution</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/choosing-the-right-on-device-models-and-webgpu-solution</guid>
+      <pubDate>Mon, 24 Mar 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[Edge AI & Computing]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[How to Implement Security and data redaction for AI: A Complete Guide]]></title>
+      <description><![CDATA[Comprehensive guide to how to implement security and data redaction for ai: a complete guide. Includes best practices, real-world examples, and actionable insig....]]></description>
+      <link>https://www.quantafons.com/blog/how-to-implement-security-and-data-redaction-for-ai-a-complete-guide</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/how-to-implement-security-and-data-redaction-for-ai-a-complete-guide</guid>
+      <pubDate>Thu, 20 Mar 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[Security & Privacy]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[Complete Guide to ETL to analytics in one week in 2025]]></title>
+      <description><![CDATA[Learn complete guide to etl to analytics in one week in 2025 with practical examples, code samples, and production-ready solutions. Complete guide for data engi....]]></description>
+      <link>https://www.quantafons.com/blog/complete-guide-to-etl-to-analytics-in-one-week-in-2025</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/complete-guide-to-etl-to-analytics-in-one-week-in-2025</guid>
+      <pubDate>Tue, 18 Mar 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[Data Engineering]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[How to Implement MLOps in small teams: A Complete Guide]]></title>
+      <description><![CDATA[Comprehensive guide to how to implement mlops in small teams: a complete guide. Includes best practices, real-world examples, and actionable insights for mlops ....]]></description>
+      <link>https://www.quantafons.com/blog/how-to-implement-mlops-in-small-teams-a-complete-guide</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/how-to-implement-mlops-in-small-teams-a-complete-guide</guid>
+      <pubDate>Mon, 17 Mar 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[MLOps & Model Deployment]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[Vision models for quality control: Implementation Guide for Production]]></title>
+      <description><![CDATA[Everything you need to know about vision models for quality control: implementation guide for production. In-depth analysis, practical examples, and expert insi....]]></description>
+      <link>https://www.quantafons.com/blog/vision-models-for-quality-control-implementation-guide-for-production</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/vision-models-for-quality-control-implementation-guide-for-production</guid>
+      <pubDate>Fri, 14 Mar 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[Computer Vision]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[LLM evaluation and test harnesses: Architecture Patterns and Best Practices]]></title>
+      <description><![CDATA[Learn llm evaluation and test harnesses: architecture patterns and best practices with practical examples, code samples, and production-ready solutions. Complet....]]></description>
+      <link>https://www.quantafons.com/blog/llm-evaluation-and-test-harnesses-architecture-patterns-and-best-practices</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/llm-evaluation-and-test-harnesses-architecture-patterns-and-best-practices</guid>
+      <pubDate>Wed, 12 Mar 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[Machine Learning]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[Modal analysis for buildings: Comparing Popular Solutions]]></title>
+      <description><![CDATA[Comprehensive guide to modal analysis for buildings: comparing popular solutions. Includes best practices, real-world examples, and actionable insights for civi....]]></description>
+      <link>https://www.quantafons.com/blog/modal-analysis-for-buildings-comparing-popular-solutions</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/modal-analysis-for-buildings-comparing-popular-solutions</guid>
+      <pubDate>Sun, 09 Mar 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[Civil Engineering]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[Testing strategies E2E to unit: Scalable Architecture Patterns]]></title>
+      <description><![CDATA[Everything you need to know about testing strategies e2e to unit: scalable architecture patterns. In-depth analysis, practical examples, and expert insights for....]]></description>
+      <link>https://www.quantafons.com/blog/testing-strategies-e2e-to-unit-scalable-architecture-patterns</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/testing-strategies-e2e-to-unit-scalable-architecture-patterns</guid>
+      <pubDate>Thu, 06 Mar 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[Testing & Quality Assurance]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[What We Learned From Vector databases and hybrid search Failures]]></title>
+      <description><![CDATA[Everything you need to know about what we learned from vector databases and hybrid search failures. In-depth analysis, practical examples, and expert insights f....]]></description>
+      <link>https://www.quantafons.com/blog/what-we-learned-from-vector-databases-and-hybrid-search-failures</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/what-we-learned-from-vector-databases-and-hybrid-search-failures</guid>
+      <pubDate>Wed, 19 Feb 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[Data Engineering]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[DevOps for fast shipping: Scalable Architecture Patterns]]></title>
+      <description><![CDATA[Everything you need to know about devops for fast shipping: scalable architecture patterns. In-depth analysis, practical examples, and expert insights for devop....]]></description>
+      <link>https://www.quantafons.com/blog/devops-for-fast-shipping-scalable-architecture-patterns</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/devops-for-fast-shipping-scalable-architecture-patterns</guid>
+      <pubDate>Wed, 12 Feb 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[DevOps & Infrastructure]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+    <item>
+      <title><![CDATA[Deep Dive: On-device models and WebGPU System Design]]></title>
+      <description><![CDATA[Everything you need to know about deep dive: on-device models and webgpu system design. In-depth analysis, practical examples, and expert insights for edge ai &....]]></description>
+      <link>https://www.quantafons.com/blog/deep-dive-on-device-models-and-webgpu-system-design</link>
+      <guid isPermaLink="true">https://www.quantafons.com/blog/deep-dive-on-device-models-and-webgpu-system-design</guid>
+      <pubDate>Sun, 09 Feb 2025 00:00:00 GMT</pubDate>
+      <category><![CDATA[Edge AI & Computing]]></category>
+      <author><![CDATA[info@quantafons.com (QuantaFONS Team)]]></author>
+    </item>
+  </channel>
+</rss>

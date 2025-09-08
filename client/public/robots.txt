@@ -1,0 +1,13 @@
+User-agent: *
+Disallow: /api/
+Disallow: /admin/
+Disallow: /_next/
+Disallow: /node_modules/
+Disallow: /src/
+Allow: /
+
+# Sitemap
+Sitemap: https://www.quantafons.com/sitemap.xml
+
+# Crawl-delay for courtesy
+Crawl-delay: 1
