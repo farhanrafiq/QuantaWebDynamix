@@ -1,0 +1,469 @@
+{
+  "about": {
+    "mission": "To build practical AI solutions that help teams research, write, code, and ship faster, while delivering real-time monitoring for spacecraft and critical infrastructure.",
+    "whatWeBuild": [
+      {
+        "title": "Eli-S1 AI Engine",
+        "description": "Multi-agent workflows that plan, code, test, and deploy with full audit trails. Eli-S1 doesn't just answer questions—it breaks down problems, spins up specialized agents, uses tools safely, and delivers reports you can trust.",
+        "icon": "bot",
+        "features": [
+          "Research and synthesis with source citations",
+          "Code scaffolding for multiple tech stacks",
+          "Test generation and CI integration", 
+          "Multi-agent orchestration with clear ownership",
+          "Long-running jobs with checkpoints",
+          "Compliance-friendly audit logs"
+        ]
+      },
+      {
+        "title": "Structural Health Monitoring",
+        "description": "Real-time health monitoring for spacecraft and critical infrastructure using fiber-optic sensors, edge analytics, and AI-driven anomaly detection.",
+        "icon": "shield",
+        "features": [
+          "Launch and ascent load profiling",
+          "On-orbit thermal cycling analysis",
+          "Micrometeoroid impact detection",
+          "Bridge and building strain monitoring",
+          "Modal analysis and fatigue estimation",
+          "SCADA and CMMS integration"
+        ]
+      },
+      {
+        "title": "Production Software",
+        "description": "Enterprise applications available as SaaS or one-time licenses. From practice management to inventory systems, we deliver software you can run tomorrow.",
+        "icon": "code",
+        "features": [
+          "Full-stack web and mobile development",
+          "AI chatbots for support and sales",
+          "Enterprise billing and CRM systems",
+          "Data pipelines and OCR automation",
+          "Cloud deployment with monitoring"
+        ]
+      }
+    ],
+    "teamSnapshot": [
+      {
+        "name": "AI Research Team",
+        "description": "PhD-level researchers working on LLMs, multi-agent systems, and prompt engineering.",
+        "size": "8 engineers"
+      },
+      {
+        "name": "SHM Engineering",
+        "description": "Aerospace and civil engineers with expertise in sensor networks and signal processing.",
+        "size": "6 engineers"
+      },
+      {
+        "name": "Full-Stack Development",
+        "description": "Senior developers building enterprise applications and cloud infrastructure.",
+        "size": "12 engineers"
+      }
+    ]
+  },
+  "eliS1": {
+    "overview": "Eli-S1 is our in-house AI engine designed for practical, enterprise-grade workflows. Unlike simple chatbots, Eli-S1 orchestrates multiple specialized agents to handle complex, multi-step tasks with full auditability and compliance controls.",
+    "capabilities": [
+      {
+        "category": "Research & Analysis",
+        "items": [
+          "Literature review with source verification",
+          "Market research and competitive analysis",
+          "Technical documentation synthesis",
+          "Regulatory compliance research"
+        ]
+      },
+      {
+        "category": "Code Generation",
+        "items": [
+          "Full-stack application scaffolding",
+          "API development and testing",
+          "Database schema design",
+          "CI/CD pipeline configuration"
+        ]
+      },
+      {
+        "category": "Quality Assurance",
+        "items": [
+          "Unit and integration test generation",
+          "Code review and security analysis",
+          "Performance optimization suggestions",
+          "Documentation generation"
+        ]
+      },
+      {
+        "category": "Project Management",
+        "items": [
+          "Task breakdown and estimation",
+          "Risk assessment and mitigation",
+          "Progress tracking and reporting",
+          "Stakeholder communication"
+        ]
+      }
+    ],
+    "howItWorks": [
+      {
+        "step": 1,
+        "title": "Problem Analysis",
+        "description": "Eli-S1 breaks down complex requirements into manageable tasks and identifies the best approach."
+      },
+      {
+        "step": 2,
+        "title": "Agent Orchestration",
+        "description": "Specialized agents are deployed for research, coding, testing, and validation tasks."
+      },
+      {
+        "step": 3,
+        "title": "Tool Integration",
+        "description": "Agents safely interact with APIs, databases, cloud services, and development tools."
+      },
+      {
+        "step": 4,
+        "title": "Quality Control",
+        "description": "All outputs are validated, tested, and documented before delivery."
+      },
+      {
+        "step": 5,
+        "title": "Audit Trail",
+        "description": "Complete logs of decisions, sources, and actions for compliance and debugging."
+      }
+    ],
+    "integrations": [
+      "GitHub/GitLab for code management",
+      "Jira/Linear for project tracking",
+      "Slack/Teams for notifications",
+      "AWS/GCP/Azure for cloud operations",
+      "Vector stores for knowledge management",
+      "Database systems (Postgres, MySQL, MongoDB)"
+    ],
+    "deploymentOptions": [
+      {
+        "name": "SaaS",
+        "description": "Private project spaces in our secure cloud environment",
+        "pricing": "Per-seat monthly subscription"
+      },
+      {
+        "name": "VPC Hosted",
+        "description": "Deployed in your existing cloud infrastructure",
+        "pricing": "Annual license plus infrastructure costs"
+      },
+      {
+        "name": "On-Premises",
+        "description": "Complete air-gapped deployment for maximum security",
+        "pricing": "Perpetual license plus support contract"
+      }
+    ],
+    "outcomes": [
+      "70% reduction in project setup time",
+      "50% faster code review cycles",
+      "90% improvement in documentation quality",
+      "Complete audit trails for compliance"
+    ]
+  },
+  "shm": {
+    "overview": "Our Structural Health Monitoring system provides real-time insights into the condition of critical infrastructure and spacecraft. Using advanced sensor networks and AI-driven analytics, we detect problems before they become failures.",
+    "sensors": [
+      {
+        "type": "Fiber Bragg Grating (FBG)",
+        "description": "High-precision strain and temperature measurement",
+        "applications": ["Spacecraft hulls", "Bridge cables", "Building frames"]
+      },
+      {
+        "type": "Accelerometers",
+        "description": "Vibration and modal analysis sensors",
+        "applications": ["Seismic monitoring", "Machinery health", "Impact detection"]
+      },
+      {
+        "type": "Acoustic Emission",
+        "description": "Early crack detection and material failure prediction",
+        "applications": ["Pressure vessels", "Composite structures", "Welds"]
+      },
+      {
+        "type": "Environmental",
+        "description": "Temperature, humidity, and corrosion monitoring",
+        "applications": ["Long-term degradation", "Climate effects", "Material aging"]
+      }
+    ],
+    "analytics": [
+      {
+        "name": "Baseline Tracking",
+        "description": "Establish normal operating conditions and detect deviations"
+      },
+      {
+        "name": "Modal Analysis",
+        "description": "Identify changes in structural natural frequencies and damping"
+      },
+      {
+        "name": "Anomaly Detection",
+        "description": "AI-powered identification of unusual patterns and potential failures"
+      },
+      {
+        "name": "Predictive Modeling",
+        "description": "Forecast remaining useful life and maintenance schedules"
+      },
+      {
+        "name": "Impact Localization",
+        "description": "Pinpoint location and severity of impacts or damage"
+      }
+    ],
+    "spacecraftFocus": [
+      "Launch and ascent load profiling with automated post-event reports",
+      "On-orbit thermal cycling stress maps and fatigue analysis",
+      "Micrometeoroid and debris impact detection with energy estimation",
+      "Panel delamination detection through acoustic and modal analysis",
+      "Thruster firing impact assessment on structural integrity",
+      "Solar panel deployment and articulation health monitoring"
+    ],
+    "civilFocus": [
+      "Bridge span monitoring with traffic load correlation",
+      "High-rise building wind response and seismic activity tracking",
+      "Dam structural integrity and hydrostatic pressure monitoring",
+      "Tunnel convergence and ground movement detection",
+      "Stadium and arena dynamic response during events",
+      "Historical building preservation and restoration monitoring"
+    ],
+    "architecture": {
+      "dataFlow": [
+        "Sensors → Edge Processing → Cloud Analytics → Dashboard Alerts",
+        "Real-time streaming with 1-10 Hz sampling rates",
+        "Edge compression reduces bandwidth by 95%",
+        "Cloud ML models update every 24 hours"
+      ],
+      "storage": "Time-series database with 10-year retention",
+      "alerts": "Configurable thresholds with SMS, email, and API webhooks",
+      "integration": "REST APIs for SCADA, CMMS, and building management systems"
+    },
+    "kpis": [
+      "Mean Time to Detection (MTTD): < 5 minutes for critical events",
+      "False Positive Rate: < 2% for high-priority alerts",
+      "System Uptime: 99.9% availability with redundant monitoring",
+      "Data Accuracy: ±0.1% for strain measurements, ±0.5°C for temperature"
+    ]
+  },
+  "itServices": {
+    "overview": "We deliver production-ready software solutions with modern architectures, from rapid prototypes to enterprise-scale applications. Our team handles the full development lifecycle with DevOps best practices.",
+    "services": [
+      {
+        "category": "Web & Mobile Development",
+        "description": "Full-stack applications using React, Node.js, Python, and mobile frameworks",
+        "deliverables": [
+          "Progressive Web Apps (PWAs)",
+          "Native iOS and Android applications",
+          "Responsive web applications",
+          "API development and integration"
+        ]
+      },
+      {
+        "category": "AI Chatbots & Agents",
+        "description": "Custom AI solutions for customer support, sales, and internal automation",
+        "deliverables": [
+          "Customer support chatbots",
+          "Sales qualification agents",
+          "Internal process automation",
+          "Knowledge base integration"
+        ]
+      },
+      {
+        "category": "Enterprise Systems",
+        "description": "Business management software for operations, finance, and customer relationships",
+        "deliverables": [
+          "CRM and sales pipeline management",
+          "Inventory and supply chain systems",
+          "HR and payroll management",
+          "Billing and invoicing automation"
+        ]
+      },
+      {
+        "category": "Data Pipelines & Analytics",
+        "description": "Data processing, transformation, and business intelligence solutions",
+        "deliverables": [
+          "ETL pipelines and data warehouses",
+          "Business intelligence dashboards",
+          "OCR and document processing",
+          "Reporting and analytics platforms"
+        ]
+      },
+      {
+        "category": "Cloud & DevOps",
+        "description": "Infrastructure deployment, monitoring, and maintenance on major cloud platforms",
+        "deliverables": [
+          "AWS/GCP/Azure deployment",
+          "Container orchestration (Docker/K8s)",
+          "CI/CD pipeline setup",
+          "Monitoring and alerting systems"
+        ]
+      }
+    ],
+    "deliveryModel": {
+      "approach": "Agile development with 2-week sprints and continuous delivery",
+      "timeline": "Most projects delivered in 3-6 months from requirements to production",
+      "support": "6 months of included support, then optional maintenance contracts",
+      "quality": "Automated testing, code review, and security scanning on all projects"
+    },
+    "pricing": {
+      "consultation": "Free initial assessment and project scoping",
+      "development": "$150-250/hour depending on complexity and team size",
+      "fixedPrice": "Available for well-defined projects with clear requirements",
+      "retainer": "Monthly retainer for ongoing development and maintenance"
+    }
+  },
+  "apps": [
+    {
+      "name": "Practice Manager",
+      "description": "Complete practice management solution for law firms, consultancies, and professional services.",
+      "features": [
+        "Matter and case management",
+        "Time tracking and billing",
+        "Document management with version control",
+        "Client portal with secure messaging",
+        "Automated invoicing and payment processing",
+        "Calendar integration and appointment scheduling"
+      ],
+      "mode": "SaaS",
+      "pricing": "$49/user/month",
+      "demoUrl": "/demo/practice-manager"
+    },
+    {
+      "name": "POS & Inventory",
+      "description": "Multi-store point of sale system with comprehensive inventory management.",
+      "features": [
+        "Barcode scanning and product lookup",
+        "Multi-location inventory tracking",
+        "GST/tax calculation and reporting",
+        "Customer loyalty programs",
+        "Sales analytics and reporting",
+        "Supplier management and purchasing"
+      ],
+      "mode": "One-Time",
+      "pricing": "$2,999 one-time license",
+      "demoUrl": "/demo/pos-inventory"
+    },
+    {
+      "name": "Clinic EMR",
+      "description": "Electronic medical records system designed for small to medium clinics.",
+      "features": [
+        "Patient queue management",
+        "Digital prescriptions and drug databases",
+        "Lab integration and results management",
+        "Insurance and billing integration",
+        "Appointment scheduling",
+        "Medical history and treatment plans"
+      ],
+      "mode": "SaaS",
+      "pricing": "$79/provider/month",
+      "demoUrl": "/demo/clinic-emr"
+    },
+    {
+      "name": "CRM Pro",
+      "description": "Customer relationship management with automation and pipeline tracking.",
+      "features": [
+        "Lead capture and qualification",
+        "Sales pipeline visualization",
+        "Email and WhatsApp automation",
+        "Customer communication history",
+        "Deal tracking and forecasting",
+        "Integration with email and calendar"
+      ],
+      "mode": "SaaS",
+      "pricing": "$29/user/month",
+      "demoUrl": "/demo/crm-pro"
+    },
+    {
+      "name": "HRMS Complete",
+      "description": "Human resource management system for growing companies.",
+      "features": [
+        "Employee attendance tracking",
+        "Payroll processing and tax calculation",
+        "Leave management and approvals",
+        "Performance review workflows",
+        "Document management and compliance",
+        "Employee self-service portal"
+      ],
+      "mode": "One-Time",
+      "pricing": "$4,999 one-time license",
+      "demoUrl": "/demo/hrms-complete"
+    },
+    {
+      "name": "Project Tracker",
+      "description": "Agile project management with team collaboration features.",
+      "features": [
+        "Sprint planning and backlog management",
+        "Task assignment and progress tracking",
+        "Time tracking and reporting",
+        "File sharing and version control",
+        "Team communication and updates",
+        "Integration with development tools"
+      ],
+      "mode": "SaaS",
+      "pricing": "$19/user/month",
+      "demoUrl": "/demo/project-tracker"
+    },
+    {
+      "name": "LMS & Bus Tracking",
+      "description": "Learning management system with integrated school bus tracking.",
+      "features": [
+        "Course creation and content management",
+        "Student progress tracking",
+        "Assignment and grading systems",
+        "Real-time bus location tracking",
+        "Parent communication portal",
+        "Attendance and performance analytics"
+      ],
+      "mode": "SaaS",
+      "pricing": "$89/month per school",
+      "demoUrl": "/demo/lms-bus-tracking"
+    },
+    {
+      "name": "Quran Reader",
+      "description": "Interactive Quran application with audio and study features.",
+      "features": [
+        "Clickable ayat with translations",
+        "Audio recitation with timing",
+        "Bookmark and note-taking",
+        "Search across text and translations",
+        "Reading progress tracking",
+        "Multiple translation options"
+      ],
+      "mode": "One-Time",
+      "pricing": "$999 one-time license",
+      "demoUrl": "/demo/quran-reader"
+    }
+  ],
+  "faqs": [
+    {
+      "question": "How does Eli-S1 differ from other AI tools?",
+      "answer": "Eli-S1 is designed for enterprise workflows with multi-agent orchestration, full audit trails, and compliance controls. Unlike simple chatbots, it can handle complex, multi-step projects with specialized agents for different tasks."
+    },
+    {
+      "question": "What types of structures can your SHM system monitor?",
+      "answer": "Our system is designed for both spacecraft and civil infrastructure including bridges, buildings, dams, tunnels, and pressure vessels. We customize sensor configurations based on specific structural requirements."
+    },
+    {
+      "question": "Do you provide source code with your applications?",
+      "answer": "Yes, all one-time license applications include full source code. SaaS applications are hosted and managed by us, but we can provide source code under enterprise agreements."
+    },
+    {
+      "question": "What kind of support do you offer?",
+      "answer": "We provide comprehensive support including initial setup, training, ongoing maintenance, and feature development. Support levels vary by product and licensing model."
+    },
+    {
+      "question": "Can your systems integrate with existing infrastructure?",
+      "answer": "Yes, all our solutions are designed with integration in mind. We provide REST APIs, webhooks, and can develop custom integrations for enterprise clients."
+    }
+  ],
+  "ctas": {
+    "primary": {
+      "text": "Schedule a Demo",
+      "url": "/contact",
+      "description": "See our solutions in action with a personalized demonstration"
+    },
+    "secondary": {
+      "text": "Download Technical Specs",
+      "url": "/resources/technical-specs.pdf",
+      "description": "Detailed technical documentation and specifications"
+    },
+    "whatsapp": {
+      "text": "Chat on WhatsApp",
+      "url": "https://wa.me/918899969992",
+      "description": "Quick questions? Message us directly"
+    }
+  }
+}
