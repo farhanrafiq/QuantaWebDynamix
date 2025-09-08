@@ -13,11 +13,23 @@ import RootLayout from "./layouts/RootLayout";
 import Home from "./pages/Home";
 import LandingPage from "./pages/LandingPage";
 import About from "./pages/AboutNew";
+import EliS1 from "./pages/EliS1";
+import SHM from "./pages/SHM";
+import ITServices from "./pages/ITServices";
+import Apps from "./pages/Apps";
+import CaseStudies from "./pages/CaseStudies";
 import Technologies from "./pages/TechnologiesNew";
 import Products from "./pages/ProductsNew2";
 import Blog from "./pages/BlogNew";
+import BlogIndex from "./pages/BlogIndex";
+import BlogPost from "./pages/BlogPost";
+import BlogCategory from "./pages/BlogCategory";
+import BlogTag from "./pages/BlogTag";
+import Search from "./pages/Search";
 import Careers from "./pages/Careers";
 import Contact from "./pages/ContactNew";
+import Privacy from "./pages/Privacy";
+import Terms from "./pages/Terms";
 
 // Loader component for page transitions
 const PageLoader = () => (
