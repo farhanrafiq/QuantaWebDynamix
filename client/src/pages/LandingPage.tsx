@@ -8,7 +8,7 @@ import { useLocation } from "wouter";
 import ParticleBackground from "../components/ParticleBackground";
 import { useIsMobile } from "../hooks/use-mobile";
 import QFSection from "../components/qf/QFSection";
-import QFSEOProvider from "../../qf-seo/components/QFSEOProvider";
+import QFSEOProvider from "../../../qf-seo/components/QFSEOProvider";
 
 // Register GSAP plugins
 if (typeof window !== "undefined") {
@@ -277,8 +277,16 @@ const LandingPage = () => {
   };
   
   return (
-    <div className="bg-[#0D0F12] min-h-screen overflow-x-hidden">
-      {!isMobile && <CustomCursor />}
+    <QFSEOProvider
+      title="AI-first R&D Company | Structural Health Monitoring"
+      description="QuantaFONS specializes in AI-powered solutions including Eli-S1 AI engine, structural health monitoring for spacecraft and critical infrastructure, and enterprise software development."
+      keywords="AI, machine learning, structural health monitoring, spacecraft engineering, enterprise software, Eli-S1, QuantaFONS"
+      image="/og-homepage.png"
+      isHomepage={true}
+      showBreadcrumbs={false}
+    >
+      <div className="bg-[#0D0F12] min-h-screen overflow-x-hidden">
+        {!isMobile && <CustomCursor />}
       
       {/* Hero section */}
       <section ref={heroRef} className="min-h-screen flex flex-col relative">
@@ -928,8 +936,9 @@ const LandingPage = () => {
         </div>
       </section>
       
-      {/* Footer is handled by the RootLayout component */}
-    </div>
+        {/* Footer is handled by the RootLayout component */}
+      </div>
+    </QFSEOProvider>
   );
 };
 
