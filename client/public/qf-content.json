@@ -54,6 +54,6 @@
     {"name":"HRMS","desc":"Employee attendance tracking, payroll processing, and automated letter generation.","mode":"One-Time"},
     {"name":"Project Tracker","desc":"Agile task management with sprints, documentation, and file collaboration.","mode":"SaaS"},
     {"name":"LMS + Bus Tracking","desc":"School learning management system with real-time bus fuel and route analytics.","mode":"SaaS"},
-    {"name":"Quran Reader","desc":"Interactive Quran with clickable ayat, audio playback, and bookmark features.","mode":"One-Time"}
+    {"name":"Knowledge Management","desc":"Enterprise knowledge base with AI search, team wikis, and document collaboration.","mode":"One-Time"}
   ]
 }

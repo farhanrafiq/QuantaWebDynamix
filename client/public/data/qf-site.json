@@ -412,19 +412,19 @@
       "demoUrl": "/demo/lms-bus-tracking"
     },
     {
-      "name": "Quran Reader",
-      "description": "Interactive Quran application with audio and study features.",
+      "name": "Knowledge Management System",
+      "description": "Enterprise knowledge base with AI-powered search and collaboration.",
       "features": [
-        "Clickable ayat with translations",
-        "Audio recitation with timing",
-        "Bookmark and note-taking",
-        "Search across text and translations",
-        "Reading progress tracking",
-        "Multiple translation options"
+        "Document versioning and collaboration",
+        "AI-powered content search and recommendations",
+        "Team wikis and knowledge bases",
+        "Advanced tagging and categorization",
+        "Integration with popular work tools",
+        "Analytics and usage insights"
       ],
       "mode": "One-Time",
       "pricing": "$999 one-time license",
-      "demoUrl": "/demo/quran-reader"
+      "demoUrl": "/demo/knowledge-management"
     }
   ],
   "faqs": [
