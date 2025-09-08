@@ -1,31 +1,59 @@
 {
   "about": {
-    "headline": "We build practical AI and engineering.",
-    "body": "QuantaFONS builds Eli-S1 (our in-house AI engine) and advanced Structural Health Monitoring for spacecraft and civil structures. We also deliver full-stack IT services and ready-to-use applications available as SaaS or one-time license.",
+    "headline": "We build Eli-S1 for faster work, deliver real SHM for spacecraft and concrete, and ship production software your team can run tomorrow.",
+    "body": "QuantaFONS is an AI-first R&D company that builds practical solutions. Eli-S1, our in-house AI engine, helps teams research, write, code, and ship faster through multi-agent orchestration. We deliver real-time Structural Health Monitoring for spacecraft and critical infrastructure, plus full-stack applications available as SaaS or perpetual licenses.",
     "bullets": [
-      "In-house AI: Eli-S1 for research, coding, and multi-agent workflows",
-      "SHM: sensors + analytics for spacecraft hulls and RCC structures",
-      "Delivery: from quick MVPs to enterprise systems"
+      "Eli-S1 AI Engine: Multi-agent workflows that plan, code, test, and deploy with full audit trails",
+      "Real-time SHM: Fiber-optic sensing and analytics for spacecraft hulls, concrete structures, and critical infrastructure", 
+      "Production Software: Enterprise applications with SaaS or one-time licensing options you can run tomorrow"
     ]
   },
   "eliS1": {
-    "subhead": "Our in-house AI engine.",
-    "body": "Eli-S1 researches, writes, codes, and orchestrates tools to ship faster. It powers data prep, code scaffolding, testing, and knowledge curation across projects."
+    "subhead": "A practical AI engine that helps teams research, write, code, and ship faster.",
+    "body": "Eli-S1 doesn't just answer questions. It plans work, spins up specialized agents, uses tools, reads your repos and documents, generates tests, and closes the loop with reports you can trust. Give it a problem and it breaks it down into steps, decides which tools to use, calls them safely, and keeps track of context across the whole job.",
+    "capabilities": [
+      "Research and synthesis that cites sources and flags uncertainty",
+      "Code scaffolding for web, mobile, data, and backend stacks", 
+      "Test generation and CI prompts to raise coverage with minimal churn",
+      "Multi-agent orchestration for larger tasks with clear ownership",
+      "Long-running jobs with checkpoints and resumable plans",
+      "Compliance-friendly redaction and audit logs"
+    ],
+    "integrations": ["GitHub/GitLab", "Jira", "Slack", "Cloud CLIs", "Vector Stores", "Postgres/MySQL/Mongo"],
+    "deploymentOptions": ["SaaS in private project space", "VPC-hosted in your cloud", "On-prem for strict environments"]
   },
   "shm": {
-    "subhead": "Structural Health Monitoring",
-    "body": "Fiber-optic and advanced sensing + analytics for strain, vibration, and thermal behavior. Designed for spacecraft skins and concrete members.",
-    "features": ["Real-time dashboards", "Alert thresholds and reports", "Integrations with existing SCADA/Cloud"]
+    "subhead": "Real-time health monitoring for spacecraft and critical infrastructure",
+    "body": "A full stack for watching the health of critical structures in real time. Sensors capture strain, vibration, temperature, and acoustic events. Edge devices clean and compress the data. Analytics detect drift, fatigue, and sudden damage. Dashboards show what changed, where it changed, and how urgent it is.",
+    "spacecraftFeatures": [
+      "Launch and ascent load profiling with automated post-event reports",
+      "On-orbit thermal cycling stress maps", 
+      "Micrometeoroid and debris impact detection with energy proxy",
+      "Panel delamination hints from acoustic and modal shifts"
+    ],
+    "buildingFeatures": [
+      "RCC beam and slab strain envelopes under service loads",
+      "Pre-fail signatures in vibration and deflection for bridges",
+      "Temperature-strain compensation for daily and seasonal cycles",
+      "Rebar health indicators via long-term pattern changes"
+    ],
+    "analytics": ["Baseline and drift tracking", "Modal identification", "Anomaly detection", "Impact localization", "Fatigue estimates", "Crack growth indicators"]
   },
-  "services": ["Web & Mobile Development", "AI Chatbots & Agents", "Enterprise Software", "Data Pipelines & OCR→Excel", "Cloud & DevOps"],
+  "services": [
+    "Full-stack web and mobile development",
+    "AI chatbots and agents for support and sales", 
+    "Enterprise systems for billing, HR, CRM, inventory",
+    "Data pipelines and OCR to Excel for back-office cleanup",
+    "Cloud deploys with monitoring and alerts"
+  ],
   "apps": [
-    {"name":"LMS + Bus Tracking","desc":"Smart school LMS with live bus fuel & route analytics.","mode":"SaaS"},
-    {"name":"Practice Manager","desc":"Matters, billing, documents, client portal.","mode":"SaaS"},
-    {"name":"POS & Inventory","desc":"Multi-store, barcode, GST-friendly.","mode":"One-Time"},
-    {"name":"Clinic EMR","desc":"Queue, prescriptions, labs, reports.","mode":"SaaS"},
-    {"name":"CRM","desc":"Leads, pipeline, email/WA follow-ups.","mode":"SaaS"},
-    {"name":"HRMS","desc":"Attendance, payroll, letters.","mode":"One-Time"},
-    {"name":"Project Tracker","desc":"Tasks, sprints, docs, files.","mode":"SaaS"},
-    {"name":"Quran Reader","desc":"Clickable ayat with audio, bookmarks.","mode":"One-Time"}
+    {"name":"Practice Manager","desc":"Complete practice management with matters, billing, documents, and client portal.","mode":"SaaS"},
+    {"name":"POS & Inventory","desc":"Multi-store point of sale with barcode scanning and GST-friendly reporting.","mode":"One-Time"},
+    {"name":"Clinic EMR","desc":"Patient queue management, prescriptions, lab results, and comprehensive reports.","mode":"SaaS"},
+    {"name":"CRM","desc":"Lead management, sales pipeline, and automated email/WhatsApp follow-ups.","mode":"SaaS"},
+    {"name":"HRMS","desc":"Employee attendance tracking, payroll processing, and automated letter generation.","mode":"One-Time"},
+    {"name":"Project Tracker","desc":"Agile task management with sprints, documentation, and file collaboration.","mode":"SaaS"},
+    {"name":"LMS + Bus Tracking","desc":"School learning management system with real-time bus fuel and route analytics.","mode":"SaaS"},
+    {"name":"Quran Reader","desc":"Interactive Quran with clickable ayat, audio playback, and bookmark features.","mode":"One-Time"}
   ]
 }
