@@ -184,11 +184,11 @@ const Footer = () => {
   const contactInfo = [
     { 
       icon: <MapPin className="h-5 w-5" />, 
-      text: "1234 Innovation Park, Silicon Valley, CA 94025, USA" 
+      text: "Red Cross Road, Maisuma, Srinagar, Kashmir, 190008" 
     },
     { 
       icon: <Phone className="h-5 w-5" />, 
-      text: "+1 (555) 123-4567" 
+      text: "+919796000522" 
     },
     { 
       icon: <Mail className="h-5 w-5" />, 

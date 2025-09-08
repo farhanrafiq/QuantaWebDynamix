@@ -267,9 +267,9 @@ const Contact = () => {
                   <div className="ml-4">
                     <h4 className="text-lg font-medium text-neutral-900 dark:text-white">Headquarters</h4>
                     <p className="mt-1 text-neutral-700 dark:text-neutral-300">
-                      101 Innovation Drive<br />
-                      San Francisco, CA 94107<br />
-                      United States
+                      Red Cross Road, Maisuma<br />
+                      Srinagar, Kashmir, 190008<br />
+                      India
                     </p>
                   </div>
                 </div>
@@ -281,8 +281,8 @@ const Contact = () => {
                   <div className="ml-4">
                     <h4 className="text-lg font-medium text-neutral-900 dark:text-white">Phone</h4>
                     <p className="mt-1 text-neutral-700 dark:text-neutral-300">
-                      +1 (415) 555-0123<br />
-                      Monday - Friday, 9am - 6pm PST
+                      +919796000522<br />
+                      Monday - Friday, 9am - 6pm IST
                     </p>
                   </div>
                 </div>

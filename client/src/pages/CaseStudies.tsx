@@ -298,7 +298,7 @@ const CaseStudies: React.FC = () => {
                   size="lg"
                   variant="outline"
                   className="border-electric-blue/30 text-electric-blue hover:bg-electric-blue/10 px-8 py-4 text-lg rounded-xl"
-                  onClick={() => window.open('https://wa.me/918899969992', '_blank')}
+                  onClick={() => window.open('https://wa.me/919796000522', '_blank')}
                 >
                   <FileText className="mr-2 h-5 w-5" />
                   Request Case Study Details

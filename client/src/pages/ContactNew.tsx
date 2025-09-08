@@ -284,8 +284,8 @@ const Contact = () => {
               title="Address"
               content={
                 <p>
-                  742, 7th Floor, Emaar Digital Greens<br />
-                  Sector 61, Gurugram, India
+                  Red Cross Road, Maisuma<br />
+                  Srinagar, Kashmir, 190008
                 </p>
               }
             />
@@ -294,8 +294,8 @@ const Contact = () => {
               icon={<Phone className="h-5 w-5" />}
               title="Phone"
               content={
-                <a href="tel:+911234567890" className="text-electric-blue hover:underline">
-                  +91 123 456 7890
+                <a href="tel:+919796000522" className="text-electric-blue hover:underline">
+                  +919796000522
                 </a>
               }
             />
