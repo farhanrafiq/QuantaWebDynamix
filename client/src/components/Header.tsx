@@ -364,8 +364,8 @@ const Header = () => {
                   <AnimatePresence>
                     {activeDropdown === link.name && (
                       <motion.div 
-                        className={`absolute left-0 top-full mt-1 rounded-lg overflow-hidden shadow-lg bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 ${
-                          (link as any).isMegaMenu ? 'w-[800px] -translate-x-1/2 left-1/2' : 'w-60'
+                        className={`absolute top-full mt-1 rounded-lg overflow-hidden shadow-lg bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 ${
+                          (link as any).isMegaMenu ? 'w-[800px] right-0' : 'w-60 left-0'
                         }`}
                         variants={dropdownVariants}
                         initial="hidden"
