@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useTheme } from "next-themes";
+import QFWhatsapp from "@/components/qf/QFWhatsapp";
 
 interface RootLayoutProps {
   children: React.ReactNode;
@@ -74,6 +75,9 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
         {children}
       </main>
       <Footer />
+      
+      {/* Global WhatsApp button */}
+      <QFWhatsapp />
     </div>
   );
 };
