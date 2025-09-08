@@ -96,28 +96,28 @@ const Footer = () => {
   // Solutions links with animation delay offsets
   const solutionLinks = [
     { 
-      name: "Acoustic Analytics", 
-      href: "/technologies#acoustic",
+      name: "Eli-S1 AI Engine", 
+      href: "/eli-s1",
       delay: 0
     },
     { 
-      name: "Nano-Enhanced Admixtures", 
-      href: "/technologies#nano",
+      name: "Structural Health Monitoring", 
+      href: "/shm",
       delay: 0.1
     },
     { 
-      name: "Structural Health Monitoring", 
-      href: "/technologies#monitoring",
+      name: "IT Services & Development", 
+      href: "/it-services",
       delay: 0.2
     },
     { 
-      name: "Predictive Analytics", 
-      href: "/products#analytics",
+      name: "Production Applications", 
+      href: "/apps",
       delay: 0.3
     },
     { 
-      name: "Advanced Materials", 
-      href: "/products#materials",
+      name: "Legacy Technologies", 
+      href: "/technologies",
       delay: 0.4
     },
   ];
@@ -130,8 +130,8 @@ const Footer = () => {
       delay: 0
     },
     { 
-      name: "Leadership Team", 
-      href: "/about#leadership",
+      name: "Case Studies", 
+      href: "/case-studies",
       delay: 0.1
     },
     { 
@@ -140,13 +140,13 @@ const Footer = () => {
       delay: 0.2
     },
     { 
-      name: "Research Partnerships", 
-      href: "/about#partnerships",
+      name: "AI & Engineering Blog", 
+      href: "/blog",
       delay: 0.3
     },
     { 
-      name: "News & Research", 
-      href: "/blog",
+      name: "Contact Us", 
+      href: "/contact",
       delay: 0.4
     },
   ];
@@ -154,28 +154,28 @@ const Footer = () => {
   // Resources links
   const resourceLinks = [
     { 
-      name: "Technical Papers", 
-      href: "/blog#papers",
+      name: "AI Engineering Articles", 
+      href: "/blog/category/AI%20Engineering",
       delay: 0
     },
     { 
-      name: "Case Studies", 
-      href: "/blog#case-studies",
+      name: "MLOps & Deployment", 
+      href: "/blog/category/MLOps%20%26%20Model%20Deployment",
       delay: 0.1
     },
     { 
-      name: "White Papers", 
-      href: "/blog#white-papers",
+      name: "Search Articles", 
+      href: "/search",
       delay: 0.2
     },
     { 
-      name: "Product Specifications", 
-      href: "/products#specs",
+      name: "Privacy Policy", 
+      href: "/privacy",
       delay: 0.3
     },
     { 
-      name: "Support Center", 
-      href: "/contact",
+      name: "Terms of Service", 
+      href: "/terms",
       delay: 0.4
     },
   ];
@@ -468,8 +468,8 @@ const Footer = () => {
               <Link href="/terms" className="text-neutral-500 hover:text-accent text-sm transition-colors">
                 Terms of Service
               </Link>
-              <Link href="/cookies" className="text-neutral-500 hover:text-accent text-sm transition-colors">
-                Cookie Policy
+              <Link href="/search" className="text-neutral-500 hover:text-accent text-sm transition-colors">
+                Search
               </Link>
             </div>
           </div>
