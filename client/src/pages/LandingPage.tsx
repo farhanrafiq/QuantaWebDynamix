@@ -318,8 +318,8 @@ const LandingPage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
-              Leading the future of infrastructure management with advanced engineering solutions, 
-              cutting-edge materials, and AI-driven monitoring systems.
+              Building practical AI solutions that help teams research, write, code, and ship faster. 
+              From Eli-S1 AI engine to real-time structural monitoring for spacecraft and critical infrastructure.
             </motion.p>
             
             <motion.div 
@@ -375,7 +375,7 @@ const LandingPage = () => {
         <div className="container mx-auto px-4">
           <SectionHeader
             title="About QuantaFONS"
-            subtitle="A pioneering R&D company at the intersection of civil engineering, materials science, and digital technology."
+            subtitle="An AI-first R&D company building practical solutions: Eli-S1 AI engine, real-time structural health monitoring, and production-ready applications."
           />
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
@@ -515,7 +515,7 @@ const LandingPage = () => {
         <div className="container mx-auto px-4 relative z-10">
           <SectionHeader
             title="Core Capabilities"
-            subtitle="Our integrated suite of advanced engineering solutions tackles the most demanding infrastructure challenges."
+            subtitle="Our AI-driven technologies and monitoring solutions deliver real value across research, development, and critical infrastructure."
           />
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">

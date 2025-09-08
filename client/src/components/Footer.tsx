@@ -321,7 +321,7 @@ const Footer = () => {
               </div>
             </Link>
             <p className="text-neutral-400 max-w-md mb-8">
-              A global R&D powerhouse in civil-engineering-driven IT solutions, pioneering acoustic analytics, AI, and advanced materials research.
+              An AI-first R&D company building practical solutions that help teams work faster. From Eli-S1 AI engine to real-time structural monitoring and production software.
             </p>
             
             <h4 className="text-sm font-semibold uppercase tracking-wider text-neutral-500 mb-4">
