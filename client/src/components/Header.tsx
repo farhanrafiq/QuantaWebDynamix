@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
 import { 
   Moon, Sun, Menu, X, ArrowRight, ChevronDown, 
-  LayoutDashboard, Lightbulb, FileCode, Radio, Server, BookOpen, Users, Zap, Building
+  LayoutDashboard, Lightbulb, FileCode, Radio, Server, BookOpen, Users, Zap, Building, Bot, Shield, Code
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
@@ -188,26 +188,64 @@ const Header = () => {
       name: "Technologies", 
       href: "/technologies",
       hasDropdown: true,
+      isMegaMenu: true,
       dropdownItems: [
-        { 
-          name: "Acoustic Analytics", 
-          href: "/technologies#acoustic",
-          icon: <Radio className="w-5 h-5" />
+        {
+          category: "AI Technologies",
+          items: [
+            { 
+              name: "Eli-S1 AI Engine", 
+              href: "/#eli-s1",
+              icon: <Bot className="w-5 h-5" />,
+              desc: "Multi-agent workflows that plan, code, test, and deploy"
+            },
+            { 
+              name: "Predictive Analytics", 
+              href: "/technologies#predictive-ai",
+              icon: <LayoutDashboard className="w-5 h-5" />,
+              desc: "Advanced AI-driven predictive modeling and analytics"
+            }
+          ]
         },
-        { 
-          name: "Predictive AI", 
-          href: "/technologies#predictive-ai",
-          icon: <LayoutDashboard className="w-5 h-5" />
+        {
+          category: "Monitoring & Sensing",
+          items: [
+            { 
+              name: "Structural Health Monitoring", 
+              href: "/#shm",
+              icon: <Shield className="w-5 h-5" />,
+              desc: "Real-time monitoring for spacecraft and infrastructure"
+            },
+            { 
+              name: "Acoustic Analytics", 
+              href: "/technologies#acoustic",
+              icon: <Radio className="w-5 h-5" />,
+              desc: "Advanced acoustic pattern recognition and analysis"
+            },
+            { 
+              name: "Sensor Networks", 
+              href: "/technologies#sensor-networks",
+              icon: <Server className="w-5 h-5" />,
+              desc: "Distributed sensing and edge computing systems"
+            }
+          ]
         },
-        { 
-          name: "Sensor Networks", 
-          href: "/technologies#sensor-networks",
-          icon: <Server className="w-5 h-5" />
-        },
-        { 
-          name: "R&D Labs", 
-          href: "/technologies#labs",
-          icon: <Lightbulb className="w-5 h-5" />
+        {
+          category: "Development & Services",
+          items: [
+            { 
+              name: "IT Services & Apps", 
+              href: "/#it-services",
+              icon: <Code className="w-5 h-5" />,
+              desc: "Enterprise applications and full-stack development"
+            },
+            { 
+              name: "R&D Labs", 
+              href: "/technologies#labs",
+              icon: <Lightbulb className="w-5 h-5" />,
+              desc: "Cutting-edge research and development facilities"
+            }
+          ]
         }
       ]
     },
@@ -240,33 +278,6 @@ const Header = () => {
     { 
       name: "Careers", 
       href: "/careers" 
-    },
-    { 
-      name: "QuantaFONS", 
-      href: "/#about",
-      hasDropdown: true,
-      dropdownItems: [
-        { 
-          name: "About", 
-          href: "/#about",
-          icon: <Building className="w-5 h-5" />
-        },
-        { 
-          name: "Eli-S1", 
-          href: "/#eli-s1",
-          icon: <Zap className="w-5 h-5" />
-        },
-        { 
-          name: "SHM", 
-          href: "/#shm",
-          icon: <Radio className="w-5 h-5" />
-        },
-        { 
-          name: "IT & Apps", 
-          href: "/#it-services",
-          icon: <LayoutDashboard className="w-5 h-5" />
-        }
-      ]
     },
     { 
       name: "Contact", 
@@ -353,7 +364,9 @@ const Header = () => {
                   <AnimatePresence>
                     {activeDropdown === link.name && (
                       <motion.div 
-                        className="absolute left-0 top-full mt-1 w-60 rounded-lg overflow-hidden shadow-lg bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700"
+                        className={`absolute left-0 top-full mt-1 rounded-lg overflow-hidden shadow-lg bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 ${
+                          (link as any).isMegaMenu ? 'w-[800px] -translate-x-1/2 left-1/2' : 'w-60'
+                        }`}
                         variants={dropdownVariants}
                         initial="hidden"
                         animate="visible"
@@ -363,20 +376,51 @@ const Header = () => {
                         }}
                       >
                         <div className="py-2">
-                          {link.dropdownItems?.map((item) => (
-                            <motion.div key={item.name} variants={dropdownItemVariants}>
-                              <Link href={item.href}>
-                                <div className="flex items-center px-4 py-3 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors cursor-pointer">
-                                  <span className="mr-3 text-primary dark:text-accent">
-                                    {item.icon}
-                                  </span>
-                                  <div className="flex-1">
-                                    <p className="text-sm font-medium text-neutral-900 dark:text-white">{item.name}</p>
+                          {(link as any).isMegaMenu ? (
+                            // Mega Menu Layout
+                            <div className="grid grid-cols-3 gap-8 p-6">
+                              {(link.dropdownItems as any)?.map((category: any) => (
+                                <div key={category.category}>
+                                  <h4 className="text-sm font-semibold text-neutral-900 dark:text-white mb-4 uppercase tracking-wide">
+                                    {category.category}
+                                  </h4>
+                                  <div className="space-y-2">
+                                    {category.items.map((item: any) => (
+                                      <motion.div key={item.name} variants={dropdownItemVariants}>
+                                        <Link href={item.href}>
+                                          <div className="flex items-start p-3 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors cursor-pointer group">
+                                            <span className="mr-3 text-primary dark:text-accent mt-1 group-hover:scale-110 transition-transform">
+                                              {item.icon}
+                                            </span>
+                                            <div className="flex-1">
+                                              <p className="text-sm font-medium text-neutral-900 dark:text-white mb-1">{item.name}</p>
+                                              <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">{item.desc}</p>
+                                            </div>
+                                          </div>
+                                        </Link>
+                                      </motion.div>
+                                    ))}
                                   </div>
                                 </div>
-                              </Link>
-                            </motion.div>
-                          ))}
+                              ))}
+                            </div>
+                          ) : (
+                            // Regular Dropdown Layout
+                            (link.dropdownItems as any)?.map((item: any) => (
+                              <motion.div key={item.name} variants={dropdownItemVariants}>
+                                <Link href={item.href}>
+                                  <div className="flex items-center px-4 py-3 hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-colors cursor-pointer">
+                                    <span className="mr-3 text-primary dark:text-accent">
+                                      {item.icon}
+                                    </span>
+                                    <div className="flex-1">
+                                      <p className="text-sm font-medium text-neutral-900 dark:text-white">{item.name}</p>
+                                    </div>
+                                  </div>
+                                </Link>
+                              </motion.div>
+                            ))
+                          )}
                         </div>
                       </motion.div>
                     )}
@@ -490,20 +534,41 @@ const Header = () => {
                           className="overflow-hidden"
                         >
                           <div className="pl-6 py-2 space-y-1 border-l-2 border-neutral-200 dark:border-neutral-700 ml-3 mt-1">
-                            {link.dropdownItems?.map((item) => (
-                              <Link 
-                                key={item.name} 
-                                href={item.href}
-                                onClick={() => setMobileMenuOpen(false)}
-                              >
-                                <div className="flex items-center px-3 py-2 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors text-neutral-700 dark:text-neutral-300">
-                                  <span className="mr-3 text-primary dark:text-accent">
-                                    {item.icon}
-                                  </span>
-                                  <span className="text-sm">{item.name}</span>
-                                </div>
-                              </Link>
-                            ))}
+                            {(link as any).isMegaMenu ? (
+                              // Mobile Mega Menu - flatten all categories
+                              (link.dropdownItems as any)?.flatMap((category: any) => 
+                                category.items.map((item: any) => (
+                                  <Link 
+                                    key={item.name} 
+                                    href={item.href}
+                                    onClick={() => setMobileMenuOpen(false)}
+                                  >
+                                    <div className="flex items-center px-3 py-2 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors text-neutral-700 dark:text-neutral-300">
+                                      <span className="mr-3 text-primary dark:text-accent">
+                                        {item.icon}
+                                      </span>
+                                      <span className="text-sm">{item.name}</span>
+                                    </div>
+                                  </Link>
+                                ))
+                              )
+                            ) : (
+                              // Regular Mobile Dropdown
+                              (link.dropdownItems as any)?.map((item: any) => (
+                                <Link 
+                                  key={item.name} 
+                                  href={item.href}
+                                  onClick={() => setMobileMenuOpen(false)}
+                                >
+                                  <div className="flex items-center px-3 py-2 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors text-neutral-700 dark:text-neutral-300">
+                                    <span className="mr-3 text-primary dark:text-accent">
+                                      {item.icon}
+                                    </span>
+                                    <span className="text-sm">{item.name}</span>
+                                  </div>
+                                </Link>
+                              ))
+                            )}
                           </div>
                         </motion.div>
                       )}
