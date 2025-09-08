@@ -111,11 +111,22 @@ function Router() {
             <Route path="/" component={LandingPage} />
             <Route path="/home" component={Home} />
             <Route path="/about" component={About} />
+            <Route path="/eli-s1" component={EliS1} />
+            <Route path="/shm" component={SHM} />
+            <Route path="/it-services" component={ITServices} />
+            <Route path="/apps" component={Apps} />
+            <Route path="/case-studies" component={CaseStudies} />
             <Route path="/technologies" component={Technologies} />
             <Route path="/products" component={Products} />
-            <Route path="/blog" component={Blog} />
+            <Route path="/blog" component={BlogIndex} />
+            <Route path="/blog/:slug" component={BlogPost} />
+            <Route path="/blog/category/:category" component={BlogCategory} />
+            <Route path="/blog/tag/:tag" component={BlogTag} />
+            <Route path="/search" component={Search} />
             <Route path="/careers" component={Careers} />
             <Route path="/contact" component={Contact} />
+            <Route path="/privacy" component={Privacy} />
+            <Route path="/terms" component={Terms} />
             <Route component={NotFound} />
           </Switch>
         </motion.div>
