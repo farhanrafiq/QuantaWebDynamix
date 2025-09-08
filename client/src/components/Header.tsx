@@ -365,7 +365,7 @@ const Header = () => {
                     {activeDropdown === link.name && (
                       <motion.div 
                         className={`absolute top-full mt-1 rounded-lg overflow-hidden shadow-lg bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 ${
-                          (link as any).isMegaMenu ? 'w-[800px] left-1/2 -translate-x-1/2' : 'w-60 left-0'
+                          (link as any).isMegaMenu ? 'left-0 right-0 w-screen -ml-4 sm:-ml-6 lg:-ml-8' : 'w-60 left-0'
                         }`}
                         variants={dropdownVariants}
                         initial="hidden"
