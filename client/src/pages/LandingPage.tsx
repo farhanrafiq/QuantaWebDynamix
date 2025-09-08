@@ -7,6 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLocation } from "wouter";
 import ParticleBackground from "../components/ParticleBackground";
 import { useIsMobile } from "../hooks/use-mobile";
+import QFSection from "../components/qf/QFSection";
 
 // Register GSAP plugins
 if (typeof window !== "undefined") {
@@ -793,6 +794,12 @@ const LandingPage = () => {
           </div>
         </div>
       </section>
+      
+      {/* QuantaFONS Sections */}
+      <QFSection id="about" className="bg-[#0A0C10]" />
+      <QFSection id="eli-s1" className="bg-[#0D0F12]" />
+      <QFSection id="shm" className="bg-[#0A0C10]" />
+      <QFSection id="it-services" className="bg-[#0D0F12]" />
       
       {/* Contact section */}
       <section className="py-24 relative">
