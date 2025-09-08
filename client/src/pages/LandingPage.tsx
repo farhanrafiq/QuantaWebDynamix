@@ -8,6 +8,7 @@ import { useLocation } from "wouter";
 import ParticleBackground from "../components/ParticleBackground";
 import { useIsMobile } from "../hooks/use-mobile";
 import QFSection from "../components/qf/QFSection";
+import QFSEOProvider from "../../qf-seo/components/QFSEOProvider";
 
 // Register GSAP plugins
 if (typeof window !== "undefined") {

@@ -16,8 +16,12 @@ import {
   insertTeamMemberSchema,
   insertJobPositionSchema
 } from "@shared/schema";
+import qfSeoRoutes from "./api/qf-seo.js";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // SEO API routes
+  app.use('/api/qf-seo', qfSeoRoutes);
+  
   // API routes prefix with /api
   
   // Contact form submission
