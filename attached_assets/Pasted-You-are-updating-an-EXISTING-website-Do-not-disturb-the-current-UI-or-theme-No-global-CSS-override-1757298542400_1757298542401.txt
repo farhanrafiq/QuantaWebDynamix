@@ -1,0 +1,184 @@
+You are updating an EXISTING website. Do not disturb the current UI or theme. No global CSS overrides. No layout shifts. Only add opt-in components and pages under a safe namespace qf-. Reuse existing design tokens, fonts, spacing, and colors.
+
+GOALS
+1) Complete the site with consistent pages and content blocks that match current styling.
+2) Add a full blog system with at least 120 high-quality posts focused on AI and IT, each with proper keywords, internal links, and structured data.
+3) Keep animations subtle and identical site-wide. Respect prefers-reduced-motion.
+4) Add search, sitemap.xml, RSS feed, robots.txt, and clean SEO metadata.
+5) Do not break or restyle anything already present.
+
+STACK DISCOVERY
+- Detect stack.
+  If React or Next.js:
+    • Create components in /components/qf/ and pages using existing layout wrappers.
+    • Content lives in /content/ or /data/ as Markdown or JSON, then rendered.
+  If plain HTML:
+    • Inject new <section> blocks near the bottom of pages, load minimal CSS at /assets/qf.css and minimal JS at /assets/qf.js.
+  If Tailwind exists, use it. If not, add tiny BEM-style CSS with qf- prefix only.
+
+GLOBAL RULES
+- Namespace all new classes and IDs with qf-.
+- No changes to existing CSS files. No resets.
+- Use the site’s container and max-width classes where they exist.
+- Headings must be semantic. Images must have alt text.
+- All new links use relative paths and canonical URLs.
+
+PAGES TO CREATE OR COMPLETE
+Create the following pages if missing, or complete them with matching UI blocks if present:
+1) About  path: /about
+   Sections: Mission, What we build, Eli-S1 overview, SHM overview, IT services, Team snapshots, Contact CTA.
+2) Eli-S1  path: /eli-s1
+   Content: Long description, capabilities, how it works, integrations, governance, deployment options, outcomes.
+3) SHM for Spacecrafts and Buildings  path: /shm
+   Content: Sensors, analytics, dashboards, space focus, civil focus, architecture, KPIs, case studies CTA.
+4) IT Services  path: /it-services
+   Content: Web and mobile, AI agents and chatbots, enterprise systems, data pipelines, cloud deploys, delivery model, pricing CTA.
+5) Applications  path: /apps
+   Grid of apps available as SaaS and One-time license with short blurbs and Request demo buttons.
+6) Case Studies  path: /case-studies
+   Cards with outcome metrics and short writeups linking to detailed pages.
+7) Careers  path: /careers
+   Open roles, responsibilities, requirements, apply CTA. Static JSON driven.
+8) Contact  path: /contact
+   Form + WhatsApp link wa.me/918899969992. Never block with Captcha that changes layout. Validate gently.
+9) Blog index  path: /blog
+   Paginated index with filters by category and tag.
+10) Blog category pages  path: /blog/category/[slug]
+11) Blog tag pages  path: /blog/tag/[slug]
+12) Single blog article pages  path: /blog/[slug]
+13) Search  path: /search
+   Client-side search over blog and docs.
+14) Privacy  path: /privacy
+15) Terms  path: /terms
+16) 404 and 500 pages consistent with the theme.
+
+CONTENT MODEL
+- Create /data/qf-site.json with structured copy for About, Eli-S1, SHM, Services, Apps, FAQs, CTAs.
+- Create /data/qf-taxonomy.json with arrays:
+  categories: [AI Engineering, Machine Learning, LLMs, Agents, MLOps, Data Engineering, DevOps, Web Dev, Mobile, Security, Cloud, SHM, Aerospace, Civil Engineering, Edge AI, Computer Vision, NLP, Testing, Performance]
+  tags: include 60 to 100 granular tags such as RAG, vector databases, prompt engineering, function calling, agents, multi-modal, semantic search, fine-tuning, distillation, evaluation, retrieval, streaming, observability, latency, GPU, ONNX, WebGPU, WASM, Fiber Bragg Grating, modal analysis, ODS, SCADA, CMMS.
+- Create /content/blog/ as Markdown or MDX files. If the stack does not support MD, store in /data/qf-blogs.json and render to HTML on the fly.
+
+PROGRAMMATIC BLOG GENERATION  minimum 120 posts
+- Build a generator script qf-generate-blogs.[js|ts|py] that:
+  1) Uses a seed of 30 core topics and expands each into 4 distinct angles = 120 posts minimum.
+  2) For each post, generate:
+     title 60 chars target, primary keyword, 3 to 6 secondary keywords,
+     metaDescription 150 to 160 chars,
+     slug kebab-case,
+     category and 3 to 6 tags,
+     cover image path or placeholder,
+     readingTime estimate,
+     publishDate spread across the last 18 months with a realistic schedule,
+     body 1200 to 1800 words with H2 and H3 sections, code blocks where relevant, internal links to 4 related posts and 2 pillar pages, a short TLDR, and a conclusion with next steps.
+  3) Create a relatedPosts field by cosine similarity over titles and tags.
+  4) Insert Article and BreadcrumbList JSON-LD in head for each post.
+  5) Ensure unique H1 per post and one H1 only.
+
+SEEDS AND ANGLES
+Use these 30 seeds and create 4 angles each  how-to, architecture deep dive, pitfalls, and comparison  to reach 120:
+AI agents in production
+RAG systems on private data
+Prompt engineering that survives audits
+LLM evaluation and test harnesses
+Function calling and tool use
+Multi-agent orchestration patterns
+Fine-tuning vs adapters
+Vector databases and hybrid search
+Latency budgets for AI apps
+Observability for LLMs
+On-device models and WebGPU
+GPU vs CPU cost curves
+Streaming responses for UX
+Security and data redaction for AI
+NLP pipelines beyond LLMs
+Vision models for quality control
+MLOps in small teams
+CI for data and prompts
+Docs and knowledge bases with AI
+ETL to analytics in one week
+Web app architecture 2025
+Mobile app stacks that scale
+DevOps for fast shipping
+Performance budgets for SPAs
+Testing strategies E2E to unit
+SHM sensors for spacecraft skins
+Modal analysis for buildings
+Edge processing for SHM
+SCADA and CMMS integration with SHM
+Digital twins for maintenance
+
+SEO AND DISCOVERY
+- Create sitemap.xml covering all pages and blog posts.
+- Create RSS feed at /rss.xml with the latest 50 posts.
+- Add robots.txt that allows crawling.
+- For every page:
+  • <title> 50 to 60 chars with primary keyword near the front.
+  • <meta name=description> 150 to 160 chars human-written.
+  • OpenGraph and Twitter Card tags.
+  • Canonical URL on every page.
+- Auto-generate image alt text based on title and H2s.
+
+SEARCH
+- Add a client-side search at /search using lunr or fuse.
+- Prebuild an index JSON with fields: title, slug, summary, keywords, category, tags.
+- Debounced input, keyboard navigation, highlight matches.
+
+CONSISTENT ANIMATIONS
+- Add a tiny motion utility:
+  • IntersectionObserver adds qf-in class on enter.
+  • CSS transitions for fade-up and float-in.
+  • Respect prefers-reduced-motion and disable animations when set.
+- Apply the same animation classes to hero blocks, cards, and headings on all new pages.
+
+ACCESSIBILITY
+- All components reachable by keyboard.
+- Focus styles visible.
+- Color contrast at least AA.
+- Skip links if not present already.
+
+NAVIGATION
+- If nav is crowded, add a single Resources item that opens a dropdown to Blog, Case Studies, Search, and RSS.
+- Add breadcrumbs on blog articles.
+
+CODE AND FILES TO ADD
+- /components/qf/… or /assets/qf.css and /assets/qf.js depending on stack
+- /data/qf-site.json
+- /data/qf-taxonomy.json
+- /content/blog/… or /data/qf-blogs.json
+- /scripts/qf-generate-blogs.[js|ts|py] and an npm script generate:blogs
+- Add build steps to create sitemap.xml and rss.xml
+
+TEMPLATES
+- Blog index shows 12 posts per page, server-side or static. Card shows title, date, reading time, category, tags, short summary. Consistent card sizes to avoid CLS.
+- Single article template:
+  • Hero with title, date, reading time, category.
+  • Table of contents auto-built from H2s and H3s.
+  • Content area with max-width equal to site standard.
+  • Share links and next-previous navigation.
+  • Related posts grid of 4 computed by tag similarity.
+  • Author box pulled from /data/authors.json if present.
+- Category and tag pages with intro summary and SEO text.
+
+DATA QUALITY
+- Enforce unique slugs. Validate no duplicate titles.
+- Lint all markdown. Ensure each article hits 1200+ words.
+- Add unit tests for the generator to ensure 120 posts minimum and presence of required fields.
+
+PERFORMANCE
+- Lazy-load images with width and height to prevent layout shift.
+- Preload key fonts if the site already does so.
+- Defer noncritical JS.
+- Use native <details> for long FAQs.
+
+INTEGRATIONS
+- Keep the existing WhatsApp contact button if present. If missing, add a floating qf-wa button linking to wa.me/918899969992 bottom right with safe z-index and no overlap.
+
+DELIVERABLES
+- Commit with message: Add full site pages, blog system 120 posts, SEO, search, animations qf- namespace
+- Provide a README.qf.md describing how to edit content, regenerate posts, and deploy.
+- Confirm via a short checklist:
+  • No visual regressions on existing pages.
+  • All new pages follow identical spacing and typography.
+  • Blog has 120+ posts with categories, tags, internal links, sitemap, and RSS.
+  • Animations consistent and disabled when user prefers reduced motion.

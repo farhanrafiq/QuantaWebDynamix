@@ -367,14 +367,14 @@ const Header = () => {
                         className={`${(link as any).isMegaMenu ? 'fixed' : 'absolute'} top-full mt-1 rounded-lg overflow-hidden shadow-lg bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 ${
                           (link as any).isMegaMenu ? 'inset-x-0 z-50' : 'w-60 left-0'
                         }`}
-                        style={(link as any).isMegaMenu ? { top: '80px' } : {}}
+                        style={{
+                          ...((link as any).isMegaMenu ? { top: '80px' } : {}),
+                          pointerEvents: activeDropdown === link.name ? 'auto' : 'none'
+                        }}
                         variants={dropdownVariants}
                         initial="hidden"
                         animate="visible"
                         exit="exit"
-                        style={{ 
-                          pointerEvents: activeDropdown === link.name ? 'auto' : 'none' 
-                        }}
                       >
                         <div className="py-2">
                           {(link as any).isMegaMenu ? (
