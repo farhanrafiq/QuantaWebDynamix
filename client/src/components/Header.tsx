@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
 import { 
   Moon, Sun, Menu, X, ArrowRight, ChevronDown, 
-  LayoutDashboard, Lightbulb, FileCode, Radio, Server, BookOpen, Users
+  LayoutDashboard, Lightbulb, FileCode, Radio, Server, BookOpen, Users, Zap, Building
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
@@ -240,6 +240,33 @@ const Header = () => {
     { 
       name: "Careers", 
       href: "/careers" 
+    },
+    { 
+      name: "QuantaFONS", 
+      href: "/#about",
+      hasDropdown: true,
+      dropdownItems: [
+        { 
+          name: "About", 
+          href: "/#about",
+          icon: <Building className="w-5 h-5" />
+        },
+        { 
+          name: "Eli-S1", 
+          href: "/#eli-s1",
+          icon: <Zap className="w-5 h-5" />
+        },
+        { 
+          name: "SHM", 
+          href: "/#shm",
+          icon: <Radio className="w-5 h-5" />
+        },
+        { 
+          name: "IT & Apps", 
+          href: "/#it-services",
+          icon: <LayoutDashboard className="w-5 h-5" />
+        }
+      ]
     },
     { 
       name: "Contact", 
