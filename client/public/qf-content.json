@@ -1,0 +1,31 @@
+{
+  "about": {
+    "headline": "We build practical AI and engineering.",
+    "body": "QuantaFONS builds Eli-S1 (our in-house AI engine) and advanced Structural Health Monitoring for spacecraft and civil structures. We also deliver full-stack IT services and ready-to-use applications available as SaaS or one-time license.",
+    "bullets": [
+      "In-house AI: Eli-S1 for research, coding, and multi-agent workflows",
+      "SHM: sensors + analytics for spacecraft hulls and RCC structures",
+      "Delivery: from quick MVPs to enterprise systems"
+    ]
+  },
+  "eliS1": {
+    "subhead": "Our in-house AI engine.",
+    "body": "Eli-S1 researches, writes, codes, and orchestrates tools to ship faster. It powers data prep, code scaffolding, testing, and knowledge curation across projects."
+  },
+  "shm": {
+    "subhead": "Structural Health Monitoring",
+    "body": "Fiber-optic and advanced sensing + analytics for strain, vibration, and thermal behavior. Designed for spacecraft skins and concrete members.",
+    "features": ["Real-time dashboards", "Alert thresholds and reports", "Integrations with existing SCADA/Cloud"]
+  },
+  "services": ["Web & Mobile Development", "AI Chatbots & Agents", "Enterprise Software", "Data Pipelines & OCR→Excel", "Cloud & DevOps"],
+  "apps": [
+    {"name":"LMS + Bus Tracking","desc":"Smart school LMS with live bus fuel & route analytics.","mode":"SaaS"},
+    {"name":"Practice Manager","desc":"Matters, billing, documents, client portal.","mode":"SaaS"},
+    {"name":"POS & Inventory","desc":"Multi-store, barcode, GST-friendly.","mode":"One-Time"},
+    {"name":"Clinic EMR","desc":"Queue, prescriptions, labs, reports.","mode":"SaaS"},
+    {"name":"CRM","desc":"Leads, pipeline, email/WA follow-ups.","mode":"SaaS"},
+    {"name":"HRMS","desc":"Attendance, payroll, letters.","mode":"One-Time"},
+    {"name":"Project Tracker","desc":"Tasks, sprints, docs, files.","mode":"SaaS"},
+    {"name":"Quran Reader","desc":"Clickable ayat with audio, bookmarks.","mode":"One-Time"}
+  ]
+}
