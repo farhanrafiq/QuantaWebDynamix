@@ -295,7 +295,7 @@ const LandingPage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              Revolutionizing Civil Engineering
+              Revolutionizing Artificial Intelligence
             </motion.div>
             
             <motion.h1 
